@@ -1,6 +1,5 @@
 package com.gdg.gestiondegastos.services;
 
-import com.gdg.gestiondegastos.exceptions.OperacionEnListaException;
 import com.gdg.gestiondegastos.interfaces.Interfaz;
 import java.util.ArrayList;
 import java.util.Collections;

@@ -31,8 +31,8 @@ public class Movimiento {
     private Integer cantidad;
     
     //@ManyToOne
-    //@JoinColumn(name = "usuario_grupo_id")
-    //private Usuario_grupo id_usuario_grupo;
+    //@JoinColumn(name = "id_usuario_grupo")
+    //private UsuarioGrupo idUsuarioGrupo;
     
     
 }

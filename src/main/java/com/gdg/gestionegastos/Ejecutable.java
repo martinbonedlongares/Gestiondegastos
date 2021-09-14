@@ -1,4 +1,4 @@
-package com.gdg.gestiondegastos;
+package com.gdg.gestionegastos;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

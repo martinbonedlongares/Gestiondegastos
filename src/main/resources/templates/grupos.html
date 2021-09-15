@@ -24,11 +24,11 @@ and open the template in the editor.
     <body>
         <div class="container">
             <h1 th:text="grupo.nombre"></h1>
-            <div th:if="${presupuesto.cantidad>0}">
-                <p id="presupuesto" th:text="${presupuesto.cantidad}"></p>
+            <div th:if="${presupuesto.cantidad_inicio>0}">
+                <p id="presupuesto" th:text="${presupuesto.cantidad_inicio}"></p>
             </div> 
-            <div th:unless="${presupuesto.cantidad<0}">
-                <p id="presupuesto" th:text="${presupuesto.cantidad}"></p>
+            <div th:unless="${presupuesto.cantidad_inicio<0}">
+                <p id="presupuesto" th:text="${presupuesto.cantidad_inicio}"></p>
             </div>
             <div>
                 <a th:href="nuevoMov">NUEVO MOVIMIENTO</a>
@@ -44,11 +44,15 @@ and open the template in the editor.
                     </tr>
                 </thead>
                 <tbody id="tablaMov">
-                    <tr th:each="mov:${grupo}">
+                    <th:block th:each="ug:{grupo.usuarioGrupo}">
+                        <tr th:each="mov:${ug.movimientos}">
+                  
                         <td th:text="${mov.concepto}">Comida</td>
-                        <td th:text="${mov.usuario}">Martin</td>
+                        <td th:text="${mov.usuarioGrupo.usuario.nombre}">Martin</td>
                         <td th:text="${mov.cantidad}"></td>
+                     
                     </tr>
+                     </th:block>
                 </tbody>
             </table>
         </div>

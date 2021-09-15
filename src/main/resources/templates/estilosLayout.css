@@ -1,0 +1,135 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
+
+p {
+  margin: 0 auto;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 600;
+  height: auto;
+  z-index: 1;
+}
+
+.navbar-custom {
+  background-color: #226acb;
+  font-size: large;
+  color: #f7f7f7;
+}
+
+.navbar-toggler {
+  border: none;
+  color: #f7f7f7;
+}
+
+.navegacion {
+  position: absolute;
+  height: 370px;
+  width: 85px;
+  top: 20px;
+  background: #226acb;
+  border-left: 10px solid #226acb;
+  overflow-x: hidden;
+  transition: width 0.5s;
+  border-bottom-right-radius: 20px;
+}
+
+.navegacion:hover {
+  width: 300px;
+}
+
+.navegacion ul {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding-left: 5px;
+  padding-top: 40px;
+}
+
+.navegacion ul li {
+  position: relative;
+  list-style: none;
+  width: 100%;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
+.navegacion ul li.active {
+  background: #1c59a8;
+}
+
+.navegacion ul li a {
+  position: relative;
+  display: block;
+  width: 100%;
+  display: flex;
+  text-decoration: none;
+  color: #f7f7f7;
+}
+
+.navegacion ul li.active a::before {
+  content: "";
+  position: absolute;
+  top: -30px;
+  right: 0;
+  width: 30px;
+  height: 30px;
+  background: #226acb;
+  border-radius: 50%;
+}
+
+.navegacion ul li.active a::after {
+  content: "";
+  position: absolute;
+  bottom: -30px;
+  right: 0;
+  width: 30px;
+  height: 30px;
+  background: #226acb;
+  border-radius: 50%;
+}
+
+.navegacion ul li a .icon {
+  position: relative;
+  display: block;
+  min-width: 60px;
+  height: 60px;
+  line-height: 70px;
+  text-align: center;
+}
+
+.navegacion ul li a .icon ion-icon {
+  position: relative;
+  top: 18px;
+  font-size: 1.5em;
+  z-index: 1;
+}
+
+.navegacion ul li a .title {
+  position: relative;
+  display: block;
+  padding-left: 10px;
+  height: 60px;
+  line-height: 60px;
+  white-space: nowrap;
+}
+
+.menu-fixed {
+  position: fixed;
+  width: 100%;
+}
+
+.menu-fixed {
+  position: fixed;
+  width: 100%;
+}
+
+@media screen and (max-width: 500px) {
+  .navegacion {
+    width: 100%;
+    border-bottom-right-radius: 0px;
+    transition: width 1s;
+  }
+
+  .navegacion:hover {
+    width: 100%;
+  }
+}

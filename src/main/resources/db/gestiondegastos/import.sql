@@ -7,4 +7,4 @@
  * Author:  Joche
  * Created: 15 sept. 2021
  */
-INSERT into usuario (nombre,contrasenya,correo,telefono) values ('joche','1111','jochemali@mail.com','646582521');
+INSERT into usuario (nombre,contrasenya,correo,telefono) values ('test final','1','jochemali@mail.com','0');

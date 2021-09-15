@@ -6,35 +6,60 @@ and open the template in the editor.
 -->
 <html xmlns:th="https://www.thymeleaf.org">
     <head>
-        <title>Tus grupos</title>
+        <title th:text="grupo.nombre"></title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function(){
+               $("#busqueda").on("keyup",function(){
+                    var value=$(this).val().toLowerCase();
+                    $("#tablaMov tr").filter(function(){
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value)>-1)
+                    });
+               });
+            });
+        </script>
     </head>
     <body>
         <div class="container">
-            <h1 th:text="!!POR DEFINIR!!"></h1>
-            <div th:if="${nombrePresupuesto>0}">
-                <p id="presupuesto" th:text="!!POR DEFINIR!!"></p>
+            <h1 th:text="grupo.nombre"></h1>
+            <div th:if="${presupuesto.cantidad>0}">
+                <p id="presupuesto" th:text="${presupuesto.cantidad}"></p>
             </div> 
-            <div th:unless="${nombrePresupuesto<0}">
-                <p id="presupuesto" th:text="!!POR DEFINIR!!"></p>
+            <div th:unless="${presupuesto.cantidad<0}">
+                <p id="presupuesto" th:text="${presupuesto.cantidad}"></p>
             </div>
             <div>
                 <a th:href="nuevoMov">NUEVO MOVIMIENTO</a>
             </div>
-            <table id="tablaMov">
+            
+            <table table="table-bordered table-sortable" cellspacing="0" width="100%">
                 <thead>
-                    <tr>
-                        <th>Concepto</th>
-                        <th onclick='sortUsuario()'>Usuario</th>
+                    <tr >
+                        <th >Concepto </th>
+                        <th >Usuario  <button onclick='sortUsuario()'><span class="glyphicon glyphicon-sort"></span></button></th>
                         <th onclick='sortCantidad()'>Cantidad</th>
-                        <
+                        <th><input type="text" id="busqueda" placeholder="Busca un usuario"/></th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr th:each="mov:${!!POR DEFINIR!!}">
-                        <td th:text="${mov.!!DEFINIR!!}"></td>
-                        <td th:text="${mov.!!DEFINIR!!}"></td>
+                <tbody id="tablaMov">
+                    <!--<tr th:each="mov:${grupo}">
+                        <td th:text="${mov.concepto}">Comida</td>
+                        <td th:text="${mov.usuario}">Martin</td>
+                        <td th:text="${mov.cantidad}"></td>
+                    </tr>-->
+                    <tr>
+                        <td>Comida</td>
+                        <td>Martin</td>
+                        <td>30</td>
+                    </tr>
+                    <tr>
+                        <td>Juego</td>
+                        <td>Raul</td>
+                        <td>60</td>
                     </tr>
                 </tbody>
             </table>

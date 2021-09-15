@@ -52,104 +52,136 @@ and open the template in the editor.
                 <th:block th:each="ug:{grupo.usuarioGrupo}">
                     <tr th:each="mov:${ug.movimientos}">
 
-                        <td th:text="${mov.concepto}">Comida</td>
-                        <td th:text="${mov.usuarioGrupo.usuario.nombre}">Martin</td>
-                        <td th:text="${mov.cantidad}"></td>
+                        </script>
+                        </head>
 
-                    </tr>
-                </th:block>
-            </tbody>
-        </table>
-    </div>
-    <script>
-        //Paginacion de la tabla
-        $(document).ready(function () {
-            $('#tablaMov').DataTable({
-                "pagingType": "numbers"
-            });
-            $('.dataTables.length').addClass('bs-select');
-        });
-        //Funciones de ordenacion de la tabla
-        function sortUsuario() {
-            var tabla, linea, cambio, i, y, x, necesitaC, dir, contCam = 0;
-            tabla = document.getElementById("tablaMov");
-            cambio = true;
-            dir = "asc";
-            while (cambio) {
-                cambio = false;
-                linea = tabla.rows;
-                for (i = 1; i < (linea.length - 1); i++) {
-                    necesitaC = false;
-                    x = linea[i].getElementsByTagName("TD")[n];
-                    y = linea[i + 1].getElementsByTagName("TD")[n];
-                    //Valor 0 representa la columna usuario
-                    //Valor 1 representa la columna cantidad
-                    if (n == 0) {
-                        if (dir == "asc") {
-                            if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                                necesitaC = true;
-                                break;
-                            }
-                        } else if (dir == "desc") {
-                            if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-                                necesitaC = true;
-                                break;
-                            }
-                        }
-                    } else if (n == 1) {
+                        <body>
+                            <div class="container">
+                                <h1 th:text="${grupo.nombre}"></h1>
 
-                    }
-                }
-                if (necesitaC) {
-                    linea[i].parentNode.insertBefore(linea[i + 1], linea[i]);
-                    cambio = true;
-                    contCam++;
-                } else {
-                    if (contCam == 0 && dir == "asc") {
-                        dir = "desc";
-                        cambio = true;
-                    }
-                }
-            }
-        }
+                                <div th:if="${presupuesto.cantidadInicio>0}">
+                                    <p id="presupuesto" th:text="${presupuesto.cantidadInicio}"></p>
+                                </div>
+                                <div th:unless="${presupuesto.cantidadInicio>0}">
+                                    <p id="presupuesto" th:text="${presupuesto.cantidadInicio}"></p>
+                                </div>
 
-        function sortCantidad() {
-            var tabla, linea, cambio, i, y, x, necesitaC, dir, contCam = 0;
-            tabla = document.getElementById("tablaMov");
-            cambio = true;
-            dir = "asc";
-            while (cambio) {
-                cambio = false;
-                linea = tabla.rows;
-                for (i = 1; i < (linea.length - 1); i++) {
-                    necesitaC = false;
-                    x = linea[i].getElementsByTagName("TD")[n];
-                    y = linea[i + 1].getElementsByTagName("TD")[n];
-                    if (dir == "asc") {
-                        if (Number(x.innerHTML) > Number(y.innerHTML)) {
-                            necesitaC = true;
-                            break;
-                        }
-                    } else if (dir == "desc") {
-                        if (Number(x.innerHTML) < Number(y.innerHTML)) {
-                            necesitaC = true;
-                            break;
-                        }
-                    }
-                }
-                if (necesitaC) {
-                    linea[i].parentNode.insertBefore(linea[i + 1], linea[i]);
-                    cambio = true;
-                    contCam++;
-                } else {
-                    if (contCam == 0 && dir == "asc") {
-                        dir = "desc";
-                        cambio = true;
-                    }
-                }
-            }
-        }
-    </script>
-</body>
+                                <div>
+                                    <a th:href="nuevoMov">NUEVO MOVIMIENTO</a>
+                                </div>
+
+                                <table table="table-bordered table-sortable" cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Concepto </th>
+                                            <th>Usuario <button onclick='sortUsuario()'><span
+                                                        class="glyphicon glyphicon-sort"></span></button></th>
+                                            <th onclick='sortCantidad()'>Cantidad</th>
+                                            <th><input type="text" id="busqueda" placeholder="Busca un usuario" /></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tablaMov">
+                                        <th:block th:each="ug:${grupo.usuarioGrupo}">
+                                            <tr th:each="mov:${ug.movimiento}">
+
+                                                <td th:text="${mov.concepto}">Comida</td>
+                                                <td th:text="${mov.usuarioGrupo.usuario.nombre}">Martin</td>
+                                                <td th:text="${mov.cantidad}"></td>
+
+                                            </tr>
+                                        </th:block>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <script>
+                                //Paginacion de la tabla
+                                $(document).ready(function () {
+                                    $('#tablaMov').DataTable({
+                                        "pagingType": "numbers"
+                                    });
+                                    $('.dataTables.length').addClass('bs-select');
+                                });
+                                //Funciones de ordenacion de la tabla
+                                function sortUsuario() {
+                                    var tabla, linea, cambio, i, y, x, necesitaC, dir, contCam = 0;
+                                    tabla = document.getElementById("tablaMov");
+                                    cambio = true;
+                                    dir = "asc";
+                                    while (cambio) {
+                                        cambio = false;
+                                        linea = tabla.rows;
+                                        for (i = 1; i < (linea.length - 1); i++) {
+                                            necesitaC = false;
+                                            x = linea[i].getElementsByTagName("TD")[n];
+                                            y = linea[i + 1].getElementsByTagName("TD")[n];
+                                            //Valor 0 representa la columna usuario
+                                            //Valor 1 representa la columna cantidad
+                                            if (n == 0) {
+                                                if (dir == "asc") {
+                                                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                                                        necesitaC = true;
+                                                        break;
+                                                    }
+                                                } else if (dir == "desc") {
+                                                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                                                        necesitaC = true;
+                                                        break;
+                                                    }
+                                                }
+                                            } else if (n == 1) {
+
+                                            }
+                                        }
+                                        if (necesitaC) {
+                                            linea[i].parentNode.insertBefore(linea[i + 1], linea[i]);
+                                            cambio = true;
+                                            contCam++;
+                                        } else {
+                                            if (contCam == 0 && dir == "asc") {
+                                                dir = "desc";
+                                                cambio = true;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                function sortCantidad() {
+                                    var tabla, linea, cambio, i, y, x, necesitaC, dir, contCam = 0;
+                                    tabla = document.getElementById("tablaMov");
+                                    cambio = true;
+                                    dir = "asc";
+                                    while (cambio) {
+                                        cambio = false;
+                                        linea = tabla.rows;
+                                        for (i = 1; i < (linea.length - 1); i++) {
+                                            necesitaC = false;
+                                            x = linea[i].getElementsByTagName("TD")[n];
+                                            y = linea[i + 1].getElementsByTagName("TD")[n];
+                                            if (dir == "asc") {
+                                                if (Number(x.innerHTML) > Number(y.innerHTML)) {
+                                                    necesitaC = true;
+                                                    break;
+                                                }
+                                            } else if (dir == "desc") {
+                                                if (Number(x.innerHTML) < Number(y.innerHTML)) {
+                                                    necesitaC = true;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        if (necesitaC) {
+                                            linea[i].parentNode.insertBefore(linea[i + 1], linea[i]);
+                                            cambio = true;
+                                            contCam++;
+                                        } else {
+                                            if (contCam == 0 && dir == "asc") {
+                                                dir = "desc";
+                                                cambio = true;
+                                            }
+                                        }
+                                    }
+                                }
+                            </script>
+                        </body>
 
 </html>

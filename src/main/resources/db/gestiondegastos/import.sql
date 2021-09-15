@@ -18,18 +18,18 @@ INSERT INTO grupo (nombre,fecha_creacion) VALUES ('Mi Grupo', CURDATE());
 INSERT INTO grupo (nombre,fecha_creacion) VALUES ('Grupo Diego-Raul-Josema', CURDATE());
 INSERT INTO grupo (nombre,fecha_creacion) VALUES ('Grupo Sofi-Martin', CURDATE());
 
---#USUARIO-GRUPO#
+--#USUARIO-GRUPO# 0=false >=0=true
 
-INSERT INTO usuario_grupo (id_usuario,id_grupo,rol) VALUES (1,1,true);
-INSERT INTO usuario_grupo (id_usuario,id_grupo,rol) VALUES (2,2,true);
-INSERT INTO usuario_grupo (id_usuario,id_grupo,rol) VALUES (3,3,true);
-INSERT INTO usuario_grupo (id_usuario,id_grupo,rol) VALUES (4,4,true);
-INSERT INTO usuario_grupo (id_usuario,id_grupo,rol) VALUES (5,5,true);
-INSERT INTO usuario_grupo (id_usuario,id_grupo,rol) VALUES (1,6,false);
-INSERT INTO usuario_grupo (id_usuario,id_grupo,rol) VALUES (2,6,true);
-INSERT INTO usuario_grupo (id_usuario,id_grupo,rol) VALUES (5,6,false);
-INSERT INTO usuario_grupo (id_usuario,id_grupo,rol) VALUES (3,7,true);
-INSERT INTO usuario_grupo (id_usuario,id_grupo,rol) VALUES (4,7,false);
+INSERT INTO usuario_grupo (id_usuario,id_grupo,rol) VALUES (1,1,1);
+INSERT INTO usuario_grupo (id_usuario,id_grupo,rol) VALUES (2,2,1);
+INSERT INTO usuario_grupo (id_usuario,id_grupo,rol) VALUES (3,3,1);
+INSERT INTO usuario_grupo (id_usuario,id_grupo,rol) VALUES (4,4,1);
+INSERT INTO usuario_grupo (id_usuario,id_grupo,rol) VALUES (5,5,1);
+INSERT INTO usuario_grupo (id_usuario,id_grupo,rol) VALUES (1,6,0);
+INSERT INTO usuario_grupo (id_usuario,id_grupo,rol) VALUES (2,6,1);
+INSERT INTO usuario_grupo (id_usuario,id_grupo,rol) VALUES (5,6,0);
+INSERT INTO usuario_grupo (id_usuario,id_grupo,rol) VALUES (3,7,1);
+INSERT INTO usuario_grupo (id_usuario,id_grupo,rol) VALUES (4,7,0);
 
 --#MOVIMIENTO#
 

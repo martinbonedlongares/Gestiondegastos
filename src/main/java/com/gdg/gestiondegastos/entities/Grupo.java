@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name = "Grupo")
+@Table(name = "grupo")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

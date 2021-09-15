@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <title th:text="grupo.nombre"></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function(){
+               $("#busqueda").on("keyup",function(){
+                    var value=$(this).val().toLowerCase();
+                    $("#tablaMov tr").filter(function(){
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value)>-1)
+                    });
+               });
+            });
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <h1 th:text="grupo.nombre"></h1>
+            <div th:if="${presupuesto.cantidad>0}">
+                <p id="presupuesto" th:text="${presupuesto.cantidad}"></p>
+            </div> 
+            <div th:unless="${presupuesto.cantidad<0}">
+                <p id="presupuesto" th:text="${presupuesto.cantidad}"></p>
+            </div>
+            <div>
+                <a th:href="nuevoMov">NUEVO MOVIMIENTO</a>
+            </div>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Concepto</th>
+                        <th onclick='sortUsuario()'>Usuario</th>
+                        <th onclick='sortCantidad()'>Cantidad</th>
+                        <th><input type="text" id="busqueda" placeholder="Busca un usuario"/></th>
+                    </tr>
+                </thead>
+                <tbody id="tablaMov">
+                    <tr th:each="mov:${grupo}">
+                        <td th:text="${mov.concepto}">Comida</td>
+                        <td th:text="${mov.usuario}">Martin</td>
+                        <td th:text="${mov.cantidad}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <script>
+            //Paginacion de la tabla
+            $(document).ready(function(){
+                $('#tablaMov').DataTable({
+                    "pagingType":"numbers"
+                });
+                $('.dataTables.length').addClass('bs-select');
+            });
+            //Funciones de ordenacion de la tabla
+            function sortUsuario(){
+                var tabla, linea, cambio, i, y, x, necesitaC, dir, contCam=0;
+                tabla=document.getElementById("tablaMov");
+                cambio=true;
+                dir="asc";
+                while(cambio){
+                    cambio=false;
+                    linea=tabla.rows;
+                    for(i=1;i<(linea.length-1);i++){
+                        necesitaC=false;
+                        x=linea[i].getElementsByTagName("TD")[n];
+                        y=linea[i+1].getElementsByTagName("TD")[n];
+                        //Valor 0 representa la columna usuario
+                        //Valor 1 representa la columna cantidad
+                        if(n==0){
+                            if(dir == "asc"){
+                                if(x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()){
+                                    necesitaC=true;
+                                    break;
+                                }
+                            }else if(dir == "desc"){
+                                if(x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()){
+                                    necesitaC=true;
+                                    break;
+                                }
+                            }
+                        }else if(n==1){
+                            
+                        }
+                    }
+                    if(necesitaC){
+                        linea[i].parentNode.insertBefore(linea[i+1],linea[i]);
+                        cambio=true;
+                        contCam++;
+                    }else{
+                        if(contCam==0 && dir == "asc"){
+                            dir="desc";
+                            cambio=true;
+                        }
+                    }
+                }
+            }
+            function sortCantidad(){
+                var tabla, linea, cambio, i, y, x, necesitaC, dir, contCam=0;
+                tabla=document.getElementById("tablaMov");
+                cambio=true;
+                dir="asc";
+                while(cambio){
+                    cambio=false;
+                    linea=tabla.rows;
+                    for(i=1;i<(linea.length-1);i++){
+                        necesitaC=false;
+                        x=linea[i].getElementsByTagName("TD")[n];
+                        y=linea[i+1].getElementsByTagName("TD")[n];
+                        if(dir == "asc"){
+                            if(Number(x.innerHTML)> Number(y.innerHTML)){
+                                necesitaC=true;
+                                break;
+                            }
+                        }else if(dir == "desc"){
+                            if(Number(x.innerHTML)< Number(y.innerHTML)){
+                                necesitaC=true;
+                                break;
+                            }
+                        }
+                    }
+                    if(necesitaC){
+                        linea[i].parentNode.insertBefore(linea[i+1],linea[i]);
+                        cambio=true;
+                        contCam++;
+                    }else{
+                        if(contCam==0 && dir == "asc"){
+                            dir="desc";
+                            cambio=true;
+                        }
+                    }
+                }
+            }
+        </script>
+    </body>
+</html>

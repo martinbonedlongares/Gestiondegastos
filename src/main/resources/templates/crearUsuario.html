@@ -1,0 +1,39 @@
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Crear Usuario</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div th:align="center"> Gestion de Gastos - Crear Usuarios </div>
+        <div class="form-group" th:align="center">
+            <form action="/gestion/agregar" method="post" >
+
+                <br>
+                <div class="form-group" th:align="center">
+                    <br>
+                    <label>  &nbsp; Nombre  &nbsp; </label> <input name = "nombre" class="col-2"   /> 
+                    <br>
+                    <label>  &nbsp; Telefono  &nbsp; </label> <input name = "telefono" class="col-2"  />
+                    <br>
+                    <label>&nbsp;  Correo  &nbsp; </label> <input name = "correo"  class="col-2"  />
+                    <br>
+                    <label>&nbsp;  Contraseña  &nbsp; </label> <input type="password" name = "contrasenya"  class="col-2"  />
+                    <br>
+                    <label>&nbsp;  Confirma Contraseña  &nbsp; </label> <input type ="password" name = "contrasenyaConf"  class="col-2"  />
+
+                    <br>
+
+                </div>
+                <br>   
+                <input type="submit" value="Guardar"  class="btn btn-primary"  >
+
+            </form>
+
+        </div>
+
+   
+
+
+</body>
+</html>

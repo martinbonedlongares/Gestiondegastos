@@ -47,7 +47,7 @@ public class GestionDeGastosController {
         //m.addAttribute("usuarioGrupo", repoUsuarioGrupo.findById(idGrupo).get().getMovimiento().get(0).getConcepto());
         //m.addAttribute("usuarioGrupo", repoUsuarioGrupo.findById(idGrupo).get().getUsuario().getNombre());
         //m.addAttribute("usuarioGrupo", repoUsuarioGrupo.findById(idGrupo).get().getMovimiento().get(0).getCantidad());
-        //m.addAttribute("presupuesto", repoPresupuesto.findByIdGrupo(idGrupo).get());
+        m.addAttribute("presupuesto", repoPresupuesto.findByIdGrupo(idGrupo));
         
         return "grupos";
     }

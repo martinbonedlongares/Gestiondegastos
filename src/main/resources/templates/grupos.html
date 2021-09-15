@@ -47,7 +47,7 @@ and open the template in the editor.
                 });
                 $('.dataTables.length').addClass('bs-select');
             });
-            //Funcion ordenacion de la tabla
+            //Funciones de ordenacion de la tabla
             function sortUsuario(){
                 var tabla, linea, cambio, i, y, x, necesitaC, dir, contCam=0;
                 tabla=document.getElementById("tablaMov");
@@ -75,16 +75,42 @@ and open the template in the editor.
                                 }
                             }
                         }else if(n==1){
-                            if(dir == "asc"){
-                                if(Number(x.innerHTML)> Number(y.innerHTML)){
-                                    necesitaC=true;
-                                    break;
-                                }
-                            }else if(dir == "desc"){
-                                if(Number(x.innerHTML)< Number(y.innerHTML)){
-                                    necesitaC=true;
-                                    break;
-                                }
+                            
+                        }
+                    }
+                    if(necesitaC){
+                        linea[i].parentNode.insertBefore(linea[i+1],linea[i]);
+                        cambio=true;
+                        contCam++;
+                    }else{
+                        if(contCam==0 && dir == "asc"){
+                            dir="desc";
+                            cambio=true;
+                        }
+                    }
+                }
+            }
+            function sortCantidad(){
+                var tabla, linea, cambio, i, y, x, necesitaC, dir, contCam=0;
+                tabla=document.getElementById("tablaMov");
+                cambio=true;
+                dir="asc";
+                while(cambio){
+                    cambio=false;
+                    linea=tabla.rows;
+                    for(i=1;i<(linea.length-1);i++){
+                        necesitaC=false;
+                        x=linea[i].getElementsByTagName("TD")[n];
+                        y=linea[i+1].getElementsByTagName("TD")[n];
+                        if(dir == "asc"){
+                            if(Number(x.innerHTML)> Number(y.innerHTML)){
+                                necesitaC=true;
+                                break;
+                            }
+                        }else if(dir == "desc"){
+                            if(Number(x.innerHTML)< Number(y.innerHTML)){
+                                necesitaC=true;
+                                break;
                             }
                         }
                     }

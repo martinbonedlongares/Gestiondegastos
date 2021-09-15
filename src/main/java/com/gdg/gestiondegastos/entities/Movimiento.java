@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name = "Movimiento")
+@Table(name = "movimiento")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -36,7 +36,7 @@ public class Movimiento {
     private Date fecha;
     
     private String concepto;
-    private Integer cantidad;
+    private Double cantidad;
 
     //@ManyToOne
     //@JoinColumn(name = "id_usuario_grupo")

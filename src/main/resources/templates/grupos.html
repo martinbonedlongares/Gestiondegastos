@@ -9,6 +9,8 @@ and open the template in the editor.
         <title th:text="grupo.nombre"></title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
             $(document).ready(function(){
@@ -34,11 +36,11 @@ and open the template in the editor.
                 <a th:href="nuevoMov">NUEVO MOVIMIENTO</a>
             </div>
             
-            <table>
+            <table table="table-bordered table-sortable" cellspacing="0" width="100%">
                 <thead>
-                    <tr>
-                        <th>Concepto</th>
-                        <th onclick='sortUsuario()'>Usuario</th>
+                    <tr >
+                        <th >Concepto </th>
+                        <th >Usuario  <button onclick='sortUsuario()'><span class="glyphicon glyphicon-sort"></span></button></th>
                         <th onclick='sortCantidad()'>Cantidad</th>
                         <th><input type="text" id="busqueda" placeholder="Busca un usuario"/></th>
                     </tr>

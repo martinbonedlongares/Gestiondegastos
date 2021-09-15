@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <title>Tus grupos</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div class="container">
+            <h1 th:text="!!POR DEFINIR!!"></h1>
+            <div th:if="${nombrePresupuesto>0}">
+                <p id="presupuesto" th:text="!!POR DEFINIR!!"></p>
+            </div> 
+            <div th:unless="${nombrePresupuesto<0}">
+                <p id="presupuesto" th:text="!!POR DEFINIR!!"></p>
+            </div>
+            <div>
+                <a th:href="nuevoMov">NUEVO MOVIMIENTO</a>
+            </div>
+            <table id="tablaMov">
+                <thead>
+                    <tr>
+                        <th>Concepto</th>
+                        <th onclick='sortUsuario()'>Usuario</th>
+                        <th onclick='sortCantidad()'>Cantidad</th>
+                        <
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="mov:${!!POR DEFINIR!!}">
+                        <td th:text="${mov.!!DEFINIR!!}"></td>
+                        <td th:text="${mov.!!DEFINIR!!}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <script>
+            //Paginacion de la tabla
+            $(document).ready(function(){
+                $('#tablaMov').DataTable({
+                    "pagingType":"numbers"
+                });
+                $('.dataTables.length').addClass('bs-select');
+            });
+            //Funcion ordenacion de la tabla
+            function sortUsuario(){
+                var tabla, linea, cambio, i, y, x, necesitaC, dir, contCam=0;
+                tabla=document.getElementById("tablaMov");
+                cambio=true;
+                dir="asc";
+                while(cambio){
+                    cambio=false;
+                    linea=tabla.rows;
+                    for(i=1;i<(linea.length-1);i++){
+                        necesitaC=false;
+                        x=linea[i].getElementsByTagName("TD")[n];
+                        y=linea[i+1].getElementsByTagName("TD")[n];
+                        //Valor 0 representa la columna usuario
+                        //Valor 1 representa la columna cantidad
+                        if(n==0){
+                            if(dir == "asc"){
+                                if(x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()){
+                                    necesitaC=true;
+                                    break;
+                                }
+                            }else if(dir == "desc"){
+                                if(x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()){
+                                    necesitaC=true;
+                                    break;
+                                }
+                            }
+                        }else if(n==1){
+                            if(dir == "asc"){
+                                if(Number(x.innerHTML)> Number(y.innerHTML)){
+                                    necesitaC=true;
+                                    break;
+                                }
+                            }else if(dir == "desc"){
+                                if(Number(x.innerHTML)< Number(y.innerHTML)){
+                                    necesitaC=true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    if(necesitaC){
+                        linea[i].parentNode.insertBefore(linea[i+1],linea[i]);
+                        cambio=true;
+                        contCam++;
+                    }else{
+                        if(contCam==0 && dir == "asc"){
+                            dir="desc";
+                            cambio=true;
+                        }
+                    }
+                }
+            }
+        </script>
+    </body>
+</html>

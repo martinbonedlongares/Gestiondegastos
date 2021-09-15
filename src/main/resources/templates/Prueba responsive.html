@@ -1,0 +1,121 @@
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width" />
+
+    <!-- Se coge la fuente del servidor de Google (Lato) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" type="text/css" href="/estilos.css">
+    <title>Documento de prueba</title>
+
+
+    <style>
+        /* Si se quieren cambiar los parámetros de la fuente, ir al siguiente enlace: 
+https://fonts.google.com/specimen/Quicksand?query=Quicksand#standard-styles */
+
+        /* Para ver la API y las funciones de la fuente, ir al siguiente enlace:
+https://developers.google.com/fonts/docs/css2
+ */
+
+        body {
+            /* Color general de la página */
+            background-color: #f7f7f7;
+            /* Color de la fuente de las letras */
+            color: #3e3434;
+            /* Esta es la fuente que se usará en el proyecto */
+            font-family: "Quicksand", sans-serif;
+
+            text-align: justify;
+        }
+
+        div {
+            /* Tamaño del contenedor de forma horizontal. */
+            width: 100%;
+            /* Tamaño que coge de la pantalla.No coge la pantalla entera y pone bordes */
+            max-width: 80%;
+            /* Con este valor ponemos el contenido centrado */
+            margin: 0 auto;
+            /* El contenido no sale del div y se recorta si alcanza su máximo */
+            overflow: hidden;
+            /* Creamos una separación con los elementos de dentro */
+            padding: 20px;
+            /* Con esto calculamos automaticamente el ancho de la caja para que no se pase del 100% */
+            box-sizing: border-box;
+        }
+
+        /* Ponemos la imagen en su 100% y cuando el contenedor se haga pequeño, esta también */
+        div img {
+            width: 100%;
+            height: auto;
+        }
+
+        .valorPositivo {
+            color: #41da1f;
+        }
+
+        .valorNegativo {
+            color: #ed2525;
+        }
+
+        /* Si la anchura del dispositivo es menor de 500px, se aplican estos estilos */
+        @media screen and (max-width: 500px) {}
+
+        /* Si la orientation del dispositivo es horizontal, se aplican estos estilos */
+        @media screen and (orientation: Landscape) {}
+
+        /* Con esto cambiamos el grosor de la fuente al valor que queremos y de la entidad que queramos */
+        @supports (font-variation-settings: "wght"700) {
+            .negrita {
+                font-family: "Quicksand", sans-serif;
+                font-weight: 700;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <p class="negrita">
+        Hola
+    </p>
+    <div class="contenedor">
+        <img src="https://kaikucaffelatte.com/blog/wp-content/uploads/2020/03/shutterstock_510679489-scaled.jpg" alt="">
+        <p>Lorem ipsum dolor sit amet consectetur adipiscing elit primis, neque conubia montes tristique mauris mi
+            fusce, sem cubilia metus phasellus diam rutrum nullam. Odio iaculis blandit placerat laoreet vulputate
+            curabitur feugiat nulla, nibh semper habitasse tempus nunc quam vel fames, nec vehicula sociosqu eu
+            parturient maecenas luctus. Duis eleifend nascetur dui tortor eu aenean sapien aliquam per, dignissim
+            nisl
+            tincidunt malesuada massa convallis posuere molestie egestas interdum, risus senectus nullam himenaeos
+            praesent imperdiet inceptos nulla.
+            Lorem ipsum dolor sit amet consectetur adipiscing elit primis, neque conubia montes tristique mauris mi
+            fusce, sem cubilia metus phasellus diam rutrum nullam. Odio iaculis blandit placerat laoreet vulputate
+            curabitur feugiat nulla, nibh semper habitasse tempus nunc quam vel fames, nec vehicula sociosqu eu
+            parturient maecenas luctus. Duis eleifend nascetur dui tortor eu aenean sapien aliquam per, dignissim
+            nisl
+            tincidunt malesuada massa convallis posuere molestie egestas interdum, risus senectus nullam himenaeos
+            praesent imperdiet inceptos nulla.
+            Lorem ipsum dolor sit amet consectetur adipiscing elit primis, neque conubia montes tristique mauris mi
+            fusce, sem cubilia metus phasellus diam rutrum nullam. Odio iaculis blandit placerat laoreet vulputate
+            curabitur feugiat nulla, nibh semper habitasse tempus nunc quam vel fames, nec vehicula sociosqu eu
+            parturient maecenas luctus. Duis eleifend nascetur dui tortor eu aenean sapien aliquam per, dignissim
+            nisl
+            tincidunt malesuada massa convallis posuere molestie egestas interdum, risus senectus nullam himenaeos
+            praesent imperdiet inceptos nulla.
+        </p>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.js"></script>
+</body>
+<misscrip>
+
+</misscrip>
+
+</html>

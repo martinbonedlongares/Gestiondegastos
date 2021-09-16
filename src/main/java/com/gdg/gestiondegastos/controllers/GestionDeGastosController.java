@@ -1,5 +1,6 @@
 package com.gdg.gestiondegastos.controllers;
 
+import com.gdg.gestiondegastos.entities.Movimiento;
 import com.gdg.gestiondegastos.entities.Usuario;
 import com.gdg.gestiondegastos.repositories.GrupoRepository;
 import com.gdg.gestiondegastos.repositories.MovimientosRepository;
@@ -51,5 +52,28 @@ public class GestionDeGastosController {
         
         return "grupos";
     }
+    
+    @GetMapping("/movimientos")
+    public String verMovimientos(Model m, Integer idMovimiento){
+         m.addAttribute("movimiento", repoMovimientos.findById(idMovimiento).get());
+         
+         return "movimientos";
+    }
+    
+    @GetMapping("/nuevoMovimiento")
+    public String nuevoMovimientos(Model m, Integer idUsuarioGrupo){
+        Movimiento mov = new Movimiento();
+         mov.setUsuarioGrupo(repoUsuarioGrupo.findById(idUsuarioGrupo).get());
+         m.addAttribute("movimiento", mov);
+         
+         return "nuevoMov";
+    }
 
+    @PostMapping("/guardarMovimiento")
+    public String guardarMovimiento(Model m, Movimiento mov, int idGrupo){
+        mov.setUsuarioGrupo(repoUsuarioGrupo.findById(idGrupo).get());
+        repoMovimientos.save(mov);
+        return "redirect:grupos?idGrupo=" + idGrupo;
+    } 
+    
 }

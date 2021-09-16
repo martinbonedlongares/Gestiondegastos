@@ -48,7 +48,8 @@ and open the template in the editor.
                 </thead>
                 <tbody >
                     <th:block th:each="ug:${grupo.usuarioGrupo}">
-                        <tr th:each="mov:${ug.movimiento}" class="item">
+                        <tr th:each="mov:${ug.movimiento}" class="item">                            
+                           
                             <td th:text="${mov.concepto}"></td>
                             <td th:text="${mov.usuarioGrupo.usuario.nombre}"></td>
                             <td th:text="${mov.cantidad}"></td>

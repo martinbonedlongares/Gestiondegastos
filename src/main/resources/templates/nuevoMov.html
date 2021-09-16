@@ -9,8 +9,96 @@ and open the template in the editor.
         <title>Nuevo movimiento</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function (){
+                var campo=document.querySelector('#fecha');
+                var fecha=new Date();
+                campo.value=fecha.getFullYear().toString()+'-'+(fecha.getMonth()+1).toString().padStart(2,0)+'-'+fecha.getDate().toString().padStart(2,0)+" "+fecha.getHours()+":"+fecha.getMinutes()+":"+fecha.getSeconds();
+                //alert(campo.value);
+            });
+        </script>
     </head>
     <body>
-        <form method="post" action=""
+        <div>
+            
+            <form method="post" action="nuevoMovimiento" enctype="multipart/form-data" th:object="${movimiento}" th:if="">
+                <div>
+                    <input type="hidden" th:field="*{id}"/>
+                </div>                
+                <div>
+                    <label for="concepto">Concepto</label>
+                    <select id="concepto" name="concepto" th:field="*{concepto}">
+                        <option value="entretenimiento">Entretenimiento</option>
+                        <option value="alimentacion">Alimentación</option>
+                        <option value="ropa">Ropa</option>
+                        <option value="hogar">Hogar</option>
+                        <option value="higiene">Higiene</option>
+                        <option value="trasnporte">Transporte</option>
+                        <option value="comunicacion">Comunicación</option>
+                        <option value="medicina">Medicina</option>
+                        <option value="regalo">Regalo</option>
+                        <option value="mascotas">Mascota</option>
+                    </select>
+                </div>
+                <div>
+                    <input type="hidden" id="fecha" th:field="*{fecha}"/>
+                </div>
+                <div>
+                    <label for="cantidad">Cantidad</label>
+                    <input id="cantidad" placeholder="Introduce la cantidad" type="number" step="any" th:field="*{cantidad}" onKeyUp="document.getElementById('gasto').style.display = 'block';"/>
+                    <button id="gasto" style="display:none"> Gasto</button>
+                    <button id="ingreso" style="display:none"> Ingreso</button>
+                </div>
+                <div>
+                    <label for="info">Información adicional</label>
+                    <br>
+                    <textarea id="info" placeholder="Introduce información adicional del movimiento" rows="4" cols="50" th:field="*{info}"></textarea>
+                </div>
+                <div>
+                    <button id="primero" onclick="ocultar()" style="visibility:visible;">Guardar</button>
+                    <input id="save" type="submit" value="Aceptar" style="visibility:hidden;"/>
+                    <button id="cancelar" onclick="mostrar()" style="visibility:hidden;">Cancelar</button>
+                </div>
+            </form>
+        </div>
+        <script>
+            
+             $('#gasto').click(function(e){
+                    e.preventDefault();
+                    $('#cantidad').val()=$(this).val()*-1;
+                    console.log("hola")
+                    console.log($('#gasto').text()+" "+$('#gasto').html())
+                    if($('#gasto').text()== "Gasto"){
+                        $('#gasto').empty();
+                    }else{
+                        $('#gasto').text("Gasto");
+                    }
+                    
+                    
+                    
+                });
+            /*function ocultar(){
+                var x=document.getElementById("primero");
+                var y=document.getElementById("save");
+                var z=document.getElementById("cancelar");
+                x.style.visibility='hidden';
+                y.style.visibility='visible';
+                z.style.visibility='visible';
+            }
+            function mostrar(){
+                var x=document.getElementById("primero");
+                var y=document.getElementById("save");
+                var z=document.getElementById("cancelar");
+                x.style.visibility='visible';
+                y.style.visibility='hidden';
+                z.style.visibility='hidden';
+            }*/
+            document.getElementById("gasto").onclick=function(){
+                var x=document.getElementById("cantidad");
+                var y=x.value;
+                x.value=y*(-1);
+            };
+        </script>
     </body>
 </html>

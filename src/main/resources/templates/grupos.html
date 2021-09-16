@@ -34,7 +34,9 @@ and open the template in the editor.
                 <p id="presupuesto" th:text="${presupuesto.cantidadInicio}"></p>
             </div>
             <div>
-                <a th:href="nuevoMov.html">NUEVO MOVIMIENTO</a>
+                <!--<a th:href="@{/gestion/grupo/{idGrupo}/nuevoMovimiento(idGrupo = ${grupo.id})}">NUEVO MOVIMIENTO</a>-->
+                <a th:href="@{|${idGrupo}/nuevoMovimiento|(idUsuarioGrupo = ${grupo.usuarioGrupo[0].id})}">NUEVO MOVIMIENTO</a>
+                <!--<a th:text="${grupo.usuarioGrupo[0]}">NUEVO MOVIMIENTO</a>-->
             </div>
 
             <table table="table-bordered table-sortable" cellspacing="0" width="100%" id="tablaMov">
@@ -54,18 +56,20 @@ and open the template in the editor.
                             <td th:text="${mov.usuarioGrupo.usuario.nombre}"></td>
                             <td th:text="${mov.cantidad}"></td>
                         </tr>
+                        
                     </th:block>
+                
                 </tbody>
             </table>
         </div>
         <script>
             //Paginacion de la tabla
-            $(document).ready(function () {
+            /*$(document).ready(function () {
                 $('#tablaMov').DataTable({
                     "pagingType": "numbers"
                 });
                 $('.dataTables.length').addClass('bs-select');
-            });
+            });*/
         </script>
     </body>
 </html>

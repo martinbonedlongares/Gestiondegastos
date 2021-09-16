@@ -14,17 +14,34 @@ and open the template in the editor.
             $(document).ready(function (){
                 var campo=document.querySelector('#fecha');
                 var fecha=new Date();
-                campo.value=fecha.getFullYear().toString()+'-'+(fecha.getMonth()+1).toString().padStart(2,0)+'-'+fecha.getDate().toString().padStart(2,0)+" "+fecha.getHours()+":"+fecha.getMinutes()+":"+fecha.getSeconds();
+                fecha.setHours(fecha.getHours()+2);
+                campo.value=fecha.getFullYear().toString()+'-'+(fecha.getMonth()+1).toString().padStart(2,0)+'-'+fecha.getDate().toString().padStart(2,0)+" "+(fecha.getHours())+":"+fecha.getMinutes()+":"+fecha.getSeconds();
                 //alert(campo.value);
+                $('#tipoMovimiento').click(function(e){
+                    e.preventDefault();
+                    
+                    var c = $('#cantidad').val();
+                    $('#cantidad').val(c*-1);  
+                    
+                    if($('#tipoMovimiento').text() === "Ingreso"){
+                        
+                        $('#tipoMovimiento').text("Gasto");
+                    }else{
+                         $('#tipoMovimiento').text("Ingreso");
+                    }
+                    
+                });
             });
+            
         </script>
     </head>
     <body>
         <div>
             
-            <form method="post" action="nuevoMovimiento" enctype="multipart/form-data" th:object="${movimiento}" th:if="">
+            <form method="post" action="guardarMovimiento" th:object="${movimiento}">
                 <div>
-                    <input type="hidden" th:field="*{id}"/>
+                    <input type="" name="idUsuarioGrupo" th:value="${param.idUsuarioGrupo[0]}"/>
+                    <input type="" th:field="*{id}"/>
                 </div>                
                 <div>
                     <label for="concepto">Concepto</label>
@@ -34,7 +51,7 @@ and open the template in the editor.
                         <option value="ropa">Ropa</option>
                         <option value="hogar">Hogar</option>
                         <option value="higiene">Higiene</option>
-                        <option value="trasnporte">Transporte</option>
+                        <option value="transporte">Transporte</option>
                         <option value="comunicacion">Comunicación</option>
                         <option value="medicina">Medicina</option>
                         <option value="regalo">Regalo</option>
@@ -42,13 +59,12 @@ and open the template in the editor.
                     </select>
                 </div>
                 <div>
-                    <input type="hidden" id="fecha" th:field="*{fecha}"/>
+                    <input type="text" id="fecha" th:field="*{fecha}"/>
                 </div>
                 <div>
                     <label for="cantidad">Cantidad</label>
-                    <input id="cantidad" placeholder="Introduce la cantidad" type="number" step="any" th:field="*{cantidad}" onKeyUp="document.getElementById('gasto').style.display = 'block';"/>
-                    <button id="gasto" style="display:none"> Gasto</button>
-                    <button id="ingreso" style="display:none"> Ingreso</button>
+                    <input id="cantidad" placeholder="Introduce la cantidad" type="number" step="any" th:field="*{cantidad}" onKeyUp="document.getElementById('tipoMovimiento').style.display = 'block';"/>
+                    <button id="tipoMovimiento" style="display:none"> Gasto</button>
                 </div>
                 <div>
                     <label for="info">Información adicional</label>
@@ -63,21 +79,9 @@ and open the template in the editor.
             </form>
         </div>
         <script>
-            
-             $('#gasto').click(function(e){
-                    e.preventDefault();
-                    $('#cantidad').val()=$(this).val()*-1;
-                    console.log("hola")
-                    console.log($('#gasto').text()+" "+$('#gasto').html())
-                    if($('#gasto').text()== "Gasto"){
-                        $('#gasto').empty();
-                    }else{
-                        $('#gasto').text("Gasto");
-                    }
-                    
-                    
-                    
-                });
+             
+             
+                
             /*function ocultar(){
                 var x=document.getElementById("primero");
                 var y=document.getElementById("save");
@@ -93,12 +97,13 @@ and open the template in the editor.
                 x.style.visibility='visible';
                 y.style.visibility='hidden';
                 z.style.visibility='hidden';
-            }*/
-            document.getElementById("gasto").onclick=function(){
+            }
+            document.getElementById("tipoMovimiento").onclick=function(){
                 var x=document.getElementById("cantidad");
                 var y=x.value;
                 x.value=y*(-1);
-            };
+                
+            };*/
         </script>
     </body>
 </html>

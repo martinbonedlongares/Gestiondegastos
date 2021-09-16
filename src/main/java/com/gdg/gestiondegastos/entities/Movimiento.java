@@ -32,7 +32,7 @@ public class Movimiento {
 
     private String info;
     
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date fecha;
     
     private String concepto;
@@ -42,7 +42,7 @@ public class Movimiento {
     //@JoinColumn(name = "id_usuario_grupo")
     //private UsuarioGrupo idUsuarioGrupo;
     //(Recibe el id de Grupo)    
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "id_usuarioGrupo")
     private UsuarioGrupo usuarioGrupo;
 }

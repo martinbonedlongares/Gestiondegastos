@@ -5,6 +5,7 @@ https://fonts.google.com/specimen/Quicksand?query=Quicksand#standard-styles */
 https://developers.google.com/fonts/docs/css2
  */
 
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
 body {
   /* Color general de la página */
   background-color: #f7f7f7;

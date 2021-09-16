@@ -72,7 +72,8 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
+		  <configuration>
+                    <mainClass>com.gdg.gestiondegastos.Ejecutable</mainClass>
                     <excludes>
                         <exclude>
                             <groupId>org.projectlombok</groupId>

@@ -9,6 +9,7 @@ import com.gdg.gestiondegastos.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -34,6 +35,21 @@ public class GestionDeGastosController {
         repoUsuario.save(usuario);
         
         return "login";
+    }
+    
+    @GetMapping("/grupos")
+    public String verGrupos(Model m, Integer idGrupo){
+        
+        //m.addAttribute("nombrePresupuesto", repoPresupuesto.findByIdGrupo(idGrupo).get());
+        //m.addAttribute("grupo", repoGrupo.findById(idGrupo));
+        
+        m.addAttribute("grupo", repoGrupo.findById(idGrupo).get());
+        //m.addAttribute("usuarioGrupo", repoUsuarioGrupo.findById(idGrupo).get().getMovimiento().get(0).getConcepto());
+        //m.addAttribute("usuarioGrupo", repoUsuarioGrupo.findById(idGrupo).get().getUsuario().getNombre());
+        //m.addAttribute("usuarioGrupo", repoUsuarioGrupo.findById(idGrupo).get().getMovimiento().get(0).getCantidad());
+        m.addAttribute("presupuesto", repoPresupuesto.findByIdGrupo(idGrupo));
+        
+        return "grupos";
     }
 
 }

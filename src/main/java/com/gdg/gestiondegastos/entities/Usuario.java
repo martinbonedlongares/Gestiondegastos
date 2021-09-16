@@ -3,6 +3,7 @@ package com.gdg.gestiondegastos.entities;
 
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,7 +14,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "Usuario")
+@Table(name = "usuario")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -32,7 +33,7 @@ public class Usuario {
     //Uniones de Tablas
     
     //(Envia el id a UsuarioGrupo)
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "usuario",fetch = FetchType.EAGER)
     private List<UsuarioGrupo> usuarioGrupo;
     
     

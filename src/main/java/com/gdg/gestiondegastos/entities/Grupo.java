@@ -3,6 +3,7 @@ package com.gdg.gestiondegastos.entities;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,7 +15,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name = "Grupo")
+@Table(name = "grupo")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -35,6 +36,6 @@ public class Grupo {
     private List<Presupuesto> presupuesto;
     
     //(Envia su id a UsuarioGrupo)
-    @OneToMany(mappedBy = "grupo")
+    @OneToMany(mappedBy = "grupo",fetch = FetchType.EAGER)
     private List<UsuarioGrupo> usuarioGrupo;
 }

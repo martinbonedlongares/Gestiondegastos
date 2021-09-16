@@ -22,6 +22,7 @@ and open the template in the editor.
                });
             });
         </script>
+        <script src="https://www.w3schools.com/lib/w3.js"></script>
     </head>
     <body>
         <div class="container">
@@ -36,27 +37,27 @@ and open the template in the editor.
                 <a th:href="nuevoMov">NUEVO MOVIMIENTO</a>
             </div>
             
-            <table table="table-bordered table-sortable" cellspacing="0" width="100%">
+            <table id="tablaMov" table="table-bordered table-sortable" cellspacing="0" width="100%">
                 <thead>
                     <tr >
-                        <th >Concepto </th>
-                        <th >Usuario  <button onclick='sortUsuario()'><span class="glyphicon glyphicon-sort"></span></button></th>
-                        <th onclick='sortCantidad()'>Cantidad</th>
+                        <th>Concepto </th>
+                        <th>Usuario  <button onclick="w3.sortHTML('#tablaMov', '.item', 'td:nth-child(1)')"><span class="glyphicon glyphicon-sort"></span></button></th>
+                        <th>Cantidad <button onclick="w3.sortHTML('#tablaMov', '.item', 'td:nth-child(2)')"><span class="glyphicon glyphicon-sort"></span></button></th>
                         <th><input type="text" id="busqueda" placeholder="Busca un usuario"/></th>
                     </tr>
                 </thead>
-                <tbody id="tablaMov">
-                    <!--<tr th:each="mov:${grupo}">
+                <tbody >
+                    <tr th:each="mov:${grupo}" class="item">
                         <td th:text="${mov.concepto}">Comida</td>
                         <td th:text="${mov.usuario}">Martin</td>
                         <td th:text="${mov.cantidad}"></td>
-                    </tr>-->
-                    <tr>
+                    </tr>
+                    <tr class="item">
                         <td>Comida</td>
                         <td>Martin</td>
                         <td>30</td>
                     </tr>
-                    <tr>
+                    <tr class="item">
                         <td>Juego</td>
                         <td>Raul</td>
                         <td>60</td>

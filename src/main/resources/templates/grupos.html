@@ -41,8 +41,8 @@ and open the template in the editor.
                 <thead>
                     <tr >
                         <th>Concepto </th>
-                        <th>Usuario  <button onclick="w3.sortHTML('#tablaMov', '.item', 'td:nth-child(1)')"><span class="glyphicon glyphicon-sort"></span></button></th>
-                        <th>Cantidad <button onclick="w3.sortHTML('#tablaMov', '.item', 'td:nth-child(2)')"><span class="glyphicon glyphicon-sort"></span></button></th>
+                        <th>Usuario     <button onclick="w3.sortHTML('#tablaMov', '.item', 'td:nth-child(1)')"><span class="glyphicon glyphicon-sort"></span></button></th>
+                        <th>Cantidad    <button onclick="w3.sortHTML('#tablaMov', '.item', 'td:nth-child(2)')"><span class="glyphicon glyphicon-sort"></span></button></th>
                         <th><input type="text" id="busqueda" placeholder="Busca un usuario"/></th>
                     </tr>
                 </thead>
@@ -51,16 +51,6 @@ and open the template in the editor.
                         <td th:text="${mov.concepto}">Comida</td>
                         <td th:text="${mov.usuario}">Martin</td>
                         <td th:text="${mov.cantidad}"></td>
-                    </tr>
-                    <tr class="item">
-                        <td>Comida</td>
-                        <td>Martin</td>
-                        <td>30</td>
-                    </tr>
-                    <tr class="item">
-                        <td>Juego</td>
-                        <td>Raul</td>
-                        <td>60</td>
                     </tr>
                 </tbody>
             </table>

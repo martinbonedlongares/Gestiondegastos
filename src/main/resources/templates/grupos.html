@@ -6,7 +6,7 @@ and open the template in the editor.
 -->
 <html xmlns:th="https://www.thymeleaf.org">
     <head>
-        <title th:text="grupo.nombre"></title>
+        <title th:text="${grupo.nombre}"></title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -26,12 +26,12 @@ and open the template in the editor.
     </head>
     <body>
         <div class="container">
-            <h1 th:text="grupo.nombre"></h1>
-            <div th:if="${presupuesto.cantidad_inicio>0}">
-                <p id="presupuesto" th:text="${presupuesto.cantidad_inicio}"></p>
+            <h1 th:text="${grupo.nombre}"></h1>
+            <div th:if="${presupuesto.cantidadInicio>0}">
+                <p id="presupuesto" th:text="${presupuesto.cantidadInicio}"></p>
             </div>
-            <div th:unless="${presupuesto.cantidad_inicio<0}">
-                <p id="presupuesto" th:text="${presupuesto.cantidad_inicio}"></p>
+            <div th:unless="${presupuesto.cantidadInicio>0}">
+                <p id="presupuesto" th:text="${presupuesto.cantidadInicio}"></p>
             </div>
             <div>
                 <a th:href="nuevoMov">NUEVO MOVIMIENTO</a>

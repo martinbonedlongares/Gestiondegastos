@@ -1,6 +1,5 @@
 package com.gdg.gestiondegastos.controllers;
 
-import com.gdg.gestiondegastos.dto.GrupoDto;
 import com.gdg.gestiondegastos.entities.Movimiento;
 import com.gdg.gestiondegastos.entities.Usuario;
 import com.gdg.gestiondegastos.entities.UsuarioGrupo;
@@ -10,7 +9,6 @@ import com.gdg.gestiondegastos.repositories.PresupuestoRepository;
 import com.gdg.gestiondegastos.repositories.UsuarioGrupoRepository;
 import com.gdg.gestiondegastos.repositories.UsuarioRepository;
 import java.util.stream.Collectors;
-//import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,8 +31,6 @@ public class GestionDeGastosController {
     private PresupuestoRepository repoPresupuesto;
     @Autowired
     private MovimientosRepository repoMovimientos;
-    /*@Autowired
-    private ModelMapper obj;*/
 
     @PostMapping("/agregar")
     public String agregarUsuario(Model m, Usuario usuario) {

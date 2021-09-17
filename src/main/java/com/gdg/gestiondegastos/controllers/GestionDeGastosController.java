@@ -42,11 +42,11 @@ public class GestionDeGastosController {
     
     
     
-    @PostMapping("/agregar")
+    @GetMapping("/agregar")
     public String agregarUsuario(Model m, Usuario usuario){
-        repoUsuario.save(usuario);
+       // repoUsuario.save(usuario);
         
-        return "login";
+        return "nuevo";
     }
     
     @GetMapping("/principal")

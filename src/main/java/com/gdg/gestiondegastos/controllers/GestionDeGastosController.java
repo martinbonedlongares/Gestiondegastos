@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Controller
 @RequestMapping("/gestion")
@@ -31,7 +33,8 @@ public class GestionDeGastosController {
     private PresupuestoRepository repoPresupuesto;
     @Autowired
     private MovimientosRepository repoMovimientos;
-    
+     @Autowired
+    private PasswordEncoder clave;
     
     
     @PostMapping("/agregar")
@@ -40,6 +43,25 @@ public class GestionDeGastosController {
         
         return "login";
     }
+    
+    @GetMapping("/principal")
+    public String principal(Model m){   
+        //m.addAttribute("usuario", new Usuario());
+        return "nuevo";
+        //return "login";
+    }
+    
+    
+    @PostMapping("/crear")
+    public String crear(Model m, Usuario usuario){   
+           
+       usuario.setContrasenya(clave.encode(usuario.getContrasenya()));
+       repoUsuario.save(usuario);
+       return "login";
+    }
+    
+    
+    
     
     @GetMapping("/grupo/{idGrupo}")
     public String verGrupos(Model m,@PathVariable Integer idGrupo){

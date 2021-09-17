@@ -9,6 +9,7 @@ and open the template in the editor.
         <title>Nuevo movimiento</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="estilos.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
             $(document).ready(function (){
@@ -16,23 +17,7 @@ and open the template in the editor.
                 var fecha=new Date();
                 fecha.setHours(fecha.getHours()+2);
                 campo.value=fecha.getFullYear().toString()+'-'+(fecha.getMonth()+1).toString().padStart(2,0)+'-'+fecha.getDate().toString().padStart(2,0)+" "+(fecha.getHours())+":"+fecha.getMinutes()+":"+fecha.getSeconds();
-                //alert(campo.value);
-                $('#tipoMovimiento').click(function(e){
-                    e.preventDefault();
-                    
-                    var c = $('#cantidad').val();
-                    $('#cantidad').val(c*-1);  
-                    
-                    if($('#tipoMovimiento').text() === "Ingreso"){
-                        
-                        $('#tipoMovimiento').text("Gasto");
-                    }else{
-                         $('#tipoMovimiento').text("Ingreso");
-                    }
-                    
-                });
             });
-            
         </script>
     </head>
     <body>
@@ -40,7 +25,7 @@ and open the template in the editor.
             
             <form method="post" action="guardarMovimiento" th:object="${movimiento}">
                 <div>
-                    <input type="" name="idUsuarioGrupo" th:value="${param.idUsuarioGrupo[0]}"/>
+                    <input type="hidden" name="idUsuarioGrupo" th:value="${param.idUsuarioGrupo[0]}"/>
                     <input type="" th:field="*{id}"/>
                 </div>                
                 <div>
@@ -59,7 +44,7 @@ and open the template in the editor.
                     </select>
                 </div>
                 <div>
-                    <input type="text" id="fecha" th:field="*{fecha}"/>
+                    <input type="hidden" id="fecha" th:field="*{fecha}"/>
                 </div>
                 <div>
                     <label for="cantidad">Cantidad</label>
@@ -72,38 +57,45 @@ and open the template in the editor.
                     <textarea id="info" placeholder="Introduce información adicional del movimiento" rows="4" cols="50" th:field="*{info}"></textarea>
                 </div>
                 <div>
-                    <button id="primero" onclick="ocultar()" style="visibility:visible;">Guardar</button>
-                    <input id="save" type="submit" value="Aceptar" style="visibility:hidden;"/>
-                    <button id="cancelar" onclick="mostrar()" style="visibility:hidden;">Cancelar</button>
+                    <button id="primero" style="display:block">Guardar</button>
+                    <input id="save" type="submit" value="Aceptar" style="display:none"/>
+                    <button id="cancelar" style="display:none">Cancelar</button>
                 </div>
             </form>
         </div>
         <script>
-             
-             
-                
-            /*function ocultar(){
-                var x=document.getElementById("primero");
-                var y=document.getElementById("save");
-                var z=document.getElementById("cancelar");
-                x.style.visibility='hidden';
-                y.style.visibility='visible';
-                z.style.visibility='visible';
-            }
-            function mostrar(){
-                var x=document.getElementById("primero");
-                var y=document.getElementById("save");
-                var z=document.getElementById("cancelar");
-                x.style.visibility='visible';
-                y.style.visibility='hidden';
-                z.style.visibility='hidden';
-            }
-            document.getElementById("tipoMovimiento").onclick=function(){
-                var x=document.getElementById("cantidad");
-                var y=x.value;
-                x.value=y*(-1);
-                
-            };*/
+            
+             $('#gasto').click(function(e){
+                    e.preventDefault();
+                    $('#cantidad').val()*-1;
+                    $('#gasto').text("Ingreso");
+                });
+            $('#primero').click(function(e){
+                e.preventDefault();
+                $('#primero').css("display","none");
+                $('#save').css("display","block");
+                $('#cancelar').css("display","block");
+            });
+            $('#cancelar').click(function(e){
+                e.preventDefault();
+                $('#primero').css("display","block");
+                $('#save').css("display","none");
+                $('#cancelar').css("display","none");
+            });
+            $('#tipoMovimiento').click(function(e){
+                e.preventDefault();
+
+                var c = $('#cantidad').val();
+                $('#cantidad').val(c*-1);  
+
+                if($('#tipoMovimiento').text() === "Ingreso"){
+
+                    $('#tipoMovimiento').text("Gasto");
+                }else{
+                     $('#tipoMovimiento').text("Ingreso");
+                }
+
+            });
         </script>
     </body>
 </html>

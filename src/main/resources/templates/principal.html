@@ -1,20 +1,43 @@
-<html th:fragment="layout(cuerpo)">
+<!DOCTYPE html>
+<html lang="es" xmlns:th="https://www.thymeleaf.org">
 
 <head>
-    <link rel="stylesheet" href="style.css" type="text/css" />
-
-    <title>Titulo</title>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página principal</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <link rel="stylesheet" type="text/css" href="estilosLayout.css">
     <link rel="stylesheet" type="text/css" href="estilos.css">
-    <style>
 
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
+
+        * {
+            margin: 0 auto;
+            font-family: "Quicksand", sans-serif;
+        }
+
+        .divPrincipal {
+            position: relative;
+            top: 50px;
+        }
+
+        .PresupuestoPrincipal {
+            position: relative;
+            font-weight: 400;
+            font-size: 800%;
+            text-align: center;
+
+        }
     </style>
 </head>
 
-<body>
+<body class="container">
     <div class="collapse fixed-top" id="navbarToggleExternalContent">
         <div class="navegacion">
             <ul>
@@ -69,27 +92,9 @@
 
         <img src="vectoriales\icono.svg" width="35" />
     </nav>
-
-    <div class=" container" th:include="${cuerpo}"></div>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.js"></script>
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-
-    <script>
-        const lista = document.querySelectorAll('.lista');
-
-        function activarSombra() {
-            lista.forEach((item) =>
-                item.classList.remove('active'));
-            this.classList.add('active');
-        }
-
-        lista.forEach((item) => item.addEventListener('mouseover', activarSombra));
-    </script>
-
+    <div class="divPrincipal">
+        <p class="PresupuestoPrincipal">3.248€</p>
+    </div>
 </body>
 
 </html>

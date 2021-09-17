@@ -17,6 +17,10 @@
             font-family: "Quicksand", sans-serif;
         }
 
+        .container {
+            background-color: #F7F7F7;
+        }
+
         div {
             width: 100%;
             max-width: 80%;
@@ -25,8 +29,8 @@
 
         .divPrincipal {
             position: relative;
-            top: 50px;
-            margin-bottom: 100px;
+            top: 30px;
+            margin-bottom: 60px;
         }
 
         .PresupuestoPrincipal {
@@ -37,11 +41,75 @@
 
         }
 
-        tr {
-            font-size: large;
+        .movimientos {
+            border-collapse: collapse;
+            border-radius: 8px;
+            overflow: hidden;
+            width: 100%;
+            margin: 0 auto;
         }
 
-        .thread-light {}
+        .grupos {
+            border-collapse: collapse;
+            border-radius: 8px;
+            overflow: hidden;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        th {
+            width: 100%;
+            background-color: #226ACB;
+            padding: 1em;
+            border-bottom: 6px solid #F7F7F7;
+            color: #F7F7F7;
+            font-size: 15px;
+
+        }
+
+        td {
+            padding: 1em;
+            border-bottom: 4px solid #F7F7F7;
+            font-size: medium;
+        }
+
+        tr {
+            padding: 1em;
+            background: #ddd;
+            border-bottom: 4px solid #F7F7F7;
+            font-size: medium;
+        }
+
+        tr:hover {
+            background: #F7F7F7;
+        }
+
+        .negritaTD {
+            font-weight: 600;
+        }
+
+        div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        hr {
+            flex: 1px;
+            color: black;
+            margin: 0 auto;
+            border: 0;
+            height: 1px;
+            background-image: linear-gradient(to right, rgba(43, 43, 43, 0.75), rgba(129, 129, 129, 0.75), #F7F7F7);
+        }
+
+
+        @media screen and (max-width: 500px) {
+            .movimientos tr>*:nth-child(1) {
+                display: none;
+            }
+        }
     </style>
 </head>
 
@@ -51,27 +119,59 @@
         <h1 class="PresupuestoPrincipal">3.248€</h1>
     </div>
 
+
+
     <div>
-        <table class="table">
-            <thead class="thead-light">
-                <tr>
-                    <th scope="col">Concepto</th>
-                    <th scope="col">Fecha</th>
-                    <th scope="col">Importe</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th>Concepto de prueba positivo</th>
-                    <td>13/02/1999</td>
-                    <td>3.000€</td>
-                </tr>
-                <tr>
-                    <th>Concepto de prueba negativo</th>
-                    <td>14/02/1999</td>
-                    <td>4.000€</td>
-                </tr>
-            </tbody>
+        <table class="movimientos">
+            <tr>
+                <th>Concepto</th>
+                <th>Fecha</th>
+                <th>Importe</th>
+            </tr>
+            <tr>
+                <td class="negritaTD">Esto es un concepto con valor positivo</td>
+                <td>13/02/1999</td>
+                <td> +3.400€</td>
+            </tr>
+            <tr>
+                <td class="negritaTD">Esto es un concepto con valor negativo</td>
+                <td>14/02/1999</td>
+                <td> -2.430€</td>
+            </tr>
+            <tr>
+                <td class="negritaTD">Esto es un concepto con valor negativo</td>
+                <td>14/02/1999</td>
+                <td> -2.430€</td>
+            </tr>
+            <tr>
+                <td class="negritaTD">Esto es un concepto con valor negativo</td>
+                <td>14/02/1999</td>
+                <td> -2.430€</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="botonHR">
+
+        <button>Button</button>
+        <hr />
+    </div>
+
+    <div>
+        <table class="grupos">
+            <tr>
+                <th>Nombre</th>
+                <th>Presupuesto</th>
+            </tr>
+            <tr>
+                <td class="negritaTD">Regalo a María</td>
+                <td> +3.400€</td>
+            </tr>
+            <tr>
+                <td class="negritaTD">Vehículo para viaje a Zaragoza</td>
+                <td> -2.430€</td>
+            </tr>
+
         </table>
     </div>
 </body>

@@ -1,6 +1,5 @@
 package com.gdg.gestiondegastos.controllers;
 
-import com.gdg.gestiondegastos.dto.GrupoDto;
 import com.gdg.gestiondegastos.entities.Movimiento;
 import com.gdg.gestiondegastos.entities.Usuario;
 import com.gdg.gestiondegastos.entities.UsuarioGrupo;
@@ -10,7 +9,6 @@ import com.gdg.gestiondegastos.repositories.PresupuestoRepository;
 import com.gdg.gestiondegastos.repositories.UsuarioGrupoRepository;
 import com.gdg.gestiondegastos.repositories.UsuarioRepository;
 import java.util.stream.Collectors;
-//import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,31 +42,36 @@ public class GestionDeGastosController {
     @PostMapping("/agregar")
     public String agregarUsuario(Model m, Usuario usuario) {
         m.addAttribute("usuario", new Usuario());
-        repoUsuario.save(usuario);
-
-        return "login";
-
+       // repoUsuario.save(usuario);
+        return "crearUsuario";
     }
     
     @GetMapping("/principal")
     public String principal(Model m){   
-        //m.addAttribute("usuario", new Usuario());
-        //return "nuevo";
+        //m.addAttribute("usuario", new Usuario());    
         return "login";
     }
     
     
-    @GetMapping("/crear")
+    @PostMapping("/crear")
     public String crear(Model m, Usuario usuario){   
            
-       usuario.setContrasenya(clave.encode(usuario.getContrasenya()));
-     
+       usuario.setContrasenya(clave.encode(usuario.getContrasenya()));     
        repoUsuario.save(usuario);
        return "login";
     }
     
+    @PostMapping ("/ingresar")
+    public String ingresar(Model m, Usuario usuario){   
+           
+        
+       usuario.setContrasenya(clave.encode(usuario.getContrasenya()));     
+       //repoUsuario.save(usuario);
+       return "principal.html";
+    }
     
- 
+    
+    
     @GetMapping("/grupo/{idGrupo}")
     public String verGrupos(Model m, @PathVariable Integer idGrupo) {
         // m.addAttribute("usuario", )

@@ -16,20 +16,21 @@
     </head>
     <body>
         <div class="container" align="center">
-            <form class="form-signin" method="post" action="agregar">
+            <form class="form-signin" method="post" action="ingresar">
                 <h2 class="form-signin-heading">Por favor ingresa tus datos</h2>
                 <p>
-                    <label for="username" class="sr-only">Usuario</label>
-                    <input type="text" id="username" name="username"  placeholder="Usuario"  >
+                   
+                    <input type="text" id="username" name="username"  placeholder="Ingresa tu email"  >
                 </p>
                 <p>
-                    <label for="password" class="sr-only">Password</label>
-                    <input type="password" id="password" name="password"  placeholder="Password">
+                    <label for="password" class="sr-only">Ingresa tu Password</label>
+                    <input type="password" id="password" name="password"  placeholder="Ingresa tu password">
                 </p>
-
-                <button class="btn btn-primary" type="submit">Nuevo Usuario </button>
-                <!-- comment  <a th:href="@{inicio}" class="btn btn-primary btn-md"   value='Ingresar'>  Ingresar
-                </a> -->
+               
+                <a th:href="@{agregar}" class="btn btn-primary btn-md"   value='Ingresar'>  Nuevo Usuario
+                </a> 
+                
+                 <button class="btn btn-primary" type="submit">Ingresar </button>
             </form>   
         </div>
     </body>

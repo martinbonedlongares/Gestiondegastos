@@ -1,15 +1,21 @@
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
 
+body {
+  background-color: #f7f7f7;
+  margin-top: 40px;
+}
+
 * {
   font-family: "Quicksand", sans-serif;
-  font-weight: 500;
 }
 
 img {
   margin: 0 auto;
-  font-family: "Quicksand", sans-serif;
 }
 
+/* =================================
+=========== Estilos layout ===========
+====================================*/
 .navbar-custom {
   background-color: #226acb;
   font-size: large;
@@ -124,6 +130,81 @@ img {
   width: 100%;
 }
 
+/* =================================
+=====Estilos página principal ======
+====================================*/
+
+.divPrincipal {
+  position: relative;
+  top: 30px;
+  margin-bottom: 60px;
+}
+
+.presupuestoPrincipal {
+  font-weight: lighter;
+  font-size: 80px;
+  text-align: center;
+}
+
+.tablaPrincipal {
+  border-collapse: collapse;
+  border-radius: 8px;
+  overflow: hidden;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.tablaPrincipal th {
+  width: 100%;
+  background-color: #226acb;
+  padding: 1em;
+  border-bottom: 6px solid #f7f7f7;
+  color: #f7f7f7;
+  font-size: 15px;
+}
+
+.tablaPrincipal td {
+  padding: 1em;
+  border-bottom: 4px solid #f7f7f7;
+  font-size: medium;
+}
+
+.tablaPrincipal tr {
+  padding: 1em;
+  background: #ddd;
+  border-bottom: 4px solid #f7f7f7;
+  font-size: medium;
+}
+
+.tablaPrincipal tr:hover {
+  background: #f7f7f7;
+}
+
+.negritaPrincipal {
+  font-weight: 600;
+}
+
+.divHrPrincipal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.divHrPrincipal hr {
+  flex: 1px;
+  margin: 0 auto;
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(
+    to right,
+    rgba(43, 43, 43, 0.75),
+    rgba(129, 129, 129, 0.75),
+    #f7f7f7
+  );
+}
+
 @media screen and (max-width: 500px) {
   .navegacion {
     width: 100%;
@@ -133,5 +214,9 @@ img {
 
   .navegacion:hover {
     width: 100%;
+  }
+
+  #movimientos .tablaPrincipal tr > *:nth-child(1) {
+    display: none;
   }
 }

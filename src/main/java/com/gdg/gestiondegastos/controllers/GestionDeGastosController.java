@@ -34,45 +34,46 @@ public class GestionDeGastosController {
     private PresupuestoRepository repoPresupuesto;
     @Autowired
     private MovimientosRepository repoMovimientos;
-   // @Autowired
-    //private ModelMapper obj;
+    // @Autowired
+    // private ModelMapper obj;
     @Autowired
     private PasswordEncoder clave;
-            
+
+    // Este es un get para ver la principal y así ver los cambios
+    @GetMapping("/paginaPrincipal")
+    public String principal() {
+        return "principal";
+    }
 
     @PostMapping("/agregar")
     public String agregarUsuario(Model m, Usuario usuario) {
         m.addAttribute("usuario", new Usuario());
-       // repoUsuario.save(usuario);
+        // repoUsuario.save(usuario);
         return "crearUsuario";
     }
-    
+
     @GetMapping("/principal")
-    public String principal(Model m){   
-        //m.addAttribute("usuario", new Usuario());    
+    public String principal(Model m) {
+        // m.addAttribute("usuario", new Usuario());
         return "login";
     }
-    
-    
+
     @PostMapping("/crear")
-    public String crear(Model m, Usuario usuario){   
-           
-       usuario.setContrasenya(clave.encode(usuario.getContrasenya()));     
-       repoUsuario.save(usuario);
-       return "login";
+    public String crear(Model m, Usuario usuario) {
+
+        usuario.setContrasenya(clave.encode(usuario.getContrasenya()));
+        repoUsuario.save(usuario);
+        return "login";
     }
-    
-    @PostMapping ("/ingresar")
-    public String ingresar(Model m, Usuario usuario){   
-           
-        
-       usuario.setContrasenya(clave.encode(usuario.getContrasenya()));     
-       //repoUsuario.save(usuario);
-       return "principal.html";
+
+    @PostMapping("/ingresar")
+    public String ingresar(Model m, Usuario usuario) {
+
+        usuario.setContrasenya(clave.encode(usuario.getContrasenya()));
+        // repoUsuario.save(usuario);
+        return "principal.html";
     }
-    
-    
-    
+
     @GetMapping("/grupo/{idGrupo}")
     public String verGrupos(Model m, @PathVariable Integer idGrupo) {
         // m.addAttribute("usuario", )

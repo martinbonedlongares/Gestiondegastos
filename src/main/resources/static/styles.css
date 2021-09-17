@@ -11,6 +11,7 @@ body {
 
 img {
   margin: 0 auto;
+  width: 40px;
 }
 
 /* =================================
@@ -199,10 +200,33 @@ img {
   height: 1px;
   background-image: linear-gradient(
     to right,
-    rgba(43, 43, 43, 0.75),
+    #3e3434,
     rgba(129, 129, 129, 0.75),
     #f7f7f7
   );
+}
+
+/* =================================
+=====Estilos página principal ======
+====================================*/
+
+.botonAzul {
+  border: #3e3434 1px solid;
+  border-radius: 4px;
+  background-color: rgb(34, 106, 203);
+  color: #f7f7f7;
+  width: 140px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.botonAzul:hover {
+  background-color: #1c59a8;
+  color: #f7f7f7;
+  text-decoration: none;
 }
 
 @media screen and (max-width: 500px) {

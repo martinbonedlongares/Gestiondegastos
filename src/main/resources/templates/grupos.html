@@ -16,7 +16,7 @@
 <body>
 
     <div class="container">
-        <h1 th:text="grupo.nombre"></h1>
+        <h1 th:text="${grupo.nombre}"></h1>
         <div th:if="${presupuesto.cantidad>0}">
             <p id="presupuesto" th:text="${presupuesto.cantidad}"></p>
         </div>

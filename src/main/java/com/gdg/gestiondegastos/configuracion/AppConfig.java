@@ -1,4 +1,4 @@
-package com.gdg.gestiondegastos.configuracion;
+/*package com.gdg.gestiondegastos.configuracion;
 
 
 import org.modelmapper.ModelMapper;
@@ -14,4 +14,4 @@ public class AppConfig {
     }
     
             
-}
+}*/

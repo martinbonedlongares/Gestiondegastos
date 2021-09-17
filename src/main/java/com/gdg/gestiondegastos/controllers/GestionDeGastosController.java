@@ -10,7 +10,7 @@ import com.gdg.gestiondegastos.repositories.PresupuestoRepository;
 import com.gdg.gestiondegastos.repositories.UsuarioGrupoRepository;
 import com.gdg.gestiondegastos.repositories.UsuarioRepository;
 import java.util.stream.Collectors;
-import org.modelmapper.ModelMapper;
+//import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,39 +35,40 @@ public class GestionDeGastosController {
     private PresupuestoRepository repoPresupuesto;
     @Autowired
     private MovimientosRepository repoMovimientos;
-    @Autowired
-    private ModelMapper obj;
+   // @Autowired
+    //private ModelMapper obj;
     @Autowired
     private PasswordEncoder clave;
-    
-    
-    
-    @GetMapping("/agregar")
-    public String agregarUsuario(Model m, Usuario usuario){
-       // repoUsuario.save(usuario);
-        
-        return "nuevo";
+            
+
+    @PostMapping("/agregar")
+    public String agregarUsuario(Model m, Usuario usuario) {
+        m.addAttribute("usuario", new Usuario());
+        repoUsuario.save(usuario);
+
+        return "login";
+
     }
     
     @GetMapping("/principal")
     public String principal(Model m){   
         //m.addAttribute("usuario", new Usuario());
-        return "nuevo";
-        //return "login";
+        //return "nuevo";
+        return "login";
     }
     
     
-    @PostMapping("/crear")
+    @GetMapping("/crear")
     public String crear(Model m, Usuario usuario){   
            
        usuario.setContrasenya(clave.encode(usuario.getContrasenya()));
+     
        repoUsuario.save(usuario);
        return "login";
     }
     
     
-    
-    
+ 
     @GetMapping("/grupo/{idGrupo}")
     public String verGrupos(Model m, @PathVariable Integer idGrupo) {
         // m.addAttribute("usuario", )

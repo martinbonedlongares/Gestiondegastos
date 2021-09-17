@@ -15,9 +15,6 @@
 </head>
 
 <body>
-
-
-
     <div class="collapse fixed-top" id="navbarToggleExternalContent">
         <div class="navegacion">
             <ul>
@@ -65,15 +62,15 @@
         </div>
     </div>
     <nav class="navbar navbar-custom fixed-top">
-
-
         <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent"
             aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
             <i class="fas fa-bars"></i>
         </button>
-        <p>G MANAGER</p>
 
+        <img src="vectoriales\icono.svg" width="35" />
     </nav>
+
+    <div class=" container" th:include="${cuerpo}"></div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>

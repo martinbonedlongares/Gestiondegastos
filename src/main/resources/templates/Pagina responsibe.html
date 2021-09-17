@@ -20,121 +20,45 @@
 
 
     <style>
-        /* Si se quieren cambiar los parámetros de la fuente, ir al siguiente enlace: 
-https://fonts.google.com/specimen/Quicksand?query=Quicksand#standard-styles */
-
-        /* Para ver la API y las funciones de la fuente, ir al siguiente enlace:
-https://developers.google.com/fonts/docs/css2
- */
-
-        body {
-            /* Color general de la página */
-            background-color: #f7f7f7;
-            /* Color de la fuente de las letras */
-            color: #3e3434;
-            /* Esta es la fuente que se usará en el proyecto */
-            font-family: "Quicksand", sans-serif;
-
-            text-align: justify;
+        .Button {
+            position: relative;
+            border-radius: 4px;
+            background-color: rgb(237, 37, 37);
+            top: 20px;
+            width: 221px;
+            height: 50px;
         }
 
-        div {
-            /* Tamaño del contenedor de forma horizontal. */
-            width: 100%;
-            /* Tamaño que coge de la pantalla.No coge la pantalla entera y pone bordes */
-            max-width: 80%;
-            /* Con este valor ponemos el contenido centrado */
-            margin: 0 auto;
-            /* El contenido no sale del div y se recorta si alcanza su máximo */
-            overflow: hidden;
-            /* Creamos una separación con los elementos de dentro */
-            padding: 20px;
-            /* Con esto calculamos automaticamente el ancho de la caja para que no se pase del 100% */
-            box-sizing: border-box;
-        }
+        .Button:hover {
+            position: relative;
+            border-radius: 4px;
+            background-color: #c21e1e;
+            top: 20px;
+            width: 221px;
+            height: 50px;
 
-        /* Ponemos la imagen en su 100% y cuando el contenedor se haga pequeño, esta también */
-        div img {
-            width: 100%;
-            height: auto;
-        }
-
-        .valorPositivo {
-            color: #41da1f;
-        }
-
-        .valorNegativo {
-            color: #ed2525;
-        }
-
-        /* Si la anchura del dispositivo es menor de 500px, se aplican estos estilos */
-        @media screen and (max-width: 500px) {}
-
-        /* Si la orientation del dispositivo es horizontal, se aplican estos estilos */
-        @media screen and (orientation: Landscape) {}
-
-        /* Con esto cambiamos el grosor de la fuente al valor que queremos y de la entidad que queramos */
-        @supports (font-variation-settings: "wght"700) {
-            .negrita {
-                font-family: "Quicksand", sans-serif;
-                font-weight: 700;
-            }
         }
     </style>
 </head>
 
 <body>
-    <Buttonn type="button" class="btn btn-default">
-        <span class="glyphicon glyphicon-Sort- sub-atributos"> </ span>
-    </Buttonn>
-    <p class="negrita">
-        Hola
-    </p>
-    <div class="contenedor">
-        <img src="https://kaikucaffelatte.com/blog/wp-content/uploads/2020/03/shutterstock_510679489-scaled.jpg" alt="">
-        <p>Lorem ipsum dolor sit amet consectetur adipiscing elit primis, neque conubia montes tristique mauris
-            mi
-            fusce, sem cubilia metus phasellus diam rutrum nullam. Odio iaculis blandit placerat laoreet
-            vulputate
-            curabitur feugiat nulla, nibh semper habitasse tempus nunc quam vel fames, nec vehicula sociosqu eu
-            parturient maecenas luctus. Duis eleifend nascetur dui tortor eu aenean sapien aliquam per,
-            dignissim
-            nisl
-            tincidunt malesuada massa convallis posuere molestie egestas interdum, risus senectus nullam
-            himenaeos
-            praesent imperdiet inceptos nulla.
-            Lorem ipsum dolor sit amet consectetur adipiscing elit primis, neque conubia montes tristique mauris
-            mi
-            fusce, sem cubilia metus phasellus diam rutrum nullam. Odio iaculis blandit placerat laoreet
-            vulputate
-            curabitur feugiat nulla, nibh semper habitasse tempus nunc quam vel fames, nec vehicula sociosqu eu
-            parturient maecenas luctus. Duis eleifend nascetur dui tortor eu aenean sapien aliquam per,
-            dignissim
-            nisl
-            tincidunt malesuada massa convallis posuere molestie egestas interdum, risus senectus nullam
-            himenaeos
-            praesent imperdiet inceptos nulla.
-            Lorem ipsum dolor sit amet consectetur adipiscing elit primis, neque conubia montes tristique mauris
-            mi
-            fusce, sem cubilia metus phasellus diam rutrum nullam. Odio iaculis blandit placerat laoreet
-            vulputate
-            curabitur feugiat nulla, nibh semper habitasse tempus nunc quam vel fames, nec vehicula sociosqu eu
-            parturient maecenas luctus. Duis eleifend nascetur dui tortor eu aenean sapien aliquam per,
-            dignissim
-            nisl
-            tincidunt malesuada massa convallis posuere molestie egestas interdum, risus senectus nullam
-            himenaeos
-            praesent imperdiet inceptos nulla.
-        </p>
-        <p>Sort icon on a button:
-            <button type="button" class="btn btn-default btn-sm">
-                <span class="glyphicon glyphicon-sort"></span> Sort
-            </button>
-        </p>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.js"></script>
+
+    <div class="container">
+        <a type="button" class="Button"></a>
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px">
+            <path fill-rule="evenodd" fill="rgb(59, 59, 59)"
+                d="M12.0,24.0 C5.384,24.0 0.0,18.615 0.0,12.0 C0.0,5.384 5.384,0.0 12.0,0.0 C18.614,0.0 24.0,5.384 24.0,12.0 C24.0,18.615 18.614,24.0 12.0,24.0 ZM16.288,7.0 L10.63,13.498 L7.711,11.43 L6.0,12.830 L9.993,17.0 L10.63,16.928 L10.132,17.0 L18.0,8.787 L16.288,7.0 Z" />
+        </svg>
+        <img src="cartera no fondo.svg" height="87" width="100"" />
+        
+
+    </div> <!-- La solución optima es poner los scripts al final -->
+    <script src=" https://code.jquery.com/jquery-3.6.0.js"> </script> <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.js"></script>
 </body>
 <misscrip>
 

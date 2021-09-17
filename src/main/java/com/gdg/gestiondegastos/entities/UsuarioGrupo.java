@@ -35,12 +35,12 @@ public class UsuarioGrupo {
     //Uniones de tablas
     
     //(Recibe el id de Usuario)
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "id_usuario" )
     private Usuario usuario;
     
     //(Recibe el id de Grupo)    
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "id_grupo" )
     private Grupo grupo;
     

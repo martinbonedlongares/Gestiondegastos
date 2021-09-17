@@ -35,67 +35,77 @@ public class GestionDeGastosController {
     private MovimientosRepository repoMovimientos;
     /*@Autowired
     private ModelMapper obj;*/
-    
-    
-    
+
     @PostMapping("/agregar")
-    public String agregarUsuario(Model m, Usuario usuario){
+    public String agregarUsuario(Model m, Usuario usuario) {
         repoUsuario.save(usuario);
-        
+
         return "login";
     }
-    
+
     @GetMapping("/grupo/{idGrupo}")
-    public String verGrupos(Model m,@PathVariable Integer idGrupo){
-        //m.addAttribute("usuario", )
-        //m.addAttribute("nombrePresupuesto", repoPresupuesto.findByIdGrupo(idGrupo).get());
-        //m.addAttribute("grupo", repoGrupo.findById(idGrupo));
-        
-        //m.addAttribute("grupo", obj.map(repoGrupo.findById(idGrupo), GrupoDto.class));
+    public String verGrupos(Model m, @PathVariable Integer idGrupo) {
+        // m.addAttribute("usuario", )
+        // m.addAttribute("nombrePresupuesto",
+        // repoPresupuesto.findByIdGrupo(idGrupo).get());
+        // m.addAttribute("grupo", repoGrupo.findById(idGrupo));
+
+        // m.addAttribute("grupo", obj.map(repoGrupo.findById(idGrupo),
+        // GrupoDto.class));
         m.addAttribute("grupo", repoGrupo.findById(idGrupo).get());
-        /*m.addAttribute("movimientos", repoGrupo.findById(idGrupo).get().getUsuarioGrupo().stream().filter((t) -> {
-            return t.getMovimiento().stream().filter(x->x.getUsuarioGrupo().getId().equals(t.getId())).collect(Collectors.toList()); 
-        }));*/
-        //m.addAttribute("movimientos", repoMovimientos.findAll().stream().filter(x->x.getUsuarioGrupo().getId().equals(repoGrupo.findById(idGrupo).get().getId())));
-        //m.addAttribute("usuarioGrupo", repoUsuarioGrupo.findById(idGrupo).get().getMovimiento().get(0).getConcepto());
-        //m.addAttribute("usuarioGrupo", repoUsuarioGrupo.findById(idGrupo).get().getUsuario().getNombre());
-        //m.addAttribute("usuarioGrupo", repoUsuarioGrupo.findById(idGrupo).get().getMovimiento().get(0).getCantidad());
+        /*
+         * m.addAttribute("movimientos",
+         * repoGrupo.findById(idGrupo).get().getUsuarioGrupo().stream().filter((t) -> {
+         * return
+         * t.getMovimiento().stream().filter(x->x.getUsuarioGrupo().getId().equals(t.
+         * getId())).collect(Collectors.toList()); }));
+         */
+        // m.addAttribute("movimientos",
+        // repoMovimientos.findAll().stream().filter(x->x.getUsuarioGrupo().getId().equals(repoGrupo.findById(idGrupo).get().getId())));
+        // m.addAttribute("usuarioGrupo",
+        // repoUsuarioGrupo.findById(idGrupo).get().getMovimiento().get(0).getConcepto());
+        // m.addAttribute("usuarioGrupo",
+        // repoUsuarioGrupo.findById(idGrupo).get().getUsuario().getNombre());
+        // m.addAttribute("usuarioGrupo",
+        // repoUsuarioGrupo.findById(idGrupo).get().getMovimiento().get(0).getCantidad());
         m.addAttribute("presupuesto", repoPresupuesto.findByIdGrupo(idGrupo));
-        
+
         return "grupos";
     }
-    
+
     @GetMapping("/movimientos")
-    public String verMovimientos(Model m, Integer idMovimiento){
-         m.addAttribute("movimiento", repoMovimientos.findById(idMovimiento).get());
-         
-         return "movimientos";
+    public String verMovimientos(Model m, Integer idMovimiento) {
+        m.addAttribute("movimiento", repoMovimientos.findById(idMovimiento).get());
+
+        return "movimientos";
     }
-    
-   /* @PostMapping("/grupo/{idGrupo}/nuevoMovimiento")
-    public String nuevoMovimientos(Model m, Integer idUsuarioGrupo){
-        Movimiento mov = new Movimiento();
-         mov.setUsuarioGrupo(repoUsuarioGrupo.findById(idUsuarioGrupo).get());
-         m.addAttribute("movimiento", mov);
-         
-         return "nuevoMov";
-    }*/
-    //Ejemplo ded url: http://localhost:8080/gestion/grupo/6
+
+    /*
+     * @PostMapping("/grupo/{idGrupo}/nuevoMovimiento") public String
+     * nuevoMovimientos(Model m, Integer idUsuarioGrupo){ Movimiento mov = new
+     * Movimiento();
+     * mov.setUsuarioGrupo(repoUsuarioGrupo.findById(idUsuarioGrupo).get());
+     * m.addAttribute("movimiento", mov);
+     * 
+     * return "nuevoMov"; }
+     */
+    // Ejemplo ded url: http://localhost:8080/gestion/grupo/6
     @GetMapping("/grupo/{idGrupo}/nuevoMovimiento")
-    public String nuevoMovimientos(Model m, Integer idUsuarioGrupo){
+    public String nuevoMovimientos(Model m, Integer idUsuarioGrupo) {
         Movimiento mov = new Movimiento();
-         mov.setUsuarioGrupo(repoUsuarioGrupo.findById(idUsuarioGrupo).get());
-         m.addAttribute("movimiento", mov);
-         
-         return "nuevoMov";
+        mov.setUsuarioGrupo(repoUsuarioGrupo.findById(idUsuarioGrupo).get());
+        m.addAttribute("movimiento", mov);
+
+        return "nuevoMov";
     }
+
     //
     @PostMapping("/grupo/{idGrupo}/guardarMovimiento")
-    public String guardarMovimiento(Model m, Movimiento mov, Integer idUsuarioGrupo){
+    public String guardarMovimiento(Model m, Movimiento mov, Integer idUsuarioGrupo) {
         UsuarioGrupo ug = repoUsuarioGrupo.findById(idUsuarioGrupo).get();
         mov.setUsuarioGrupo(ug);
         repoMovimientos.save(mov);
         return "redirect:/gestion/grupo/{idGrupo}";
-    } 
-    
+    }
+
 }

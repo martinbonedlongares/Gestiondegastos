@@ -92,14 +92,6 @@
                 <version>2.19.1</version>
             </plugin>
         </plugins>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <includes>
-                    <include>**/*.properties</include>
-                </includes>
-            </resource>
-        </resources>
     </build>
 
 </project>

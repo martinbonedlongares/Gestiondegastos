@@ -36,6 +36,6 @@ public class Grupo {
     private List<Presupuesto> presupuesto;*/
     
     //(Envia su id a UsuarioGrupo)
-    @OneToMany(mappedBy = "grupo",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "grupo")
     private List<UsuarioGrupo> usuarioGrupo;
 }

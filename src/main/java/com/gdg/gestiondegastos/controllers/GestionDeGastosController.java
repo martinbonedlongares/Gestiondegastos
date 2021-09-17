@@ -1,5 +1,6 @@
 package com.gdg.gestiondegastos.controllers;
 
+import com.gdg.gestiondegastos.entities.Grupo;
 import com.gdg.gestiondegastos.entities.Movimiento;
 import com.gdg.gestiondegastos.entities.Usuario;
 import com.gdg.gestiondegastos.entities.UsuarioGrupo;
@@ -8,7 +9,7 @@ import com.gdg.gestiondegastos.repositories.MovimientosRepository;
 import com.gdg.gestiondegastos.repositories.PresupuestoRepository;
 import com.gdg.gestiondegastos.repositories.UsuarioGrupoRepository;
 import com.gdg.gestiondegastos.repositories.UsuarioRepository;
-import java.util.stream.Collectors;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -81,7 +82,9 @@ public class GestionDeGastosController {
 
         // m.addAttribute("grupo", obj.map(repoGrupo.findById(idGrupo),
         // GrupoDto.class));
+
         m.addAttribute("grupo", repoGrupo.findById(idGrupo).get());
+        m.addAttribute("movimientos", repoMovimientos.leerPorGrupo(idGrupo));
         /*
          * m.addAttribute("movimientos",
          * repoGrupo.findById(idGrupo).get().getUsuarioGrupo().stream().filter((t) -> {

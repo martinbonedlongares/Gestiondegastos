@@ -31,6 +31,7 @@
             </div>
             <div>
                 <a onclick="mostrarFormulario()" class="btn">NUEVO MOVIMIENTO</a>
+                <a th:href="@{|${idGrupo}/nuevoMovimiento|(idUsuarioGrupo = ${movimientos[0].usuarioGrupo.id})}">NUEVO MOVIMIENTO</a>
             </div>
             
             <table table="table-bordered table-sortable" cellspacing="0" width="100%" id="tablaMov">
@@ -43,13 +44,13 @@
                     </tr>
                 </thead>
                 <tbody >
-                    <th:block th:each="ug:${grupo.usuarioGrupo}">
-                        <tr th:each="mov:${ug.movimiento}" class="item">
+
+                        <tr th:each="mov:${movimientos}" class="item">
                             <td th:text="${mov.concepto}"></td>
                             <td th:text="${mov.usuarioGrupo.usuario.nombre}"></td>
                             <td th:text="${mov.cantidad}"></td>
                         </tr>
-                    </th:block>
+
                 </tbody>
             </table>
         </div>
@@ -67,7 +68,7 @@
             
             function mostrarFormulario(){
                 $.ajax({
-                   url:"nuevoMov",
+                   url:"nuevoMovimiento",
                    data:{},
                    success: function (nuevoMov){
                         bootbox.dialog({

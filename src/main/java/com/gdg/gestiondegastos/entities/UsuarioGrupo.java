@@ -47,6 +47,6 @@ public class UsuarioGrupo {
     
     //(Envia el id a Movimiento)
     
-    @OneToMany(mappedBy = "usuarioGrupo", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "usuarioGrupo")
     private List<Movimiento> movimiento;
 }

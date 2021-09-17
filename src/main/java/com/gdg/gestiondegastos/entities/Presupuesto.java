@@ -38,7 +38,7 @@ public class Presupuesto {
     
     //-----------COMPROBAR 2----------  
     //(Recibe id de grupo)
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "id_grupo")
     private Grupo grupo;
 }

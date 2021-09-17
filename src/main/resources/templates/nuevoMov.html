@@ -9,6 +9,7 @@ and open the template in the editor.
         <title>Nuevo movimiento</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="estilos.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
             $(document).ready(function (){
@@ -66,27 +67,14 @@ and open the template in the editor.
             
              $('#gasto').click(function(e){
                     e.preventDefault();
-                    $('#cantidad').val()=$(this).val()*-1;
-                    console.log("hola")
-                    console.log($('#gasto').text()+" "+$('#gasto').html())
-                    if($('#gasto').text()== "Gasto"){
-                        $('#gasto').empty();
-                    }else{
-                        $('#gasto').text("Gasto");
-                    }
-                    
-                    
-                    
+                    $('#cantidad').val()*-1;
+                    $('#gasto').text("Ingreso");
                 });
-            /*function ocultar(){
-                var x=document.getElementById("primero");
-                var y=document.getElementById("save");
-                var z=document.getElementById("cancelar");
-                x.style.visibility='hidden';
-                y.style.visibility='visible';
-                z.style.visibility='visible';
-            }
-            function mostrar(){
+            $('#primero').click(function(e){
+                e.preventDefault();
+                $('#primero').
+            });
+            /*function mostrar(){
                 var x=document.getElementById("primero");
                 var y=document.getElementById("save");
                 var z=document.getElementById("cancelar");

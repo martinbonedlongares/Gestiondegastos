@@ -38,11 +38,12 @@ public class Movimiento {
     private String concepto;
     private Double cantidad;
 
-    //@ManyToOne
-    //@JoinColumn(name = "id_usuario_grupo")
-    //private UsuarioGrupo idUsuarioGrupo;
+    /*@ManyToOne
+    @JoinColumn(name = "id_usuario_grupo")
+    private UsuarioGrupo idUsuarioGrupo;
+    */
     //(Recibe el id de Grupo)    
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "id_usuarioGrupo")
+    @JoinColumn(name = "id_usuario_grupo")
     private UsuarioGrupo usuarioGrupo;
 }

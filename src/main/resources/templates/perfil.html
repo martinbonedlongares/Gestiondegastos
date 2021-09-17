@@ -9,10 +9,39 @@ and open the template in the editor.
         <title>Tu perfil</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="estilos.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     </head>
     <body>
         <div class="container">
-            
+            <form method="post" action="guardarPerfil" th:object="${usuario}">
+                <div>
+                    <label for="nombre">Nombre</label>
+                    <input id="nombre" type="text" name="nombre" th:field="*{nombre}"/>
+                </div>
+                <div>
+                    <label for="correo">Correo electrónico</label>
+                    <input id="correo" name="correo" type="email" th:field="*{correo}"/>
+                </div>
+                <div>
+                    <label for="tlf">Teléfono</label>
+                    <input id="tlf" name="tlf" type="number" th:field="*{telefono}"/>
+                </div>
+                <div>
+                    <button id="cambio" style="display:block">Cabiar contraseña</button>
+                    <label id="cont" for="contrasenya" style="display:none">Contraseña</label>
+                    <input id="contrasenya" name="contrasenya" type="password" style="display:none" placeholder="Introduce tu antigua constraseña"/>
+                    
+                </div>
+            </form>
         </div>
+        <script>
+            $('#cambio').click(function(e){
+               e.preventDefault();
+               $('#cambio').css("display","none");
+               $('#cont').css("display","block");
+               $('#contrasenya').css("display","block");
+            });
+        </script>
     </body>
 </html>

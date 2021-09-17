@@ -1,5 +1,6 @@
 package com.gdg.gestiondegastos.controllers;
 
+import com.gdg.gestiondegastos.dto.GrupoDto;
 import com.gdg.gestiondegastos.entities.Movimiento;
 import com.gdg.gestiondegastos.entities.Usuario;
 import com.gdg.gestiondegastos.entities.UsuarioGrupo;
@@ -9,6 +10,7 @@ import com.gdg.gestiondegastos.repositories.PresupuestoRepository;
 import com.gdg.gestiondegastos.repositories.UsuarioGrupoRepository;
 import com.gdg.gestiondegastos.repositories.UsuarioRepository;
 import java.util.stream.Collectors;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,8 +35,11 @@ public class GestionDeGastosController {
     private PresupuestoRepository repoPresupuesto;
     @Autowired
     private MovimientosRepository repoMovimientos;
-     @Autowired
+    @Autowired
+    private ModelMapper obj;
+    @Autowired
     private PasswordEncoder clave;
+    
     
     
     @PostMapping("/agregar")
@@ -69,6 +74,7 @@ public class GestionDeGastosController {
         //m.addAttribute("nombrePresupuesto", repoPresupuesto.findByIdGrupo(idGrupo).get());
         //m.addAttribute("grupo", repoGrupo.findById(idGrupo));
         
+        //m.addAttribute("grupo", obj.map(repoGrupo.findById(idGrupo), GrupoDto.class));
         m.addAttribute("grupo", repoGrupo.findById(idGrupo).get());
         /*m.addAttribute("movimientos", repoGrupo.findById(idGrupo).get().getUsuarioGrupo().stream().filter((t) -> {
             return t.getMovimiento().stream().filter(x->x.getUsuarioGrupo().getId().equals(t.getId())).collect(Collectors.toList()); 
@@ -108,7 +114,7 @@ public class GestionDeGastosController {
     }
     //
     @PostMapping("/grupo/{idGrupo}/guardarMovimiento")
-    public String guardarMovimiento(Model m, Movimiento mov, int idUsuarioGrupo){
+    public String guardarMovimiento(Model m, Movimiento mov, Integer idUsuarioGrupo){
         UsuarioGrupo ug = repoUsuarioGrupo.findById(idUsuarioGrupo).get();
         mov.setUsuarioGrupo(ug);
         repoMovimientos.save(mov);

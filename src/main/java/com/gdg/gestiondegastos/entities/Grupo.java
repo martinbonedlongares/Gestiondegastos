@@ -32,8 +32,8 @@ public class Grupo {
     
     //-----------COMPROBAR 1---------- 
     //(Envia su id a Presupuesto)
-    @OneToMany(mappedBy = "grupo")
-    private List<Presupuesto> presupuesto;
+    /*@OneToMany(mappedBy = "grupo")
+    private List<Presupuesto> presupuesto;*/
     
     //(Envia su id a UsuarioGrupo)
     @OneToMany(mappedBy = "grupo",fetch = FetchType.EAGER)

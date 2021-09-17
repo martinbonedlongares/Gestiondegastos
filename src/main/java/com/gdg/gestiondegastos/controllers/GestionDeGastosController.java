@@ -75,7 +75,7 @@ public class GestionDeGastosController {
          
          return "nuevoMov";
     }*/
-    
+    //Ejemplo ded url: http://localhost:8080/gestion/grupo/6
     @GetMapping("/grupo/{idGrupo}/nuevoMovimiento")
     public String nuevoMovimientos(Model m, Integer idUsuarioGrupo){
         Movimiento mov = new Movimiento();
@@ -84,7 +84,7 @@ public class GestionDeGastosController {
          
          return "nuevoMov";
     }
-
+    //
     @PostMapping("/grupo/{idGrupo}/guardarMovimiento")
     public String guardarMovimiento(Model m, Movimiento mov, int idUsuarioGrupo){
         UsuarioGrupo ug = repoUsuarioGrupo.findById(idUsuarioGrupo).get();

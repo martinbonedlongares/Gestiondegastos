@@ -45,7 +45,7 @@ public class GestionDeGastosController {
         return "principal";
     }
 
-    @PostMapping("/agregar")
+    @GetMapping("/agregar")
     public String agregarUsuario(Model m, Usuario usuario) {
         m.addAttribute("usuario", new Usuario());
         // repoUsuario.save(usuario);

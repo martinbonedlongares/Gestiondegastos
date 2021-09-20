@@ -25,21 +25,21 @@ and open the template in the editor.
             <form method="post" action="guardarMovimiento" th:object="${movimiento}">
                 <div>
                     <input type="hidden" name="idUsuarioGrupo" th:value="${param.idUsuarioGrupo[0]}"/>
-                    <input type="" th:field="*{id}"/>
+                    <input type="hidden" th:field="*{id}"/>
                 </div>                
                 <div>
                     <label for="concepto">Concepto</label>
                     <select id="concepto" name="concepto" th:field="*{concepto}">
-                        <option value="entretenimiento">Entretenimiento</option>
-                        <option value="alimentacion">Alimentación</option>
-                        <option value="ropa">Ropa</option>
-                        <option value="hogar">Hogar</option>
-                        <option value="higiene">Higiene</option>
-                        <option value="transporte">Transporte</option>
-                        <option value="comunicacion">Comunicación</option>
-                        <option value="medicina">Medicina</option>
-                        <option value="regalo">Regalo</option>
-                        <option value="mascotas">Mascota</option>
+                        <option value="Entretenimiento">Entretenimiento</option>
+                        <option value="Alimentacion">Alimentación</option>
+                        <option value="Ropa">Ropa</option>
+                        <option value="Hogar">Hogar</option>
+                        <option value="Higiene">Higiene</option>
+                        <option value="Transporte">Transporte</option>
+                        <option value="Comunicacion">Comunicación</option>
+                        <option value="Medicina">Medicina</option>
+                        <option value="Regalo">Regalo</option>
+                        <option value="Mascotas">Mascota</option>
                     </select>
                 </div>
                 <div>

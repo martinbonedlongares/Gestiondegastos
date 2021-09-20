@@ -22,32 +22,35 @@
     </head>
     <body>
         <div class="container">
-            <h1 th:text="${grupo.nombre}"></h1>
-            <div th:if="${presupuesto.cantidadInicio>0}">
-                <p id="presupuesto" th:text="${presupuesto.cantidadInicio}"></p>
+            <a class="h1" th:text="${grupo.nombre}" th:href="@{|${idGrupo}/gestionar|}"></a>
+            
+            <div class="my-3 h2">
+                Presupuesto inicial: <span id="presupuesto" th:text="${presupuesto.cantidadInicio}"></span>€
             </div>
-            <div th:unless="${presupuesto.cantidadInicio>0}">
-                <p id="presupuesto" th:text="${presupuesto.cantidadInicio}"></p>
+            <div class="h2">
+              Presupuesto final:  <span id="presupuesto" th:text="${presupuesto.cantidadFinal}"></span>€
             </div>
-            <div>
+            <div class="h2">
                 <!--<a onclick="mostrarFormulario()" class="btn">NUEVO MOVIMIENTO</a>-->
                 <a th:href="@{|${idGrupo}/nuevoMovimiento|(idUsuarioGrupo = ${movimientos[0].usuarioGrupo.id})}">NUEVO MOVIMIENTO</a>
             </div>
             
-            <table class="table table-hover" cellspacing="0" width="100%" id="tablaMov">
+            <table class="table table-hover h4" cellspacing="0" width="100%" id="tablaMov">
                 <thead>
                     <tr>
-                        <th>Concepto</th>
+                        <th>Cantidad</th>
                         <th>Usuario     <button onclick="w3.sortHTML('#tablaMov', '.item', 'td:nth-child(1)')"><span class="glyphicon glyphicon-sort"></span></button></th>
-                        <th>Cantidad    <button onclick="w3.sortHTML('#tablaMov', '.item', 'td:nth-child(2)')"><span class="glyphicon glyphicon-sort"></span></button></th>
+                        <th>Concepto    <button onclick="w3.sortHTML('#tablaMov', '.item', 'td:nth-child(2)')"><span class="glyphicon glyphicon-sort"></span></button></th>
+                        <th>Información    <button onclick="w3.sortHTML('#tablaMov', '.item', 'td:nth-child(3)')"><span class="glyphicon glyphicon-sort"></span></button></th>
                         <th><input type="text" id="busqueda" placeholder="Busca un usuario" /></th>
                     </tr>
                 </thead>
                 <tbody >                        
                     <tr th:each="mov:${movimientos}" class="item">
-                        <td th:text="${mov.concepto}"></td>
-                        <td th:text="${mov.usuarioGrupo.usuario.nombre}"></td>
                         <td th:text="${mov.cantidad}"></td>
+                        <td th:text="${mov.usuarioGrupo.usuario.nombre}"></td>
+                        <td th:text="${mov.concepto}"></td>
+                        <td th:text="${mov.info}"></td>
                     </tr>
                 </tbody>
             </table>

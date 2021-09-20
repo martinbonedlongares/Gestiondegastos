@@ -47,6 +47,6 @@ public class UsuarioGrupo {
     
     //(Envia el id a Movimiento)
     
-    @OneToMany(mappedBy = "usuarioGrupo")
+    @OneToMany(mappedBy = "usuarioGrupo",cascade = CascadeType.ALL)
     private List<Movimiento> movimiento;
 }

@@ -1,7 +1,7 @@
 <html lang="es" xmlns:th="https://www.thymeleaf.org" th:replace="layout::layout( ~{::body})">
 
 <head>
-    <meta charset=" UTF-8">
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página principal</title>
@@ -14,7 +14,7 @@
 <body>
 
     <div class="divPrincipal">
-        <p class="presupuestoPrincipal">3.248€</p>
+        <p class="presupuestoPrincipal" th:text="${presupuestoPersonal}">3.248€</p>
     </div>
     <div class="divHrPrincipal">
         <button class="botonAzul">Nuevo importe</button>

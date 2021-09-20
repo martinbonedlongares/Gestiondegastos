@@ -12,8 +12,14 @@ import com.gdg.gestiondegastos.repositories.UsuarioGrupoRepository;
 import com.gdg.gestiondegastos.repositories.UsuarioRepository;
 import com.mysql.cj.Constants;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +28,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/gestion")
@@ -44,15 +51,22 @@ public class GestionDeGastosController {
 
     // Este es un get para ver la principal y así ver los cambios
     @GetMapping("/paginaPrincipal")
+
     public String principal() {
         return "principal";
     }
 
     @GetMapping("/inicio/{idUsuario}")
     public String inicio(Model m, @PathVariable Integer idUsuario) {
-        Usuario user = repoUsuario.getById(idUsuario);
+        Usuario user = repoUsuario.findById(idUsuario).get();
+        // user = repoUsuario.getById(idUsuario);
 
-        m.addAttribute("presupuestoPersonal", user.getId());
+        // Suma todas las cantidades iniciales indicadas en el presupuesto del usuario
+        m.addAttribute("presupuestoPersonal",
+                user.getUsuarioGrupo().stream().map(x -> x.getGrupo().getPresupuesto()).collect(Collectors
+                        .summingDouble(p -> p.stream().collect(Collectors.summingDouble(z -> z.getCantidadInicio())))));
+
+        m.addAttribute("movimientos", repoMovimientos.leerPorUsuario(idUsuario));
 
         return "principal";
     }
@@ -78,26 +92,37 @@ public class GestionDeGastosController {
         return "login";
     }
 
+    @GetMapping("/info")
+    @ResponseBody
+    public String info() {
+        return SecurityContextHolder.getContext().getAuthentication().getName();
+    }
+
+    // @Qualifier("amB")
+
+    @Autowired
+    private AuthenticationManager am;
+
     @PostMapping("/ingresar") // hacer login
-    public String ingresar(Model m, String username, String password) {
+    public String ingresar(Model m, String correo, String contrasenya) {
+
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(correo, contrasenya);
+        Authentication auth = am.authenticate(token);
+        SecurityContextHolder.getContext().setAuthentication(auth);
 
         Usuario usuario = new Usuario();
-        System.out.println(" USUARIO  1    " + username);
+        System.out.println(" USUARIO  1    " + correo);
         try {
-            usuario = repoUsuario.findByCorreo(username);
+            usuario = repoUsuario.findByCorreo(correo);
             System.out.println(" USUARIO   2   " + usuario.getNombre());
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         if (usuario.getNombre() != null)
-
-        // if (usuario.getContrasenya()== clave.encode(password))
-        {
             return "principal";
-        } else {
+        else
             return "login";
-        }
     }
 
     @GetMapping("/grupo/{idGrupo}")
@@ -142,8 +167,10 @@ public class GestionDeGastosController {
      * 
      * return "nuevoMov"; }
      */
+
     // Ejemplo ded url: http://localhost:8080/gestion/grupo/6
     @GetMapping("/grupo/{idGrupo}/nuevoMovimiento")
+
     public String nuevoMovimientos(Model m, Integer idUsuarioGrupo) {
         Movimiento mov = new Movimiento();
         mov.setUsuarioGrupo(repoUsuarioGrupo.findById(idUsuarioGrupo).get());

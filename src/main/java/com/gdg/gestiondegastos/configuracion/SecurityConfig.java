@@ -6,12 +6,16 @@
 package com.gdg.gestiondegastos.configuracion;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,6 +26,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Autowired
     private UserDetailsService validacion;    
+    
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     
     //Aquí se configura el acceso
     @Override
@@ -53,16 +60,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                  .withUser("jorge").password("{noop}1111").roles("Usuario")
                  .and()
                  .withUser("juan").password("{noop}1111").roles("Administrador");*/
-        int a=3;
-        auth.userDetailsService(validacion).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(validacion).passwordEncoder(passwordEncoder);
     }
     
     
-    @Bean(name="passwordEncoder")
+    @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
-    
-    
+
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+
     
 }

@@ -15,6 +15,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +28,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/gestion")
@@ -87,25 +93,36 @@ public class GestionDeGastosController {
         repoUsuario.save(usuario);
         return "login";
     }
+    
+    @GetMapping("/info")
+    @ResponseBody
+    public String info(){
+        return SecurityContextHolder.getContext().getAuthentication().getName();
+    } 
 
+    //@Qualifier("amB")
+
+    @Autowired
+    private AuthenticationManager am;
     @PostMapping("/ingresar") // hacer login
-    public String ingresar(Model m, String username, String password) {
+    public String ingresar(Model m, String correo, String contrasenya) {
+        
+        UsernamePasswordAuthenticationToken token=new UsernamePasswordAuthenticationToken(correo,contrasenya);
+        Authentication auth=am.authenticate(token);
+        SecurityContextHolder.getContext().setAuthentication(auth);
 
-        Usuario usuario = new Usuario();
-        System.out.println(" USUARIO  1    " + username);
-        try {
-            usuario = repoUsuario.findByCorreo(username);
-            System.out.println(" USUARIO   2   " + usuario.getNombre());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        if (usuario.getNombre() != null) // if (usuario.getContrasenya()== clave.encode(password))
-        {
-            return "principal";
-        } else {
-            return "login";
-        }
+       Usuario usuario =   new Usuario();
+       System.out.println(" USUARIO  1    "  + correo);
+       try{        
+              usuario = repoUsuario.findByCorreo(correo);
+              System.out.println(" USUARIO   2   "  + usuario.getNombre());
+       }catch (Exception e)
+       { e.printStackTrace();}
+           
+        if (usuario.getNombre() !=null )
+           return "principal";
+        else 
+           return "login";
     }
 
     @GetMapping("/grupo/{idGrupo}")

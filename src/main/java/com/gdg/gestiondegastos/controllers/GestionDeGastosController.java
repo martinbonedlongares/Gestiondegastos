@@ -2,6 +2,7 @@ package com.gdg.gestiondegastos.controllers;
 
 import com.gdg.gestiondegastos.entities.Grupo;
 import com.gdg.gestiondegastos.entities.Movimiento;
+import com.gdg.gestiondegastos.entities.Presupuesto;
 import com.gdg.gestiondegastos.entities.Usuario;
 import com.gdg.gestiondegastos.entities.UsuarioGrupo;
 import com.gdg.gestiondegastos.repositories.GrupoRepository;
@@ -9,7 +10,9 @@ import com.gdg.gestiondegastos.repositories.MovimientosRepository;
 import com.gdg.gestiondegastos.repositories.PresupuestoRepository;
 import com.gdg.gestiondegastos.repositories.UsuarioGrupoRepository;
 import com.gdg.gestiondegastos.repositories.UsuarioRepository;
+import com.mysql.cj.Constants;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,16 +39,25 @@ public class GestionDeGastosController {
     private MovimientosRepository repoMovimientos;
     // @Autowired
     // private ModelMapper obj;
-    @Autowired
-    private PasswordEncoder clave;
+   // @Autowired
+    //private PasswordEncoder clave;
 
     // Este es un get para ver la principal y así ver los cambios
     @GetMapping("/paginaPrincipal")
     public String principal() {
         return "principal";
     }
+    
+    @GetMapping("/inicio/{idUsuario}")
+    public String inicio(Model m,@PathVariable Integer idUsuario) {
+        Usuario user = repoUsuario.getById(idUsuario);
+        
+        m.addAttribute("presupuestoPersonal", user.getId());
+       
+        return "principal";
+    }
 
-    @PostMapping("/agregar")
+    @GetMapping("/agregar")
     public String agregarUsuario(Model m, Usuario usuario) {
         m.addAttribute("usuario", new Usuario());
         // repoUsuario.save(usuario);
@@ -54,64 +66,72 @@ public class GestionDeGastosController {
 
     @GetMapping("/principal")
     public String principal(Model m) {
-        // m.addAttribute("usuario", new Usuario());
+       // m.addAttribute("usuario", new Usuario());
         return "login";
     }
 
     @PostMapping("/crear")
     public String crear(Model m, Usuario usuario) {
 
-        usuario.setContrasenya(clave.encode(usuario.getContrasenya()));
+//        usuario.setContrasenya(clave.encode(usuario.getContrasenya()));
         repoUsuario.save(usuario);
         return "login";
     }
 
-    @PostMapping("/ingresar")
-    public String ingresar(Model m, Usuario usuario) {
+    @PostMapping("/ingresar") // hacer login
+    public String ingresar(Model m, String username, String password) {
 
-        usuario.setContrasenya(clave.encode(usuario.getContrasenya()));
-        // repoUsuario.save(usuario);
-        return "principal.html";
+       Usuario usuario =   new Usuario();
+       System.out.println(" USUARIO  1    "  + username);
+       try{        
+              usuario = repoUsuario.findByCorreo(username);
+              System.out.println(" USUARIO   2   "  + usuario.getNombre());
+       }catch (Exception e)
+       { e.printStackTrace();}
+           
+       if (usuario.getNombre() !=null )
+       
+     // if (usuario.getContrasenya()== clave.encode(password))
+       {
+           return "principal";
+      }
+      else {
+         return "login";
+      }
     }
 
     @GetMapping("/grupo/{idGrupo}")
-    public String verGrupos(Model m, @PathVariable Integer idGrupo) {
-        // m.addAttribute("usuario", )
-        // m.addAttribute("nombrePresupuesto",
-        // repoPresupuesto.findByIdGrupo(idGrupo).get());
-        // m.addAttribute("grupo", repoGrupo.findById(idGrupo));
-
-        // m.addAttribute("grupo", obj.map(repoGrupo.findById(idGrupo),
-        // GrupoDto.class));
+    public String verGrupos(Model m, @PathVariable Integer idGrupo) {        
 
         m.addAttribute("grupo", repoGrupo.findById(idGrupo).get());
         m.addAttribute("movimientos", repoMovimientos.leerPorGrupo(idGrupo));
-        /*
-         * m.addAttribute("movimientos",
-         * repoGrupo.findById(idGrupo).get().getUsuarioGrupo().stream().filter((t) -> {
-         * return
-         * t.getMovimiento().stream().filter(x->x.getUsuarioGrupo().getId().equals(t.
-         * getId())).collect(Collectors.toList()); }));
-         */
-        // m.addAttribute("movimientos",
-        // repoMovimientos.findAll().stream().filter(x->x.getUsuarioGrupo().getId().equals(repoGrupo.findById(idGrupo).get().getId())));
-        // m.addAttribute("usuarioGrupo",
-        // repoUsuarioGrupo.findById(idGrupo).get().getMovimiento().get(0).getConcepto());
-        // m.addAttribute("usuarioGrupo",
-        // repoUsuarioGrupo.findById(idGrupo).get().getUsuario().getNombre());
-        // m.addAttribute("usuarioGrupo",
-        // repoUsuarioGrupo.findById(idGrupo).get().getMovimiento().get(0).getCantidad());
+        
         m.addAttribute("presupuesto", repoPresupuesto.findByIdGrupo(idGrupo));
 
         return "grupos";
     }
+    
+     @GetMapping("/grupo/{idGrupo}/gestionar")
+    public String gestionarGrupos(Model m, @PathVariable Integer idGrupo) {        
 
-    @GetMapping("/movimientos")
+        m.addAttribute("grupos", repoGrupo.findById(idGrupo).get().getUsuarioGrupo());
+            
+        return "gestionGrupos";
+    }
+
+    @GetMapping("/grupo/{idGrupo}/borrarUsuario")
+    public String borrarUsuario(Integer idUsuarioGrupo, Integer idGrupo){
+        repoUsuarioGrupo.deleteById(idUsuarioGrupo);
+        return "redirect:/gestion/grupo/{idGrupo}/gestionar";
+    }
+    
+    
+    /*@GetMapping("/movimientos")
     public String verMovimientos(Model m, Integer idMovimiento) {
         m.addAttribute("movimiento", repoMovimientos.findById(idMovimiento).get());
 
         return "movimientos";
-    }
+    }*/
 
     /*
      * @PostMapping("/grupo/{idGrupo}/nuevoMovimiento") public String
@@ -134,10 +154,14 @@ public class GestionDeGastosController {
 
     //
     @PostMapping("/grupo/{idGrupo}/guardarMovimiento")
-    public String guardarMovimiento(Model m, Movimiento mov, Integer idUsuarioGrupo) {
+    public String guardarMovimiento(Model m, Movimiento mov, Integer idUsuarioGrupo, @PathVariable Integer idGrupo) {
         UsuarioGrupo ug = repoUsuarioGrupo.findById(idUsuarioGrupo).get();
         mov.setUsuarioGrupo(ug);
         repoMovimientos.save(mov);
+        
+        Presupuesto p = repoPresupuesto.findByIdGrupo(idGrupo);
+        p.setCantidadFinal(p.getCantidadFinal()+mov.getCantidad());
+        repoPresupuesto.save(p);
         return "redirect:/gestion/grupo/{idGrupo}";
     }
 

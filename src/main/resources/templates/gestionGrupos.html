@@ -1,0 +1,33 @@
+<html xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <title>Titulo</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div class="container">
+            <div class="h2">
+                <!--<a onclick="mostrarFormulario()" class="btn">NUEVO MOVIMIENTO</a>-->
+                <a th:href="@{|/gestion/grupo/${idGrupo}|}">Volver</a>
+            </div>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Correo  </th>
+                        <th>Teléfono </th>
+                        <th>Borrar </th>
+                    </tr>
+                </thead>
+                <tbody >                        
+                    <tr th:each="grupo:${grupos}" class="item">
+                        <td th:text="${grupo.usuario.nombre}"></td>
+                        <td th:text="${grupo.usuario.correo}"></td>
+                        <td th:text="${grupo.usuario.telefono}"></td>
+                        <td><a class="btn btn-danger" th:href="@{borrarUsuario(idUsuarioGrupo=${grupo.id},idGrupo=${idGrupo})}">X</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>

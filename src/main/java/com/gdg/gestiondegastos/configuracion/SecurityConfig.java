@@ -57,7 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                  .withUser("jorge").password("{noop}1111").roles("Usuario")
                  .and()
                  .withUser("juan").password("{noop}1111").roles("Administrador");*/
-        int a=3;
+        
         auth.userDetailsService(validacion).passwordEncoder(passwordEncoder());
     }
     
@@ -68,7 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     }
     
     @Bean
-    public AuthenticationManager authManagerBean() throws Exception{
+    public AuthenticationManager authenticationManagerBean() throws Exception{
         return super.authenticationManagerBean();
     }
     

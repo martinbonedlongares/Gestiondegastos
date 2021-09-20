@@ -20,11 +20,11 @@
                     </tr>
                 </thead>
                 <tbody >                        
-                    <tr th:each="grupo:${grupos}" class="item">
-                        <td th:text="${grupo.usuario.nombre}"></td>
-                        <td th:text="${grupo.usuario.correo}"></td>
-                        <td th:text="${grupo.usuario.telefono}"></td>
-                        <td><a class="btn btn-danger" th:href="@{borrarUsuario(idUsuarioGrupo=${grupo.id},idGrupo=${idGrupo})}">X</a></td>
+                    <tr th:each="ug:${usuarioGrupo}" class="item">
+                        <td th:text="${ug.usuario.nombre}"></td>
+                        <td th:text="${ug.usuario.correo}"></td>
+                        <td th:text="${ug.usuario.telefono}"></td>
+                        <td><a class="btn btn-danger" th:href="@{borrarUsuario(idUsuarioGrupo=${ug.id},idGrupo=${idGrupo})}">X</a></td>
                     </tr>
                 </tbody>
             </table>

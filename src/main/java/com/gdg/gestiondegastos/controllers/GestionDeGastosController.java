@@ -139,7 +139,7 @@ public class GestionDeGastosController {
     @GetMapping("/grupo/{idGrupo}/gestionar")
     public String gestionarGrupos(Model m, @PathVariable Integer idGrupo) {
 
-        m.addAttribute("grupos", repoGrupo.findById(idGrupo).get().getUsuarioGrupo());
+        m.addAttribute("usuarioGrupo", repoUsuarioGrupo.leerPorGrupo(idGrupo));
 
         return "gestionGrupos";
     }
@@ -150,7 +150,6 @@ public class GestionDeGastosController {
         return "redirect:/gestion/grupo/{idGrupo}/gestionar";
     }
 
-    // Ejemplo ded url: http://localhost:8080/gestion/grupo/6
     @GetMapping("/grupo/{idGrupo}/nuevoMovimiento")
     public String nuevoMovimientos(Model m, Integer idUsuarioGrupo) {
         Movimiento mov = new Movimiento();

@@ -13,8 +13,8 @@
 
 <body>
 
-    <div class="divPrincipal">
-        <p class="presupuestoPrincipal" th:text="${presupuestoPersonal}">3.248€</p>
+    <div class="divPrincipal presupuestoPrincipal">
+        Presupuesto personal: <p th:text="|${presupuestoPersonal}€|"/>
     </div>
     <div class="divHrPrincipal">
         <button class="botonAzul">Nuevo importe</button>
@@ -27,26 +27,12 @@
                 <th>Fecha</th>
                 <th>Importe</th>
             </tr>
-            <tr>
-                <td class="negritaPrincipal">Esto es un concepto con valor positivo</td>
-                <td>13/02/1999</td>
-                <td> +3.400€</td>
+            <tr class="negritaPrincipal" th:each="mov:${movimientos}">
+                <td  th:text="${mov.concepto}"></td>
+                <td th:text="${mov.fecha}"></td>
+                <td th:text="${mov.cantidad}"> </td>
             </tr>
-            <tr>
-                <td class="negritaPrincipal">Esto es un concepto con valor negativo</td>
-                <td>14/02/1999</td>
-                <td> -2.430€</td>
-            </tr>
-            <tr>
-                <td class="negritaPrincipal">Esto es un concepto con valor negativo</td>
-                <td>14/02/1999</td>
-                <td> -2.430€</td>
-            </tr>
-            <tr>
-                <td class="negritaPrincipal">Esto es un concepto con valor negativo</td>
-                <td>14/02/1999</td>
-                <td> -2.430€</td>
-            </tr>
+            
         </table>
     </div>
 

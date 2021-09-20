@@ -7,8 +7,8 @@
     <body>
         <div class="container">
             <div class="h2">
-                <!--<a onclick="mostrarFormulario()" class="btn">NUEVO MOVIMIENTO</a>-->
-                <a th:href="@{|/gestion/grupo/${idGrupo}|}">Volver</a>
+                <!--<a onclick="mostrarFormulario()" class="btn">NUEVO MOVIMIENTO</a>
+                <a th:href="@{|/gestion/grupo/${idGrupo}|}">Volver</a>-->
             </div>
             <table class="table table-hover">
                 <thead>
@@ -24,7 +24,7 @@
                         <td th:text="${ug.usuario.nombre}"></td>
                         <td th:text="${ug.usuario.correo}"></td>
                         <td th:text="${ug.usuario.telefono}"></td>
-                        <td><a class="btn btn-danger" th:href="@{borrarUsuario(idUsuarioGrupo=${ug.id},idGrupo=${idGrupo})}">X</a></td>
+                        <td><a class="btn btn-danger" th:href="@{|{idGrupo}/borrarUsuario|(idUsuarioGrupo=${ug.id},idGrupo=${idGrupo})}">X</a></td>
                     </tr>
                 </tbody>
             </table>

@@ -47,10 +47,11 @@ public class GestionDeGastosController {
     // @Autowired
     // private ModelMapper obj;
     // @Autowired
-    //private PasswordEncoder clave;
+    // private PasswordEncoder clave;
 
     // Este es un get para ver la principal y así ver los cambios
     @GetMapping("/paginaPrincipal")
+
     public String principal() {
         return "principal";
     }
@@ -58,17 +59,14 @@ public class GestionDeGastosController {
     @GetMapping("/inicio/{idUsuario}")
     public String inicio(Model m, @PathVariable Integer idUsuario) {
         Usuario user = repoUsuario.findById(idUsuario).get();
-        //user = repoUsuario.getById(idUsuario);
+        // user = repoUsuario.getById(idUsuario);
 
-        //Suma todas las cantidades iniciales indicadas en el presupuesto del usuario 
-        m.addAttribute("presupuestoPersonal", user.getUsuarioGrupo()
-                .stream().map(x -> x.getGrupo().getPresupuesto())
-                .collect(
-                        Collectors.summingDouble(
-                                p -> p.stream()
-                                        .collect(Collectors.summingDouble(z -> z.getCantidadInicio())))));
-        
-         m.addAttribute("movimientos", repoMovimientos.leerPorUsuario(idUsuario));
+        // Suma todas las cantidades iniciales indicadas en el presupuesto del usuario
+        m.addAttribute("presupuestoPersonal",
+                user.getUsuarioGrupo().stream().map(x -> x.getGrupo().getPresupuesto()).collect(Collectors
+                        .summingDouble(p -> p.stream().collect(Collectors.summingDouble(z -> z.getCantidadInicio())))));
+
+        m.addAttribute("movimientos", repoMovimientos.leerPorUsuario(idUsuario));
 
         return "principal";
     }
@@ -89,40 +87,42 @@ public class GestionDeGastosController {
     @PostMapping("/crear")
     public String crear(Model m, Usuario usuario) {
 
-//        usuario.setContrasenya(clave.encode(usuario.getContrasenya()));
+        // usuario.setContrasenya(clave.encode(usuario.getContrasenya()));
         repoUsuario.save(usuario);
         return "login";
     }
-    
+
     @GetMapping("/info")
     @ResponseBody
-    public String info(){
+    public String info() {
         return SecurityContextHolder.getContext().getAuthentication().getName();
-    } 
+    }
 
-    //@Qualifier("amB")
+    // @Qualifier("amB")
 
     @Autowired
     private AuthenticationManager am;
+
     @PostMapping("/ingresar") // hacer login
     public String ingresar(Model m, String correo, String contrasenya) {
-        
-        UsernamePasswordAuthenticationToken token=new UsernamePasswordAuthenticationToken(correo,contrasenya);
-        Authentication auth=am.authenticate(token);
+
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(correo, contrasenya);
+        Authentication auth = am.authenticate(token);
         SecurityContextHolder.getContext().setAuthentication(auth);
 
-       Usuario usuario =   new Usuario();
-       System.out.println(" USUARIO  1    "  + correo);
-       try{        
-              usuario = repoUsuario.findByCorreo(correo);
-              System.out.println(" USUARIO   2   "  + usuario.getNombre());
-       }catch (Exception e)
-       { e.printStackTrace();}
-           
-        if (usuario.getNombre() !=null )
-           return "principal";
-        else 
-           return "login";
+        Usuario usuario = new Usuario();
+        System.out.println(" USUARIO  1    " + correo);
+        try {
+            usuario = repoUsuario.findByCorreo(correo);
+            System.out.println(" USUARIO   2   " + usuario.getNombre());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (usuario.getNombre() != null)
+            return "principal";
+        else
+            return "login";
     }
 
     @GetMapping("/grupo/{idGrupo}")
@@ -144,13 +144,42 @@ public class GestionDeGastosController {
         return "gestionGrupos";
     }
 
+    /*
+    //Sin ajax
     @GetMapping("/grupo/{idGrupo}/borrarUsuario")
     public String borrarUsuario(Integer idUsuarioGrupo, Integer idGrupo) {
         repoUsuarioGrupo.deleteById(idUsuarioGrupo);
         return "redirect:/gestion/grupo/{idGrupo}/gestionar";
+    }*/
+    
+    //Con ajax
+    @GetMapping("/grupo/{idGrupo}/borrarUsuario")
+    public String borrarUsuario(Integer idUsuarioGrupo, Integer idGrupo) {
+        repoUsuarioGrupo.deleteById(idUsuarioGrupo);
+        return "redirect:/gestion/grupo/{idGrupo}";
     }
 
+    /*
+     * @GetMapping("/movimientos") public String verMovimientos(Model m, Integer
+     * idMovimiento) { m.addAttribute("movimiento",
+     * repoMovimientos.findById(idMovimiento).get());
+     * 
+     * return "movimientos"; }
+     */
+
+    /*
+     * @PostMapping("/grupo/{idGrupo}/nuevoMovimiento") public String
+     * nuevoMovimientos(Model m, Integer idUsuarioGrupo){ Movimiento mov = new
+     * Movimiento();
+     * mov.setUsuarioGrupo(repoUsuarioGrupo.findById(idUsuarioGrupo).get());
+     * m.addAttribute("movimiento", mov);
+     * 
+     * return "nuevoMov"; }
+     */
+
+    // Ejemplo ded url: http://localhost:8080/gestion/grupo/6
     @GetMapping("/grupo/{idGrupo}/nuevoMovimiento")
+
     public String nuevoMovimientos(Model m, Integer idUsuarioGrupo) {
         Movimiento mov = new Movimiento();
         mov.setUsuarioGrupo(repoUsuarioGrupo.findById(idUsuarioGrupo).get());
@@ -160,8 +189,8 @@ public class GestionDeGastosController {
     }
 
     //
-    @PostMapping("/grupo/{idGrupo}/guardarMovimiento")
-    public String guardarMovimiento(Model m, Movimiento mov, Integer idUsuarioGrupo, @PathVariable Integer idGrupo) {
+    @PostMapping("/grupo/guardarMovimiento")
+    public String guardarMovimiento(Model m, Movimiento mov, Integer idUsuarioGrupo, Integer idGrupo) {
         UsuarioGrupo ug = repoUsuarioGrupo.findById(idUsuarioGrupo).get();
         mov.setUsuarioGrupo(ug);
         repoMovimientos.save(mov);
@@ -169,7 +198,6 @@ public class GestionDeGastosController {
         Presupuesto p = repoPresupuesto.findByIdGrupo(idGrupo);
         p.setCantidadFinal(p.getCantidadFinal() + mov.getCantidad());
         repoPresupuesto.save(p);
-        return "redirect:/gestion/grupo/{idGrupo}";
+        return "redirect:/gestion/grupo/"+idGrupo;
     }
-
 }

@@ -13,77 +13,63 @@
 </head>
 
 <body>
-     <div class="container">
-            <a class="h1" th:text="${grupo.nombre}" th:href="@{|${idGrupo}/gestionar|}"></a>
-        
-            <div class="my-3 h2">
-                Presupuesto inicial: <span id="presupuesto" th:text="${presupuesto.cantidadInicio}"></span>€
-        </div>
-            <div class="h2">
-              Presupuesto final:  <span id="presupuesto" th:text="${presupuesto.cantidadFinal}"></span>€
-        </div>
-            <div class="h2">
-                <!--<a onclick="mostrarFormulario()" class="btn">NUEVO MOVIMIENTO</a>-->
-                <a th:href="@{|${idGrupo}/nuevoMovimiento|(idUsuarioGrupo = ${movimientos[0].usuarioGrupo.id})}">NUEVO MOVIMIENTO</a>
+    <div>
+        <div class="divPrincipal">
+            <p id="nombre" class="presupuestoPrincipal" th:text="${grupo.nombre}" th:onclick="|mostrarMiembrosGrupo(${idGrupo})|"></p>
+            <!--<a id="nombre" class="presupuestoPrincipal" th:text="${grupo.nombre}"  th:href="@{|${idGrupo}/gestionar|}"></a>-->
+            <div th:if="${presupuesto.cantidadFinal}">
+                <p id="presupuesto" class="presupuestoPrincipal" th:class="
+                ${presupuesto.cantidadFinal >= 0} ? 'presupuestoPrincipal Verde' : 'presupuestoPrincipal Rojo'"
+                    th:text="${presupuesto.cantidadFinal} + '€'"></p>
+            </div>
         </div>
 
-            <table class="table table-hover table-bordered table-sortable h4" cellspacing="0" width="100%" id="tablaMov">
-            <thead>
-                <tr>
-                        <th>Cantidad</th>
-                        <th>Usuario     <button onclick="w3.sortHTML('#tablaMov', '.item', 'td:nth-child(1)')"><span class="glyphicon glyphicon-sort"></span></button></th>
-                        <th>Concepto    <button onclick="w3.sortHTML('#tablaMov', '.item', 'td:nth-child(2)')"><span class="glyphicon glyphicon-sort"></span></button></th>
-                        <th>Información    <button onclick="w3.sortHTML('#tablaMov', '.item', 'td:nth-child(3)')"><span class="glyphicon glyphicon-sort"></span></button></th>
-                    <th><input type="text" id="busqueda" placeholder="Busca un usuario" /></th>
-                </tr>
-            </thead>
-            <tbody>
+        <div class="divHr2elementos">
+            <button class="botonAzul" th:onclick="|mostrarFormularioNuevoMovimiento(${idGrupo})|">Nuevo importe</button>
+            <hr />
+            <div class="search-box ">
+                <button class="btn-search"><i class="fas fa-search"></i></button>
+                <input type="text" id="myInput" class="input-search" onkeyup="filtrar()"
+                    placeholder="Búsqueda">
+            </div>
 
-                <tr th:each="mov:${movimientos}" class="item">
-                        <td th:text="${mov.cantidad}"></td>
-                        <td th:text="${mov.usuarioGrupo.usuario.nombre}"></td>
-                    <td th:text="${mov.concepto}"></td>
-                        <td th:text="${mov.info}"></td>
-                </tr>
+        </div>
 
-            </tbody>
+        <div>
+            <!--BOTÓN CON FUNCIONAMIENTO, PERO DE MOMENTO NO SE 
+                <a th:href=" @{|${idGrupo}/nuevoMovimiento|(idUsuarioGrupo=${movimientos[0].usuarioGrupo.id})}">NUEVO
+                MOVIMIENTO</a> -->
+        </div>
+
+        <table class="tablaPrincipal" id="pager">
+
+            <tr>
+                <th>Concepto</th>
+                <th>Categoría <i class="fas fa-sort" onclick="w3.sortHTML('#tablaMov', '.item', 'td:nth-child(1)')"></i>
+                </th>
+                <th>Usuario <i class="fas fa-sort" onclick="w3.sortHTML('#tablaMov', '.item', 'td:nth-child(2)')"></i>
+                </th>
+                <th>Fecha <i class="fas fa-sort" onclick="w3.sortHTML('#tablaMov', '.item', 'td:nth-child(3)')"></i>
+                </th>
+                <th>Cantidad <i class="fas fa-sort" onclick="w3.sortHTML('#tablaMov', '.item', 'td:nth-child(3)')"></i>
+                </th>
+            </tr>
+            <tr th:each="mov:${movimientos}" class="item">
+                <td th:text="${mov.concepto}"></td>
+                <td th:text="${mov.categoria}"></td>
+                <td th:text="${mov.usuarioGrupo.usuario.nombre}"></td>
+                <td th:text="${mov.fecha}"></td>
+                <td th:text="|${mov.cantidad}€|"></td>
+            </tr>
         </table>
+        <div id="pageNavPosition" class="pager-nav"></div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.js"></script>
+    <script src="/paginador.js"></script>
     <script>
-        //Paginacion de la tabla
-        /*$(document).ready(function () {
-            $('#tablaMov').DataTable({
-                "pagingType": "numbers"
-            });
-            $('.dataTables.length').addClass('bs-select');
-        });*/
 
-        function mostrarFormulario() {
-            $.ajax({
-                url: "nuevoMovimiento",
-                data: {},
-                success: function (nuevoMov) {
-                    bootbox.dialog({
-                        message: nuevoForm,
-                    });
-                },
-                error: function (err) {
-                    alert("Error");
-                }
-            });
-        }
-
-        $(document).ready(function () {
-            $("#busqueda").on("keyup", function () {
-                var value = $(this).val().toLowerCase();
-                $("#tablaMov tr").filter(function () {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                });
-            });
-        });
     </script>
 </body>
 

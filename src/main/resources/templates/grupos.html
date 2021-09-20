@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="C:\Users\Usuario\Documents\NetBeansProjects\Gestiondegastos\src\main\resources\templates\estilos.css">
+        <link rel="stylesheet" href="/styles.css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
             $(document).ready(function(){
@@ -30,11 +30,11 @@
                 <p id="presupuesto" th:text="${presupuesto.cantidadInicio}"></p>
             </div>
             <div>
-                <a onclick="mostrarFormulario()" class="btn">NUEVO MOVIMIENTO</a>
+                <!--<a onclick="mostrarFormulario()" class="btn">NUEVO MOVIMIENTO</a>-->
                 <a th:href="@{|${idGrupo}/nuevoMovimiento|(idUsuarioGrupo = ${movimientos[0].usuarioGrupo.id})}">NUEVO MOVIMIENTO</a>
             </div>
             
-            <table table="table-bordered table-sortable" cellspacing="0" width="100%" id="tablaMov">
+            <table class="table table-hover" cellspacing="0" width="100%" id="tablaMov">
                 <thead>
                     <tr>
                         <th>Concepto</th>
@@ -43,14 +43,12 @@
                         <th><input type="text" id="busqueda" placeholder="Busca un usuario" /></th>
                     </tr>
                 </thead>
-                <tbody >
-
-                        <tr th:each="mov:${movimientos}" class="item">
-                            <td th:text="${mov.concepto}"></td>
-                            <td th:text="${mov.usuarioGrupo.usuario.nombre}"></td>
-                            <td th:text="${mov.cantidad}"></td>
-                        </tr>
-
+                <tbody >                        
+                    <tr th:each="mov:${movimientos}" class="item">
+                        <td th:text="${mov.concepto}"></td>
+                        <td th:text="${mov.usuarioGrupo.usuario.nombre}"></td>
+                        <td th:text="${mov.cantidad}"></td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -58,14 +56,6 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.js"></script>
         <script>
-            //Paginacion de la tabla
-            /*$(document).ready(function () {
-                $('#tablaMov').DataTable({
-                    "pagingType": "numbers"
-                });
-                $('.dataTables.length').addClass('bs-select');
-            });*/
-            
             function mostrarFormulario(){
                 $.ajax({
                    url:"nuevoMovimiento",

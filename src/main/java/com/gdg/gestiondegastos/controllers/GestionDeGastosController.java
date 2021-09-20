@@ -11,6 +11,11 @@ import com.gdg.gestiondegastos.repositories.UsuarioGrupoRepository;
 import com.gdg.gestiondegastos.repositories.UsuarioRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -66,8 +71,15 @@ public class GestionDeGastosController {
         return "login";
     }
 
+    @Autowired
+    @Qualifier("amB")
+    private AuthenticationManager am;
     @PostMapping("/ingresar") // hacer login
     public String ingresar(Model m, String username, String password) {
+        
+        UsernamePasswordAuthenticationToken token=new UsernamePasswordAuthenticationToken(username,password);
+        Authentication auth=am.authenticate(token);
+        SecurityContextHolder.getContext().setAuthentication(auth);
 
        Usuario usuario =   new Usuario();
        System.out.println(" USUARIO  1    "  + username);

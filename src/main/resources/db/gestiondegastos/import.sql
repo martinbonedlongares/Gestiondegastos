@@ -2,7 +2,7 @@
 --USUARIOS
 
 INSERT INTO usuario (nombre,contrasenya,correo,telefono) VALUES ('Raul','RaulHiberus','RaulHiberus@gmail.com','665379845');
-INSERT INTO usuario (nombre,contrasenya,correo,telefono) VALUES ('Diego','NotDaiggo','RaulHiberus@gmail.com','655352261');
+INSERT INTO usuario (nombre,contrasenya,correo,telefono) VALUES ('Diego','NotDaiggo','DiegoHiberus@gmail.com','655352261');
 INSERT INTO usuario (nombre,contrasenya,correo,telefono) VALUES ('Sofia','LaSofi','SofiaHiberus@gmail.com','722161974');
 INSERT INTO usuario (nombre,contrasenya,correo,telefono) VALUES ('Martin','Martinxo','MartinHiberus@gmail.com','677826971');
 INSERT INTO usuario (nombre,contrasenya,correo,telefono) VALUES ('Jose María','ElXema','JosemaHiberus@gmail.com','646582521');

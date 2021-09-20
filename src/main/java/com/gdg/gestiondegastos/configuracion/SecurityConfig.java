@@ -43,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         //http.formLogin();   //  /login. Spring
     }
 
-    
+      
     
     
     //Aquí se configura Usuario/Password

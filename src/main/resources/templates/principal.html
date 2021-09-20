@@ -1,3 +1,90 @@
+<<<<<<< OURS
+<html lang="es" xmlns:th="https://www.thymeleaf.org" th:replace="layout::layout( ~{::body})">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página principal</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div id="fullpage">
+        <div class="section">
+            <div class="divPrincipal">
+                <p class="presupuestoPrincipal" th:text="|${presupuestoPersonal}€|">3.670€</p>
+            </div>
+            <div class="divHrPrincipal">
+                <button class="botonAzul">Nuevo importe</button>
+                <hr />
+            </div>
+            <div id="movimientos">
+                <table class="tablaPrincipal">
+                    <tr>
+                        <th>Concepto</th>
+                        <th>Fecha</th>
+                        <th>Importe</th>
+                    </tr>
+                    <tr th:each="mov:${movimientos}">
+                        <td  th:text="${mov.concepto}">Esto es un concepto con valor positivo</td>
+                <td th:text="${mov.fecha}">13/02/1999</td>
+                <td th:text="${mov.cantidad}"> +3.400€</td>
+                    </tr>
+                    
+                </table>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="divHrPrincipal">
+                <a type="button" class="botonAzul">Nuevo grupo</a>
+                <hr />
+            </div>
+
+            <div id="grupos">
+                <table class="tablaPrincipal">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Presupuesto</th>
+                    </tr>
+                    <tr>
+                        <td class="negritaPrincipal">Regalo a María</td>
+                        <td> +3.400€</td>
+                    </tr>
+                    <tr>
+                        <td class="negritaPrincipal">Vehículo para viaje a Zaragoza</td>
+                        <td> -2.430€</td>
+                    </tr>
+                    <tr>
+                        <td class="negritaPrincipal">Regalo a María</td>
+                        <td> +3.400€</td>
+                    </tr>
+                    <tr>
+                        <td class="negritaPrincipal">Vehículo para viaje a Zaragoza</td>
+                        <td> -2.430€</td>
+                    </tr>
+
+
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        new fullpage('#fullpage', {
+            autoScrolling: true,
+            navigation: true,
+            navigationTooltips: ['Presupuesto', 'Grupos'],
+            scrollingSpeed: 1000
+        });
+    </script>
+</body>
+
+=======
 <html lang="es" xmlns:th="https://www.thymeleaf.org" th:replace="layout::layout( ~{::body})">
 
 <head>
@@ -69,4 +156,5 @@
     </div>
 </body>
 
+>>>>>>> THEIRS
 </html>

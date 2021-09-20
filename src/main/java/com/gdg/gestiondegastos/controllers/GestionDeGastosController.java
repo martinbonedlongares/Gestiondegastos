@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/gestion")
@@ -70,34 +71,36 @@ public class GestionDeGastosController {
         repoUsuario.save(usuario);
         return "login";
     }
+    
+    @GetMapping("/info")
+    @ResponseBody
+    public String info(){
+        return SecurityContextHolder.getContext().getAuthentication().getName();
+    } 
+
+    //@Qualifier("amB")
 
     @Autowired
-    @Qualifier("amB")
     private AuthenticationManager am;
     @PostMapping("/ingresar") // hacer login
-    public String ingresar(Model m, String username, String password) {
+    public String ingresar(Model m, String correo, String contrasenya) {
         
-        UsernamePasswordAuthenticationToken token=new UsernamePasswordAuthenticationToken(username,password);
+        UsernamePasswordAuthenticationToken token=new UsernamePasswordAuthenticationToken(correo,contrasenya);
         Authentication auth=am.authenticate(token);
         SecurityContextHolder.getContext().setAuthentication(auth);
 
        Usuario usuario =   new Usuario();
-       System.out.println(" USUARIO  1    "  + username);
+       System.out.println(" USUARIO  1    "  + correo);
        try{        
-              usuario = repoUsuario.findByCorreo(username);
+              usuario = repoUsuario.findByCorreo(correo);
               System.out.println(" USUARIO   2   "  + usuario.getNombre());
        }catch (Exception e)
        { e.printStackTrace();}
            
-       if (usuario.getNombre() !=null )
-       
-     // if (usuario.getContrasenya()== clave.encode(password))
-       {
+        if (usuario.getNombre() !=null )
            return "principal";
-      }
-      else {
-         return "login";
-      }
+        else 
+           return "login";
     }
 
     @GetMapping("/grupo/{idGrupo}")

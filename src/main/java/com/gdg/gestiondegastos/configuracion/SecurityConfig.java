@@ -27,6 +27,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     @Autowired
     private UserDetailsService validacion;    
     
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    
     //Aquí se configura el acceso
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -57,19 +60,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                  .withUser("jorge").password("{noop}1111").roles("Usuario")
                  .and()
                  .withUser("juan").password("{noop}1111").roles("Administrador");*/
-        int a=3;
-        auth.userDetailsService(validacion).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(validacion).passwordEncoder(passwordEncoder);
     }
     
     
-    @Bean(name="passwordEncoder")
+    @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
-    
+
+
     @Bean
-    public AuthenticationManager authManagerBean() throws Exception{
-        return super.authenticationManagerBean();
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean(); //To change body of generated methods, choose Tools | Templates.
     }
+
+
     
 }

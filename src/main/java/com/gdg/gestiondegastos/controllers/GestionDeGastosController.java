@@ -54,7 +54,7 @@ public class GestionDeGastosController {
 
     @GetMapping("/principal")
     public String principal(Model m) {
-        // m.addAttribute("usuario", new Usuario());
+       // m.addAttribute("usuario", new Usuario());
         return "login";
     }
 
@@ -66,12 +66,26 @@ public class GestionDeGastosController {
         return "login";
     }
 
-    @PostMapping("/ingresar")
-    public String ingresar(Model m, Usuario usuario) {
+    @PostMapping("/ingresar") // hacer login
+    public String ingresar(Model m, String username, String password) {
 
-        usuario.setContrasenya(clave.encode(usuario.getContrasenya()));
-        // repoUsuario.save(usuario);
-        return "principal.html";
+       Usuario usuario =   new Usuario();
+       System.out.println(" USUARIO  1    "  + username);
+       try{        
+              usuario = repoUsuario.findByCorreo(username);
+              System.out.println(" USUARIO   2   "  + usuario.getNombre());
+       }catch (Exception e)
+       { e.printStackTrace();}
+           
+       if (usuario.getNombre() !=null )
+       
+     // if (usuario.getContrasenya()== clave.encode(password))
+       {
+           return "principal";
+      }
+      else {
+         return "login";
+      }
     }
 
     @GetMapping("/grupo/{idGrupo}")

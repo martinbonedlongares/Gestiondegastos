@@ -30,20 +30,21 @@ public class Movimiento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String info;
-    
-//    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private String categoria;
+
+    // @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fecha;
-    
+
     private String concepto;
     private Double cantidad;
 
-    /*@ManyToOne
-    @JoinColumn(name = "id_usuario_grupo")
-    private UsuarioGrupo idUsuarioGrupo;
-    */
-    //(Recibe el id de Grupo)    
+    /*
+     * @ManyToOne
+     * 
+     * @JoinColumn(name = "id_usuario_grupo") private UsuarioGrupo idUsuarioGrupo;
+     */
+    // (Recibe el id de Grupo)
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "id_usuario_grupo")
     private UsuarioGrupo usuarioGrupo;

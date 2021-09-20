@@ -33,8 +33,8 @@ INSERT INTO usuario_grupo (id_usuario,id_grupo,rol) VALUES (4,7,0);
 
 --#MOVIMIENTO#
 
-INSERT INTO movimiento (cantidad,concepto,info,fecha,id_usuario_grupo) VALUES (-100,'Alimentacion','Compra de 5 yatekomo',CURDATE(),7);
-INSERT INTO movimiento (cantidad,concepto,info,fecha,id_usuario_grupo) VALUES (100,'Alimentacion','Vendi 5 yatekomo caducados',CURDATE(),9);
+INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-100,'Alimentacion','Compra de 5 yatekomo',CURDATE(),7);
+INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (100,'Alimentacion','Vendi 5 yatekomo caducados',CURDATE(),9);
 
 --#PRESUPUESTOS#
 

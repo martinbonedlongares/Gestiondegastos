@@ -1,100 +1,100 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html xmlns:th="https://www.thymeleaf.org">
-    <head>
-        <title>Nuevo movimiento</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="/styles.css" />
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script>
-            $(document).ready(function (){
-                var campo=document.querySelector('#fecha');
-                var fecha=new Date();
-                fecha.setHours(fecha.getHours()+2);
-                campo.value=fecha.getFullYear().toString()+'-'+(fecha.getMonth()+1).toString().padStart(2,0)+'-'+fecha.getDate().toString().padStart(2,0)+" "+(fecha.getHours())+":"+fecha.getMinutes()+":"+fecha.getSeconds();
-            });
-        </script>
-    </head>
-    <body>
-        <div>
-            <form method="post" action="guardarMovimiento" th:object="${movimiento}">
-                <div>
-                    <input type="hidden" name="idUsuarioGrupo" th:value="${param.idUsuarioGrupo[0]}"/>
-                    <input type="hidden" th:field="*{id}"/>
-                </div>                
-                <div>
-                    <label for="concepto">Concepto</label>
-                    <select id="concepto" name="concepto" th:field="*{concepto}">
-                        <option value="Entretenimiento">Entretenimiento</option>
-                        <option value="Alimentacion">Alimentación</option>
-                        <option value="Ropa">Ropa</option>
-                        <option value="Hogar">Hogar</option>
-                        <option value="Higiene">Higiene</option>
-                        <option value="Transporte">Transporte</option>
-                        <option value="Comunicacion">Comunicación</option>
-                        <option value="Medicina">Medicina</option>
-                        <option value="Regalo">Regalo</option>
-                        <option value="Mascotas">Mascota</option>
-                    </select>
-                </div>
-                <div>
-                    <input type="hidden" id="fecha" th:field="*{fecha}"/>
-                </div>
-                <div>
-                    <label for="cantidad">Cantidad</label>
-                    <input id="cantidad" placeholder="Introduce la cantidad" type="number" step="any" th:field="*{cantidad}" onKeyUp="document.getElementById('tipoMovimiento').style.display = 'block';"/>
-                    <button id="tipoMovimiento" style="display:none"> Gasto</button>
-                </div>
-                <div>
-                    <label for="info">Información adicional</label>
-                    <br>
-                    <textarea id="info" placeholder="Introduce información adicional del movimiento" rows="4" cols="50" th:field="*{info}"></textarea>
-                </div>
-                <div>
-                    <button id="primero" style="display:block">Guardar</button>
-                    <input id="save" type="submit" value="Aceptar" style="display:none"/>
-                    <button id="cancelar" style="display:none">Cancelar</button>
-                </div>
-            </form>
-        </div>
-        <script>
-            
-             $('#gasto').click(function(e){
-                    e.preventDefault();
-                    $('#cantidad').val()*-1;
-                    $('#gasto').text("Ingreso");
-                });
-            $('#primero').click(function(e){
-                e.preventDefault();
-                $('#primero').css("display","none");
-                $('#save').css("display","block");
-                $('#cancelar').css("display","block");
-            });
-            $('#cancelar').click(function(e){
-                e.preventDefault();
-                $('#primero').css("display","block");
-                $('#save').css("display","none");
-                $('#cancelar').css("display","none");
-            });
-            $('#tipoMovimiento').click(function(e){
-                e.preventDefault();
 
-                var c = $('#cantidad').val();
-                $('#cantidad').val(c*-1);  
+<head>
+    <title>Nuevo movimiento</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var campo = document.querySelector('#fecha');
+            var fecha = new Date();
+            fecha.setHours(fecha.getHours() + 2);
+            campo.value = fecha.getFullYear().toString() + '-' + (fecha.getMonth() + 1).toString().padStart(2,
+                    0) + '-' + fecha.getDate().toString().padStart(2, 0) + " " + (fecha.getHours()) + ":" +
+                fecha.getMinutes() + ":" + fecha.getSeconds();
+        });
+    </script>
+</head>
 
-                if($('#tipoMovimiento').text() === "Ingreso"){
+<body>
+    <div>
+        <form method="post" action="guardarMovimiento" th:object="${movimiento}">
+            <div>
+                <input type="hidden" name="idUsuarioGrupo" th:value="${param.idUsuarioGrupo[0]}" />
+                <input type="hidden" th:field="*{id}" />
+            </div>
+            <div>
+                <label for="concepto">Concepto</label>
+                <select id="concepto" name="concepto" th:field="*{categoria}">
+                    <option value="Entretenimiento">Entretenimiento</option>
+                    <option value="Alimentacion">Alimentación</option>
+                    <option value="Ropa">Ropa</option>
+                    <option value="Hogar">Hogar</option>
+                    <option value="Higiene">Higiene</option>
+                    <option value="Transporte">Transporte</option>
+                    <option value="Comunicacion">Comunicación</option>
+                    <option value="Medicina">Medicina</option>
+                    <option value="Regalo">Regalo</option>
+                    <option value="Mascotas">Mascota</option>
+                </select>
+            </div>
+            <div>
+                <input type="hidden" id="fecha" th:field="*{fecha}" />
+            </div>
+            <div>
+                <label for="cantidad">Cantidad</label>
+                <input id="cantidad" placeholder="Introduce la cantidad" type="number" step="any" th:field="*{cantidad}"
+                    onKeyUp="document.getElementById('tipoMovimiento').style.display = 'block';" />
+                <button id="tipoMovimiento" style="display:none"> Gasto</button>
+            </div>
+            <div>
+                <label for="info">Información adicional</label>
+                <br>
+                <textarea id="info" placeholder="Introduce información adicional del movimiento" rows="4" cols="50"
+                    th:field="*{concepto}"></textarea>
+            </div>
+            <div>
+                <button id="primero" style="display:block">Guardar</button>
+                <input id="save" type="submit" value="Aceptar" style="display:none" />
+                <button id="cancelar" style="display:none">Cancelar</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        $('#gasto').click(function (e) {
+            e.preventDefault();
+            $('#cantidad').val() * -1;
+            $('#gasto').text("Ingreso");
+        });
+        $('#primero').click(function (e) {
+            e.preventDefault();
+            $('#primero').css("display", "none");
+            $('#save').css("display", "block");
+            $('#cancelar').css("display", "block");
+        });
+        $('#cancelar').click(function (e) {
+            e.preventDefault();
+            $('#primero').css("display", "block");
+            $('#save').css("display", "none");
+            $('#cancelar').css("display", "none");
+        });
+        $('#tipoMovimiento').click(function (e) {
+            e.preventDefault();
 
-                    $('#tipoMovimiento').text("Gasto");
-                }else{
-                     $('#tipoMovimiento').text("Ingreso");
-                }
+            var c = $('#cantidad').val();
+            $('#cantidad').val(c * -1);
 
-            });
-        </script>
-    </body>
+            if ($('#tipoMovimiento').text() === "Ingreso") {
+
+                $('#tipoMovimiento').text("Gasto");
+            } else {
+                $('#tipoMovimiento').text("Ingreso");
+            }
+
+        });
+    </script>
+</body>
+
 </html>

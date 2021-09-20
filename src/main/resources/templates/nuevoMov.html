@@ -9,7 +9,7 @@ and open the template in the editor.
         <title>Nuevo movimiento</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="estilos.css">
+        <link rel="stylesheet" href="/styles.css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
             $(document).ready(function (){
@@ -22,7 +22,6 @@ and open the template in the editor.
     </head>
     <body>
         <div>
-            
             <form method="post" action="guardarMovimiento" th:object="${movimiento}">
                 <div>
                     <input type="hidden" name="idUsuarioGrupo" th:value="${param.idUsuarioGrupo[0]}"/>

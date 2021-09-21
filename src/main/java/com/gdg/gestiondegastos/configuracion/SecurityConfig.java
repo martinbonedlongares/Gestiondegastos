@@ -47,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
              .antMatchers("/vuelos/**").hasAnyRole("Administrador")
              .antMatchers("/traducir/**").hasAnyRole("Administrador", "Usuario")
              .antMatchers("/url3").hasRole("Administrador");
-        //http.formLogin();   //  /login. Spring
+        http.formLogin().loginPage("/gestion/principal").successForwardUrl("/gestion/paginaPrincipal").failureForwardUrl("/gestion/principal");   //  /login. Spring
         http.csrf().disable();
         //http.formLogin();   //  /login. Spring
         /*http.anonymous().disable().csrf().disable().authorizeRequests().antMatchers("/registro**")

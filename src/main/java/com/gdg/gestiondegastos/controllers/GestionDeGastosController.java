@@ -98,7 +98,8 @@ public class GestionDeGastosController {
     public String info() {
         
         
-        UsuarioDto usuValidado=(UsuarioDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        //UsuarioDto usuValidado=(UsuarioDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        System.out.print(SecurityContextHolder.getContext().getAuthentication());
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 
@@ -111,6 +112,7 @@ public class GestionDeGastosController {
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(correo, contrasenya);
         Authentication auth = am.authenticate(token);
         SecurityContextHolder.getContext().setAuthentication(auth);
+        
 
         Usuario usuario = new Usuario();
         System.out.println(" USUARIO  1    " + correo);
@@ -121,10 +123,15 @@ public class GestionDeGastosController {
             e.printStackTrace();
         }
 
-        if (usuario.getNombre() != null)
+        /*if (usuario.getNombre() != null)
             return "principal";
         else
+            return "login";*/
+        if(SecurityContextHolder.getContext().getAuthentication().isAuthenticated()){
+            return "principal";
+        }else{
             return "login";
+        }
     }
 
     @GetMapping("/grupo/{idGrupo}")

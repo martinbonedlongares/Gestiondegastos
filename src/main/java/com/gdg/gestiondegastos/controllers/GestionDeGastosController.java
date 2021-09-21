@@ -1,7 +1,6 @@
 package com.gdg.gestiondegastos.controllers;
 
 import com.gdg.gestiondegastos.dto.UsuarioDto;
-import com.gdg.gestiondegastos.entities.Grupo;
 import com.gdg.gestiondegastos.entities.Movimiento;
 import com.gdg.gestiondegastos.entities.Presupuesto;
 import com.gdg.gestiondegastos.entities.Usuario;
@@ -11,12 +10,8 @@ import com.gdg.gestiondegastos.repositories.MovimientosRepository;
 import com.gdg.gestiondegastos.repositories.PresupuestoRepository;
 import com.gdg.gestiondegastos.repositories.UsuarioGrupoRepository;
 import com.gdg.gestiondegastos.repositories.UsuarioRepository;
-import com.mysql.cj.Constants;
-import java.util.List;
 import java.util.stream.Collectors;
-import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -27,8 +22,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -120,7 +115,8 @@ public class GestionDeGastosController {
         }
     }
 
-    @PostMapping("/ingresar2") // hacer login
+    /*
+    @PostMapping("/ingresar2") // Pruebas
     public String ingresar2(Model m, String correo, String contrasenya, RedirectAttributes redirectAttrs) {
 
         //UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(correo, contrasenya);
@@ -142,8 +138,8 @@ public class GestionDeGastosController {
             return "login";
         }
     }
-
-    /*
+*/
+    
     //Antes del Security
     @GetMapping("/inicio/{idUsuario}")
     public String inicio(Model m, @PathVariable Integer idUsuario) {
@@ -158,10 +154,12 @@ public class GestionDeGastosController {
         m.addAttribute("movimientos", repoMovimientos.leerPorUsuario(idUsuario));
 
         return "principal";
-    }*/
+    }
+    
+    /*
     //Despues del Security
     @GetMapping("/inicio")
-    public String inicio(Model m, Integer idUsuario) {
+    public String inicio(Model m,@RequestParam Integer idUsuario) {
         Usuario user = repoUsuario.findById(idUsuario).get();
         // user = repoUsuario.getById(idUsuario);
 
@@ -173,7 +171,7 @@ public class GestionDeGastosController {
         m.addAttribute("movimientos", repoMovimientos.leerPorUsuario(idUsuario));
 
         return "principal";
-    }
+    }*/
 
     @GetMapping("/grupo/{idGrupo}")
     public String verGrupos(Model m, @PathVariable Integer idGrupo) {

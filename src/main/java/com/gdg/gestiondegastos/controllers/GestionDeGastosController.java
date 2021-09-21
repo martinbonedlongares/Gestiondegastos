@@ -12,6 +12,11 @@ import com.gdg.gestiondegastos.repositories.PresupuestoRepository;
 import com.gdg.gestiondegastos.repositories.UsuarioGrupoRepository;
 import com.gdg.gestiondegastos.repositories.UsuarioRepository;
 import com.mysql.cj.Constants;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpSession;
@@ -86,11 +91,23 @@ public class GestionDeGastosController {
     }
 
     @PostMapping("/crear")
-    public String crear(Model m, Usuario usuario) {
-
-        usuario.setContrasenya(clave.encode(usuario.getContrasenya()));
-        repoUsuario.save(usuario);
-        return "login";
+    public String crear(Model m, Usuario usuario) throws ClassNotFoundException, SQLException {
+        
+        String correo=usuario.getCorreo();
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/gestiondegastos","root", "");
+        final String query="Select correo from usuario where correo=?";
+        final PreparedStatement ps=con.prepareStatement(query);
+        ps.setString(1, correo);
+        final ResultSet rs=ps.executeQuery();
+        if(rs.next()){
+            usuario.setContrasenya(clave.encode(usuario.getContrasenya()));
+            repoUsuario.save(usuario);
+            return "login";
+        }else{
+            m.addAttribute("msg", "Correo ya registrado");
+            return "crearUsuario";
+        }
     }
 
     @GetMapping("/info")
@@ -98,8 +115,8 @@ public class GestionDeGastosController {
     public String info() {
         
         
-        UsuarioDto usuValidado=(UsuarioDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        System.out.print(SecurityContextHolder.getContext().getAuthentication());
+        //UsuarioDto usuValidado=(UsuarioDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        //System.out.print(SecurityContextHolder.getContext().getAuthentication());
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 

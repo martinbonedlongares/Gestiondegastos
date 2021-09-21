@@ -29,11 +29,15 @@
                                 
                     <button class="botonAzul" onclick="validar()">Ingresar</button>
                 </div>
-              </form>   
+            </form>   
+
+            <div class="divHrPrincipal">
+                <a th:href="@{agregar}" class="botonAzul"  value='Ingresar'>  Nuevo Usuario </a> 
+            </div>
             
-                <div class="divHrPrincipal">
-                    <a th:href="@{agregar}" class="botonAzul"  value='Ingresar'>  Nuevo Usuario </a> 
-                </div>
+            <div>
+                <p th:text="${msg}"></p>
+            </div>
            
         </div>
         <script src="https://code.jquery.com/jquery-3.6.0.js"></script>

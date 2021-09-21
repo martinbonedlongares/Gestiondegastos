@@ -35,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     //Aquí se configura el acceso
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        /*http.authorizeRequests()
+        http.authorizeRequests()
              .antMatchers("/").permitAll()
              .antMatchers("/info").permitAll()
              .antMatchers("/gestion").permitAll()
@@ -47,10 +47,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
              .antMatchers("/vuelos/**").hasAnyRole("Administrador")
              .antMatchers("/traducir/**").hasAnyRole("Administrador", "Usuario")
              .antMatchers("/url3").hasRole("Administrador");
-        http.formLogin();   //  /login. Spring
+        //http.formLogin();   //  /login. Spring
         http.csrf().disable();
-        //http.formLogin();   //  /login. Spring*/
-        http.anonymous().disable().csrf().disable().authorizeRequests().antMatchers("/registro**")
+        //http.formLogin();   //  /login. Spring
+        /*http.anonymous().disable().csrf().disable().authorizeRequests().antMatchers("/registro**")
                 .permitAll().anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login").usernameParameter("correo").passwordParameter("contrasenya")
@@ -58,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .permitAll()
                 .and()
                 .logout().logoutSuccessUrl("/paginaPrincipal").invalidateHttpSession(true)
-                .clearAuthentication(true).permitAll();
+                .clearAuthentication(true).permitAll();*/
     }
     
     //Aquí se configura Usuario/Password

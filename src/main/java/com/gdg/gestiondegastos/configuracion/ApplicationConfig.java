@@ -15,22 +15,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class ApplicationConfig extends WebSecurityConfigurerAdapter{
-    
-    @Autowired
-    DataSource dataSource;
-    
     @Bean
     public PasswordEncoder passEncoder(){
         return new BCryptPasswordEncoder();
-    }
-    /*@Autowired
-    public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception{
-        auth.jdbcAuthentication().dataSource(dataSource).usersByUsernameQuery("select correo,contrasenya from usuarios where correo=?");
-    }*/
-    @Autowired
-            
-    public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception{
-        auth.jdbcAuthentication().dataSource(dataSource).usersByUsernameQuery("select correo,contrasenya from usuarios where correo=?");
     }
     
     @Override

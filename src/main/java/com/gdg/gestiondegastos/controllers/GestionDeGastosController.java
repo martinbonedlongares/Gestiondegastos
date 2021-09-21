@@ -92,15 +92,8 @@ public class GestionDeGastosController {
 
     @PostMapping("/crear")
     public String crear(Model m, Usuario usuario) throws ClassNotFoundException, SQLException {
-        
-        String correo=usuario.getCorreo();
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/gestiondegastos","root", "");
-        final String query="Select correo from usuario where correo=?";
-        final PreparedStatement ps=con.prepareStatement(query);
-        ps.setString(1, correo);
-        final ResultSet rs=ps.executeQuery();
-        if(rs.next()){
+        Usuario usu=repoUsuario.findByCorreo(usuario.getCorreo());
+        if(usu!=null){
             m.addAttribute("msg", "Correo ya registrado. Utilice otro");
             return "crearUsuario";
         }else{

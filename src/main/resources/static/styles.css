@@ -232,7 +232,7 @@ th {
   flex: 1px;
   margin: 0 auto;
   border: 0;
-  height: 0.5px;
+  height: 1px;
   background-image: linear-gradient(
     to right,
     #3e3434,
@@ -245,7 +245,7 @@ th {
   flex: 1px;
   margin: 0 auto;
   border: 0;
-  height: 0.5px;
+  height: 1px;
   background-color: #3e3434;
 }
 
@@ -525,24 +525,25 @@ th {
 }
 
 .pager-nav {
-  margin: 16px 0;
+  margin: 16px 10px;
+  padding-bottom: 20px;
   text-align: center;
 }
 .pager-nav span {
   display: inline-block;
-  padding: 4px 8px;
+  padding: 4px 14px;
   margin: 1px;
   cursor: pointer;
   font-size: 14px;
   background-color: #ffffff;
-  border: 1px solid #e1e1e1;
-  border-radius: 3px;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+  border: 1px solid #3e3434;
+  border-radius: 4px;
 }
 .pager-nav span:hover,
 .pager-nav .pg-selected {
-  background-color: #f9f9f9;
-  border: 1px solid #cccccc;
+  color: #f7f7f7;
+  background-color: #226acb;
+  border: 1px solid #3e3434;
 }
 
 .largeWidth {

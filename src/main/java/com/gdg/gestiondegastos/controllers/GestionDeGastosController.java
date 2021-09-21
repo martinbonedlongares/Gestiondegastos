@@ -10,6 +10,13 @@ import com.gdg.gestiondegastos.repositories.MovimientosRepository;
 import com.gdg.gestiondegastos.repositories.PresupuestoRepository;
 import com.gdg.gestiondegastos.repositories.UsuarioGrupoRepository;
 import com.gdg.gestiondegastos.repositories.UsuarioRepository;
+import com.mysql.cj.Constants;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -59,7 +66,7 @@ public class GestionDeGastosController {
         return "crearUsuario";
     }
 
-    @GetMapping("/principal")
+    @GetMapping("/principal") // Pagina de inicio principal
     public String principal(Model m) {
         // m.addAttribute("usuario", new Usuario());
         return "login";
@@ -72,18 +79,25 @@ public class GestionDeGastosController {
     }*/
 
     @PostMapping("/crear")
-    public String crear(Model m, Usuario usuario) {
-
-        usuario.setContrasenya(clave.encode(usuario.getContrasenya()));
-        repoUsuario.save(usuario);
-        return "login";
+    public String crear(Model m, Usuario usuario) throws ClassNotFoundException, SQLException {
+        Usuario usu = repoUsuario.findByCorreo(usuario.getCorreo());
+        if (usu != null) {
+            m.addAttribute("msg", "Correo ya registrado. Utilice otro");
+            return "crearUsuario";
+        } else {
+            usuario.setContrasenya(clave.encode(usuario.getContrasenya()));
+            repoUsuario.save(usuario);
+            return "login";
+        }
     }
 
     @GetMapping("/info")
     @ResponseBody
     public String info() {
 
-        UsuarioDto usuValidado = (UsuarioDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        // UsuarioDto
+        // usuValidado=(UsuarioDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        // System.out.print(SecurityContextHolder.getContext().getAuthentication());
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 

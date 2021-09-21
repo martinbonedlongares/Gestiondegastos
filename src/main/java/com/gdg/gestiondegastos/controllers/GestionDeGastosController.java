@@ -12,6 +12,11 @@ import com.gdg.gestiondegastos.repositories.PresupuestoRepository;
 import com.gdg.gestiondegastos.repositories.UsuarioGrupoRepository;
 import com.gdg.gestiondegastos.repositories.UsuarioRepository;
 import com.mysql.cj.Constants;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpSession;
@@ -84,12 +89,28 @@ public class GestionDeGastosController {
         return "login";
     }
 
-    @PostMapping("/crear") //Ingreso de usuario a la BD
-    public String crear(Model m, Usuario usuario) {
-
-        usuario.setContrasenya(clave.encode(usuario.getContrasenya()));
-       
-        return "login";
+    @PostMapping("/crear")
+    public String crear(Model m, Usuario usuario) throws ClassNotFoundException, SQLException {
+        
+        String correo=usuario.getCorreo();
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/gestiondegastos","root", "");
+        final String query="Select correo from usuario where correo=?";
+        final PreparedStatement ps=con.prepareStatement(query);
+        ps.setString(1, correo);
+        final ResultSet rs=ps.executeQuery();
+        if(rs.next()){
+            m.addAttribute("msg", "Correo ya registrado. Utilice otro");
+            return "crearUsuario";
+        }else{
+            usuario.setContrasenya(clave.encode(usuario.getContrasenya()));
+            repoUsuario.save(usuario);
+            return "login";
+        }
+        
+        
+        
+        
     }
 
     @GetMapping("/info")
@@ -97,23 +118,20 @@ public class GestionDeGastosController {
     public String info() {
         
         
-        UsuarioDto usuValidado=(UsuarioDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        //UsuarioDto usuValidado=(UsuarioDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        //System.out.print(SecurityContextHolder.getContext().getAuthentication());
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
-
 
     @Autowired
     private AuthenticationManager am;
 
     @PostMapping("/ingresar") // hacer login
     public String ingresar(Model m, String correo, String contrasenya) {
-        try{
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(correo, contrasenya);
         Authentication auth = am.authenticate(token);
         SecurityContextHolder.getContext().setAuthentication(auth);
-        }catch(Exception e){
-            return "login";
-        }
+
         Usuario usuario = new Usuario();
         System.out.println(" USUARIO  1    " + correo);
         try {
@@ -134,9 +152,7 @@ public class GestionDeGastosController {
 
         m.addAttribute("grupo", repoGrupo.findById(idGrupo).get());
         m.addAttribute("movimientos", repoMovimientos.leerPorGrupo(idGrupo));
-
         m.addAttribute("presupuesto", repoPresupuesto.findByIdGrupo(idGrupo));
-
         return "grupos";
     }
 
@@ -149,14 +165,15 @@ public class GestionDeGastosController {
     }
 
     /*
-    //Sin ajax
-    @GetMapping("/grupo/{idGrupo}/borrarUsuario")
-    public String borrarUsuario(Integer idUsuarioGrupo, Integer idGrupo) {
-        repoUsuarioGrupo.deleteById(idUsuarioGrupo);
-        return "redirect:/gestion/grupo/{idGrupo}/gestionar";
-    }*/
-    
-    //Con ajax
+     * //Sin ajax
+     * 
+     * @GetMapping("/grupo/{idGrupo}/borrarUsuario") public String
+     * borrarUsuario(Integer idUsuarioGrupo, Integer idGrupo) {
+     * repoUsuarioGrupo.deleteById(idUsuarioGrupo); return
+     * "redirect:/gestion/grupo/{idGrupo}/gestionar"; }
+     */
+
+    // Con ajax
     @GetMapping("/grupo/{idGrupo}/borrarUsuario")
     public String borrarUsuario(Integer idUsuarioGrupo, Integer idGrupo) {
         repoUsuarioGrupo.deleteById(idUsuarioGrupo);
@@ -202,6 +219,6 @@ public class GestionDeGastosController {
         Presupuesto p = repoPresupuesto.findByIdGrupo(idGrupo);
         p.setCantidadFinal(p.getCantidadFinal() + mov.getCantidad());
         repoPresupuesto.save(p);
-        return "redirect:/gestion/grupo/"+idGrupo;
+        return "redirect:/gestion/grupo/" + idGrupo;
     }
 }

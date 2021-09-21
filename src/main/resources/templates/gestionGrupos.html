@@ -1,33 +1,32 @@
 <html xmlns:th="https://www.thymeleaf.org">
-    <head>
-        <title>Titulo</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div class="container">
-            <!--<div class="h2">
-                <a onclick="mostrarFormulario()" class="btn">NUEVO MOVIMIENTO</a>
-                <a th:href="@{|/gestion/grupo/${idGrupo}|}">Volver</a>
-            </div>-->
-            <table class="table table-hover mt-5">
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Correo</th>
-                        <th>Teléfono</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody  >                        
-                    <tr th:each="ug:${usuarioGrupo}" class="item">
-                        <td class='align-middle' th:text="${ug.usuario.nombre}"></td>
-                        <td class='align-middle' th:text="${ug.usuario.correo}"></td>
-                        <td class='align-middle' th:text="${ug.usuario.telefono}"></td>
-                        <td><a class="btn btn-danger item" th:href="@{|{idGrupo}/borrarUsuario|(idUsuarioGrupo=${ug.id},idGrupo=${idGrupo})}">X</a></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </body>
+
+<head>
+    <title>Gestión de grupos</title>
+</head>
+
+<body>
+    <div>
+        <table class="tablaPrincipal">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Teléfono</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="ug:${usuarioGrupo}" class="item">
+                    <td class='align-middle' th:text="${ug.usuario.nombre}"></td>
+                    <td class='align-middle' th:text="${ug.usuario.correo}"></td>
+                    <td class='align-middle' th:text="${ug.usuario.telefono}"></td>
+                    <td><a class="botonRojo"
+                            th:href="@{|{idGrupo}/borrarUsuario|(idUsuarioGrupo=${ug.id},idGrupo=${idGrupo})}">Eliminar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
 </html>

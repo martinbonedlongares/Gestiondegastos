@@ -50,7 +50,7 @@ public class GestionDeGastosController {
     @Autowired
     private PasswordEncoder clave;
 
-    // Este es un get para ver la principal y así ver los cambios
+    // Este es un get para ver la principal y asÃ­ ver los cambios
     @GetMapping("/paginaPrincipal")
 
     public String principal() {
@@ -102,18 +102,19 @@ public class GestionDeGastosController {
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 
-    // @Qualifier("amB")
 
     @Autowired
     private AuthenticationManager am;
 
     @PostMapping("/ingresar") // hacer login
     public String ingresar(Model m, String correo, String contrasenya) {
-
+        try{
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(correo, contrasenya);
         Authentication auth = am.authenticate(token);
         SecurityContextHolder.getContext().setAuthentication(auth);
-
+        }catch(Exception e){
+            return "login";
+        }
         Usuario usuario = new Usuario();
         System.out.println(" USUARIO  1    " + correo);
         try {

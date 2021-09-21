@@ -26,9 +26,6 @@
             <div th:if="${presupuesto.cantidadInicio>0}">
                 <p id="presupuesto" th:text="${presupuesto.cantidadInicio}"></p>
             </div>
-            <div th:unless="${presupuesto.cantidadInicio>0}">
-                <p id="presupuesto" th:text="${presupuesto.cantidadInicio}"></p>
-            </div>
             <div>
                 <!--<a onclick="mostrarFormulario()" class="btn">NUEVO MOVIMIENTO</a>-->
                 <a th:href="@{|${idGrupo}/nuevoMovimiento|(idUsuarioGrupo = ${movimientos[0].usuarioGrupo.id})}">NUEVO MOVIMIENTO</a>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+    <head>
+        <title>Gestion de Gastos</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+        <link rel="stylesheet" href="/styles.css" />
+    <body>
+        <div align="center">
+            <h1 class="negritaPrincipal"> Gestión de Gastos </h1> 
+            <h3 class="negritaPrincipal">Por favor ingresa tus datos</h3>
+
+            <!-- comment   <form class="form-signin" method="post" action="ingresar" name="ingreso">--> 
+
+            <form  name="ingreso" method="post" action="ingresar2" >
+                <p>
+                    <label for="correo" class="negritaPrincipal">Ingresa tu email </label>
+                    <input type="email" id="correo" name="correo"  placeholder="Ingresa tu email" >
+                </p>
+                <p>
+                    <label for="contrasenya" class="negritaPrincipal" placeholder="Ingresa tu password">Ingresa tu Password</label>
+                    <input type="password" id="contrasenya" name="contrasenya"  placeholder="Ingresa tu password">
+                </p>
+                <div class="divHrPrincipal" >
+                                
+                    <button class="botonAzul" onclick="validar()">Ingresar</button>
+                </div>
+              </form>   
+            
+                <div class="divHrPrincipal">
+                    <a th:href="@{agregar}" class="botonAzul"  value='Ingresar'>  Nuevo Usuario </a> 
+                </div>
+           
+        </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.js"></script>
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+        <script> 
+            function validar(){
+           
+                if (document.ingreso.username.value.length==0){
+                alert("Debe escribir su Email");
+               // document.ingreso.username.focus();
+                   
+                }
+               else {
+                     if (document.ingreso.password.value.length==0){
+                       alert("Debe escribir su Password");
+                     //    document.ingreso.password.focus();
+                         
+                          
+                     // }else{
+                        document.ingreso.action = "ingresar";
+                      }         
+               
+                }
+            }
+        </script>
+    </body>
+
+
+</html>

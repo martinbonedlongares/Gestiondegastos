@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/gestion")
@@ -57,21 +58,6 @@ public class GestionDeGastosController {
         return "principal";
     }
 
-    @GetMapping("/inicio/{idUsuario}")
-    public String inicio(Model m, @PathVariable Integer idUsuario) {
-        Usuario user = repoUsuario.findById(idUsuario).get();
-        // user = repoUsuario.getById(idUsuario);
-
-        // Suma todas las cantidades iniciales indicadas en el presupuesto del usuario
-        m.addAttribute("presupuestoPersonal",
-                user.getUsuarioGrupo().stream().map(x -> x.getGrupo().getPresupuesto()).collect(Collectors
-                        .summingDouble(p -> p.stream().collect(Collectors.summingDouble(z -> z.getCantidadInicio())))));
-
-        m.addAttribute("movimientos", repoMovimientos.leerPorUsuario(idUsuario));
-
-        return "principal";
-    }
-
     @GetMapping("/agregar")
     public String agregarUsuario(Model m, Usuario usuario) {
         m.addAttribute("usuario", new Usuario());
@@ -85,6 +71,12 @@ public class GestionDeGastosController {
         return "login";
     }
 
+    @GetMapping("/principal2")
+    public String principal2(Model m) {
+        // m.addAttribute("usuario", new Usuario());
+        return "login2";
+    }
+
     @PostMapping("/crear")
     public String crear(Model m, Usuario usuario) {
 
@@ -96,14 +88,12 @@ public class GestionDeGastosController {
     @GetMapping("/info")
     @ResponseBody
     public String info() {
-        
-        
-        UsuarioDto usuValidado=(UsuarioDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+
+        UsuarioDto usuValidado = (UsuarioDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 
     // @Qualifier("amB")
-
     @Autowired
     private AuthenticationManager am;
 
@@ -123,10 +113,66 @@ public class GestionDeGastosController {
             e.printStackTrace();
         }
 
-        if (usuario.getNombre() != null)
+        if (usuario.getNombre() != null) {
             return "principal";
-        else
+        } else {
             return "login";
+        }
+    }
+
+    @PostMapping("/ingresar2") // hacer login
+    public String ingresar2(Model m, String correo, String contrasenya, RedirectAttributes redirectAttrs) {
+
+        //UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(correo, contrasenya);
+        //Authentication auth = am.authenticate(token);
+        //SecurityContextHolder.getContext().setAuthentication(auth);
+        Usuario usuario = new Usuario();
+        //System.out.println(" USUARIO  1    " + correo);
+        try {
+            usuario = repoUsuario.findByCorreo(correo);
+            //System.out.println(" USUARIO   2   " + usuario.getNombre());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (usuario.getNombre() != null) {
+            redirectAttrs.addFlashAttribute("idUsuario", usuario.getId());
+            return "redirect:/gestion/inicio";
+        } else {
+            return "login";
+        }
+    }
+
+    /*
+    //Antes del Security
+    @GetMapping("/inicio/{idUsuario}")
+    public String inicio(Model m, @PathVariable Integer idUsuario) {
+        Usuario user = repoUsuario.findById(idUsuario).get();
+        // user = repoUsuario.getById(idUsuario);
+
+        // Suma todas las cantidades iniciales indicadas en el presupuesto del usuario
+        m.addAttribute("presupuestoPersonal",
+                user.getUsuarioGrupo().stream().map(x -> x.getGrupo().getPresupuesto()).collect(Collectors
+                        .summingDouble(p -> p.stream().collect(Collectors.summingDouble(z -> z.getCantidadInicio())))));
+
+        m.addAttribute("movimientos", repoMovimientos.leerPorUsuario(idUsuario));
+
+        return "principal";
+    }*/
+    //Despues del Security
+    @GetMapping("/inicio")
+    public String inicio(Model m, Integer idUsuario) {
+        Usuario user = repoUsuario.findById(idUsuario).get();
+        // user = repoUsuario.getById(idUsuario);
+
+        // Suma todas las cantidades iniciales indicadas en el presupuesto del usuario
+        m.addAttribute("presupuestoPersonal",
+                user.getUsuarioGrupo().stream().map(x -> x.getGrupo().getPresupuesto()).collect(Collectors
+                        .summingDouble(p -> p.stream().collect(Collectors.summingDouble(z -> z.getCantidadInicio())))));
+
+        m.addAttribute("movimientos", repoMovimientos.leerPorUsuario(idUsuario));
+
+        return "principal";
     }
 
     @GetMapping("/grupo/{idGrupo}")
@@ -155,7 +201,6 @@ public class GestionDeGastosController {
         repoUsuarioGrupo.deleteById(idUsuarioGrupo);
         return "redirect:/gestion/grupo/{idGrupo}/gestionar";
     }*/
-    
     //Con ajax
     @GetMapping("/grupo/{idGrupo}/borrarUsuario")
     public String borrarUsuario(Integer idUsuarioGrupo, Integer idGrupo) {
@@ -171,7 +216,7 @@ public class GestionDeGastosController {
      * return "movimientos"; }
      */
 
-    /*
+ /*
      * @PostMapping("/grupo/{idGrupo}/nuevoMovimiento") public String
      * nuevoMovimientos(Model m, Integer idUsuarioGrupo){ Movimiento mov = new
      * Movimiento();
@@ -180,7 +225,6 @@ public class GestionDeGastosController {
      * 
      * return "nuevoMov"; }
      */
-
     // Ejemplo ded url: http://localhost:8080/gestion/grupo/6
     @GetMapping("/grupo/{idGrupo}/nuevoMovimiento")
 
@@ -202,6 +246,6 @@ public class GestionDeGastosController {
         Presupuesto p = repoPresupuesto.findByIdGrupo(idGrupo);
         p.setCantidadFinal(p.getCantidadFinal() + mov.getCantidad());
         repoPresupuesto.save(p);
-        return "redirect:/gestion/grupo/"+idGrupo;
+        return "redirect:/gestion/grupo/" + idGrupo;
     }
 }

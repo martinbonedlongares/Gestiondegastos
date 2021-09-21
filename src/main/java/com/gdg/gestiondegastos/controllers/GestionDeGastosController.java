@@ -102,7 +102,6 @@ public class GestionDeGastosController {
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 
-    // @Qualifier("amB")
 
     @Autowired
     private AuthenticationManager am;
@@ -120,7 +119,7 @@ public class GestionDeGastosController {
         System.out.println(" USUARIO  1    " + correo);
         try {
             usuario = repoUsuario.findByCorreo(correo);
-            
+            System.out.println(" USUARIO   2   " + usuario.getNombre());
         } catch (Exception e) {
             e.printStackTrace();
         }

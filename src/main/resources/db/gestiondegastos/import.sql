@@ -33,34 +33,34 @@ INSERT INTO usuario_grupo (id_usuario,id_grupo,rol) VALUES (4,7,0);
 
 --#MOVIMIENTO# categoria: Entretenimiento, Alimentacion, Ropa, Hogar, Higiene, Transporte, Comunicacion, Medicina, Regalo, Mascota
 
-INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-100,'Alimentacion','Compra de 5 yatekomo',CURDATE(),7);
-INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (100,'Alimentacion','Vendi 5 yatekomo caducados',CURDATE(),9);
+INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-12.0,'Alimentacion','Compra de 5 yatekomo',CURDATE(),7);
+INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (12.0,'Alimentacion','Vendi 5 yatekomo caducados',CURDATE(),9);
 
-INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-100,'Hogar','Compra de 5 yatekomo',CURDATE(),7);
-INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-100,'Alimentacion','Compra de 5 yatekomo',CURDATE(),7);
-INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-100,'Alimentacion','Compra de 5 yatekomo',CURDATE(),7);
-INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-100,'Alimentacion','Compra de 5 yatekomo',CURDATE(),7);
-INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-100,'Alimentacion','Compra de 5 yatekomo',CURDATE(),7);
-INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-100,'Alimentacion','Compra de 5 yatekomo',CURDATE(),7);
-INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-100,'Alimentacion','Compra de 5 yatekomo',CURDATE(),7);
-INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-100,'Alimentacion','Compra de 5 yatekomo',CURDATE(),7);
-INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-100,'Alimentacion','Compra de 5 yatekomo',CURDATE(),7);
-INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-100,'Alimentacion','Compra de 5 yatekomo',CURDATE(),7);
-INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-100,'Alimentacion','Compra de 5 yatekomo',CURDATE(),7);
-INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-100,'Alimentacion','Compra de 5 yatekomo',CURDATE(),7);
-INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-100,'Alimentacion','Compra de 5 yatekomo',CURDATE(),7);
-INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-100,'Alimentacion','Compra de 5 yatekomo',CURDATE(),7);
-INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-100,'Alimentacion','Compra de 5 yatekomo',CURDATE(),7);
-INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-100,'Alimentacion','Compra de 5 yatekomo',CURDATE(),7);
-INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-100,'Alimentacion','Compra de 5 yatekomo',CURDATE(),7);
-INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-100,'Alimentacion','Compra de 5 yatekomo',CURDATE(),7);
-INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-100,'Alimentacion','Compra de 5 yatekomo',CURDATE(),7);
-INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-100,'Alimentacion','Compra de 5 yatekomo',CURDATE(),7);
-INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-100,'Alimentacion','Compra de 5 yatekomo',CURDATE(),7);
-INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-100,'Alimentacion','Compra de 5 yatekomo',CURDATE(),7);
-INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-100,'Alimentacion','Compra de 5 yatekomo',CURDATE(),7);
-INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-100,'Alimentacion','Compra de 5 yatekomo',CURDATE(),7);
-INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-100,'Alimentacion','Compra de 5 yatekomo',CURDATE(),7);
+INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-50,'Hogar','Aspiradora Turbo3000',CURDATE(),1);
+INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-9.0,'Entretenimiento','2 Entradas Cruella',CURDATE(),2);
+INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (+1200.75,'Hogar','PAY-DAY BABY',CURDATE(),3);
+INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-40,'Ropa','Pantalones Talla L y Camisa',CURDATE(),4);
+INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-10,'Transporte','Recarga de tarjeta bus',CURDATE(),5);
+INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (+30,'Regalo','Propina de la abuela <3',CURDATE(),6);
+INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (1.5,'Transporte','Monedas en el suelo, que suerte',CURDATE(),7);
+INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-11.9,'Regalo','Libro de Stephen King para Paloma',CURDATE(),8);
+INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-1.8,'Alimentacion','Cafe con churros en Hiberus',CURDATE(),9);
+INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (+4.5,'Hogar','Deuda de mi hermano saldada',CURDATE(),10);
+INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-45.5,'Entretenimiento','Cascos New Skill Kimera V2',CURDATE(),6);
+INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (+600.65,'Comunicacion','Resolución juicio del bar',CURDATE(),6);
+INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-40.32,'Higiene','Productos rollo cremas, pasta de dientes etc',CURDATE(),8);
+INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-0.9,'Entretenimiento','Karlson, oh... No sabes lo que es Karlson? Karlson es un...',CURDATE(),7);
+INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-61.2,'Alimentación','Liquidos de vaper',CURDATE(),9);
+INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (+120,'Regalo','Cumple YaY <3',CURDATE(),10);
+INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-0.1,'Alimentacion','Propina del café',CURDATE(),10);
+INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-102.8,'Comunicación','Factura Orange',CURDATE(),9);
+INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-20.0,'Transporte','Gasolina',CURDATE(),5);
+INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (+5.5,'Regalo','Tarjeta reagalo hipercor',CURDATE(),6);
+INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-60,'Alimentacion','Carro de la compra',CURDATE(),7);
+INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-100,'Alimentacion','Café con "descuento" de Hiberus',CURDATE(),10);
+INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (+20,'Higiene','Arreglar tuberia',CURDATE(),9);
+INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-3.00,'Transporte','Mas viajes de tranvia T.T',CURDATE(),8);
+INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-30.5,'Alimentacion','Cena UDON',CURDATE(),6);
 
 
 --#PRESUPUESTOS#

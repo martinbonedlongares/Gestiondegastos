@@ -1,11 +1,11 @@
 
 --USUARIOS
 
-INSERT INTO usuario (nombre,contrasenya,correo,telefono) VALUES ('Raul','RaulHiberus','RaulHiberus@gmail.com','665379845');
-INSERT INTO usuario (nombre,contrasenya,correo,telefono) VALUES ('Diego','NotDaiggo','DiegoHiberus@gmail.com','655352261');
-INSERT INTO usuario (nombre,contrasenya,correo,telefono) VALUES ('Sofia','LaSofi','SofiaHiberus@gmail.com','722161974');
-INSERT INTO usuario (nombre,contrasenya,correo,telefono) VALUES ('Martin','Martinxo','MartinHiberus@gmail.com','677826971');
-INSERT INTO usuario (nombre,contrasenya,correo,telefono) VALUES ('Jose María','ElXema','JosemaHiberus@gmail.com','646582521');
+INSERT INTO usuario (nombre,contrasenya,correo,telefono) VALUES ('Raul','$2a$10$PkHebxbh3IMniYV09VtQNu32xDLX8yZLkO0JX1/GNqjvyR0wMY7JS','RaulHiberus@gmail.com','665379845');
+INSERT INTO usuario (nombre,contrasenya,correo,telefono) VALUES ('Diego','$2a$10$YQAzwUghK2aSkISs3ok3Cu4Ha4gcebPisgp6qlOcUjvpI4lbfr2QK','DiegoHiberus@gmail.com','655352261');
+INSERT INTO usuario (nombre,contrasenya,correo,telefono) VALUES ('Sofia','$2a$10$Vj6jJOvVEtWqkIBWx5KIjuB3hkIcc0567UUblBbnoPXCM4n1mMMe6','SofiaHiberus@gmail.com','722161974');
+INSERT INTO usuario (nombre,contrasenya,correo,telefono) VALUES ('Martin','$2a$10$H3yBhQpiyjqG02boZPcwlu7l5Je3Bu0E6N6mFb0Td4lxQT0GtyXW2','MartinHiberus@gmail.com','677826971');
+INSERT INTO usuario (nombre,contrasenya,correo,telefono) VALUES ('Jose María','$2a$10$R/YwN2b8AKfwxu0upaIA/Onufw7A5wCKZfgDc87sIFuFKdn8CSt26','JosemaHiberus@gmail.com','646582521');
 
 
 --#GRUPOS#
@@ -33,8 +33,8 @@ INSERT INTO usuario_grupo (id_usuario,id_grupo,rol) VALUES (4,7,0);
 
 --#MOVIMIENTO#
 
-INSERT INTO movimiento (cantidad,concepto,info,fecha,id_usuario_grupo) VALUES (-100,'Alimentacion','Compra de 5 yatekomo',CURDATE(),7);
-INSERT INTO movimiento (cantidad,concepto,info,fecha,id_usuario_grupo) VALUES (100,'Alimentacion','Vendi 5 yatekomo caducados',CURDATE(),9);
+INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-100,'Alimentacion','Compra de 5 yatekomo',CURDATE(),7);
+INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (100,'Alimentacion','Vendi 5 yatekomo caducados',CURDATE(),9);
 
 --#PRESUPUESTOS#
 

@@ -6,16 +6,13 @@
 package com.gdg.gestiondegastos.configuracion;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,6 +23,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Autowired
     private UserDetailsService validacion;    
+    
+    
+    
+    @Bean
+    public PasswordEncoder passwordEncoder()
+    {
+        return new BCryptPasswordEncoder();
+    }
     
     //Aquí se configura el acceso
     @Override
@@ -42,13 +47,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
              .antMatchers("/vuelos/**").hasAnyRole("Administrador")
              .antMatchers("/traducir/**").hasAnyRole("Administrador", "Usuario")
              .antMatchers("/url3").hasRole("Administrador");
-        http.formLogin();   //  /login. Spring
+        //http.formLogin();   //  /login. Spring
         http.csrf().disable();
         //http.formLogin();   //  /login. Spring
+        /*http.anonymous().disable().csrf().disable().authorizeRequests().antMatchers("/registro**")
+                .permitAll().anyRequest().authenticated()
+                .and()
+                .formLogin().loginPage("/login").usernameParameter("correo").passwordParameter("contrasenya")
+                .successForwardUrl("/paginaPrincipal/{id}").failureForwardUrl("/paginaPrincipal")
+                .permitAll()
+                .and()
+                .logout().logoutSuccessUrl("/paginaPrincipal").invalidateHttpSession(true)
+                .clearAuthentication(true).permitAll();*/
     }
-
-      
-    
     
     //Aquí se configura Usuario/Password
     @Override
@@ -57,19 +68,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                  .withUser("jorge").password("{noop}1111").roles("Usuario")
                  .and()
                  .withUser("juan").password("{noop}1111").roles("Administrador");*/
-        
         auth.userDetailsService(validacion).passwordEncoder(passwordEncoder());
     }
-    
-    
-    @Bean(name="passwordEncoder")
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
-    
+
     @Bean
-    public AuthenticationManager authenticationManagerBean() throws Exception{
-        return super.authenticationManagerBean();
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean(); //To change body of generated methods, choose Tools | Templates.
     }
+
+
     
 }

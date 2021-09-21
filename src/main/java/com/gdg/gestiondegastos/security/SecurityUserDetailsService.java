@@ -5,6 +5,7 @@
  */
 package com.gdg.gestiondegastos.security;
 
+import com.gdg.gestiondegastos.dto.UsuarioDto;
 import com.gdg.gestiondegastos.entities.Usuario;
 import com.gdg.gestiondegastos.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +24,12 @@ public class SecurityUserDetailsService implements UserDetailsService{
     private UsuarioRepository uR;
     
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
-        Usuario user=uR.findUserByUsername(username).orElseThrow(()->new UsernameNotFoundException("No exite ese usuario"));
-        return user;
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException{
+        Usuario user=uR.findByCorreo(email);
+        if(user==null)
+            throw new UsernameNotFoundException("Not found");
+        UsuarioDto udto=new UsuarioDto(user);
+        return udto;
     }
     
     public void crearUsuario(UserDetails user){

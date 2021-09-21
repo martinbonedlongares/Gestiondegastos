@@ -151,12 +151,19 @@ th {
 
 .divPrincipal {
   position: relative;
+  top: 20px;
 }
 
 .presupuestoPrincipal {
   font-weight: lighter;
   font-size: 80px;
   text-align: center;
+}
+
+#grupo:hover {
+  font-weight: 300;
+  font-size: 80px;
+  color: #226acb;
 }
 
 .Verde {
@@ -261,6 +268,24 @@ th {
 
 .botonAzul:hover {
   background-color: #1c59a8;
+  color: #f7f7f7;
+  text-decoration: none;
+}
+
+.botonRojo {
+  border-radius: 4px;
+  background-color: #ed2525;
+  color: #f7f7f7;
+  width: 100px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.botonRojo:hover {
+  background-color: #c21e1e;
   color: #f7f7f7;
   text-decoration: none;
 }
@@ -415,7 +440,7 @@ th {
 }
 
 .input-search::placeholder {
-  color: #3e3434;
+  color: #f7f7f7;
   font-size: 18px;
   letter-spacing: 1px;
   font-weight: 400;
@@ -442,6 +467,7 @@ th {
   width: 250px;
   border-radius: 4px;
   border: 1px solid #3e3434;
+  background-color: #3e3434;
   transition: all 500ms cubic-bezier(0, 0.11, 0.35, 2);
 }
 
@@ -449,6 +475,7 @@ th {
   width: 250px;
   border-radius: 4px;
   border: 1px solid #3e3434;
+  background-color: #3e3434;
   transition: all 500ms cubic-bezier(0, 0.11, 0.35, 2);
 }
 
@@ -469,14 +496,21 @@ th {
   #movimientos .tablaPrincipal tr > *:nth-child(1) {
     display: none;
   }
+  #pager .tablaPrincipal tr > *:nth-child(0) {
+    display: none;
+  }
 
-  .divPrincipal #nombre {
+  .divPrincipal #grupo {
     display: none;
   }
 
   .divPrincipal #presupuesto {
     position: relative;
     top: 20px;
+  }
+
+  .divPrincipal {
+    top: 0px;
   }
 }
 
@@ -509,4 +543,10 @@ th {
 .pager-nav .pg-selected {
   background-color: #f9f9f9;
   border: 1px solid #cccccc;
+}
+
+.largeWidth {
+  position: relative;
+  right: 10%;
+  width: 120%;
 }

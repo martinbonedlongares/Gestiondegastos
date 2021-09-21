@@ -9,10 +9,13 @@ import com.gdg.gestiondegastos.entities.Usuario;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+
+@Data
 public class UsuarioDto implements UserDetails{
 
     private Integer id;

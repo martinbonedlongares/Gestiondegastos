@@ -48,7 +48,6 @@ public class GestionDeGastosController {
 
     // Este es un get para ver la principal y asÃ­ ver los cambios
     @GetMapping("/paginaPrincipal")
-
     public String principal() {
         return "principal";
     }
@@ -65,12 +64,12 @@ public class GestionDeGastosController {
         // m.addAttribute("usuario", new Usuario());
         return "login";
     }
-
+/*
     @GetMapping("/principal2")
     public String principal2(Model m) {
         // m.addAttribute("usuario", new Usuario());
         return "login2";
-    }
+    }*/
 
     @PostMapping("/crear")
     public String crear(Model m, Usuario usuario) {
@@ -88,19 +87,15 @@ public class GestionDeGastosController {
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 
-
     @Autowired
     private AuthenticationManager am;
 
     @PostMapping("/ingresar") // hacer login
     public String ingresar(Model m, String correo, String contrasenya) {
-        try{
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(correo, contrasenya);
         Authentication auth = am.authenticate(token);
         SecurityContextHolder.getContext().setAuthentication(auth);
-        }catch(Exception e){
-            return "login";
-        }
+        
         Usuario usuario = new Usuario();
         System.out.println(" USUARIO  1    " + correo);
         try {
@@ -111,7 +106,7 @@ public class GestionDeGastosController {
         }
 
         if (usuario.getNombre() != null) {
-            return "principal";
+            return "redirect:inicio";
         } else {
             return "login";
         }
@@ -143,9 +138,11 @@ public class GestionDeGastosController {
 */
     
     //Antes del Security
-    @GetMapping("/inicio/{idUsuario}")
-    public String inicio(Model m, @PathVariable Integer idUsuario) {
-        Usuario user = repoUsuario.findById(idUsuario).get();
+    @GetMapping("/inicio")
+    public String inicio(Model m) {
+        UsuarioDto usuValidado = (UsuarioDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        
+        Usuario user = repoUsuario.findById(usuValidado.getId()).get();
         // user = repoUsuario.getById(idUsuario);
 
         // Suma todas las cantidades iniciales indicadas en el presupuesto del usuario
@@ -153,7 +150,7 @@ public class GestionDeGastosController {
                 user.getUsuarioGrupo().stream().map(x -> x.getGrupo().getPresupuesto()).collect(Collectors
                         .summingDouble(p -> p.stream().collect(Collectors.summingDouble(z -> z.getCantidadInicio())))));
 
-        m.addAttribute("movimientos", repoMovimientos.leerPorUsuario(idUsuario));
+        m.addAttribute("movimientos", repoMovimientos.leerPorUsuario(usuValidado.getId()));
 
         return "principal";
     }
@@ -180,9 +177,7 @@ public class GestionDeGastosController {
 
         m.addAttribute("grupo", repoGrupo.findById(idGrupo).get());
         m.addAttribute("movimientos", repoMovimientos.leerPorGrupo(idGrupo));
-
         m.addAttribute("presupuesto", repoPresupuesto.findByIdGrupo(idGrupo));
-
         return "grupos";
     }
 
@@ -195,13 +190,15 @@ public class GestionDeGastosController {
     }
 
     /*
-    //Sin ajax
-    @GetMapping("/grupo/{idGrupo}/borrarUsuario")
-    public String borrarUsuario(Integer idUsuarioGrupo, Integer idGrupo) {
-        repoUsuarioGrupo.deleteById(idUsuarioGrupo);
-        return "redirect:/gestion/grupo/{idGrupo}/gestionar";
-    }*/
-    //Con ajax
+     * //Sin ajax
+     * 
+     * @GetMapping("/grupo/{idGrupo}/borrarUsuario") public String
+     * borrarUsuario(Integer idUsuarioGrupo, Integer idGrupo) {
+     * repoUsuarioGrupo.deleteById(idUsuarioGrupo); return
+     * "redirect:/gestion/grupo/{idGrupo}/gestionar"; }
+     */
+
+    // Con ajax
     @GetMapping("/grupo/{idGrupo}/borrarUsuario")
     public String borrarUsuario(Integer idUsuarioGrupo, Integer idGrupo) {
         repoUsuarioGrupo.deleteById(idUsuarioGrupo);

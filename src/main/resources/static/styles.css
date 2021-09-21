@@ -232,7 +232,7 @@ th {
   flex: 1px;
   margin: 0 auto;
   border: 0;
-  height: 0.5px;
+  height: 1px;
   background-image: linear-gradient(
     to right,
     #3e3434,
@@ -245,7 +245,7 @@ th {
   flex: 1px;
   margin: 0 auto;
   border: 0;
-  height: 0.5px;
+  height: 1px;
   background-color: #3e3434;
 }
 

@@ -130,9 +130,7 @@ public class GestionDeGastosController {
 
         m.addAttribute("grupo", repoGrupo.findById(idGrupo).get());
         m.addAttribute("movimientos", repoMovimientos.leerPorGrupo(idGrupo));
-
         m.addAttribute("presupuesto", repoPresupuesto.findByIdGrupo(idGrupo));
-
         return "grupos";
     }
 
@@ -145,14 +143,15 @@ public class GestionDeGastosController {
     }
 
     /*
-    //Sin ajax
-    @GetMapping("/grupo/{idGrupo}/borrarUsuario")
-    public String borrarUsuario(Integer idUsuarioGrupo, Integer idGrupo) {
-        repoUsuarioGrupo.deleteById(idUsuarioGrupo);
-        return "redirect:/gestion/grupo/{idGrupo}/gestionar";
-    }*/
-    
-    //Con ajax
+     * //Sin ajax
+     * 
+     * @GetMapping("/grupo/{idGrupo}/borrarUsuario") public String
+     * borrarUsuario(Integer idUsuarioGrupo, Integer idGrupo) {
+     * repoUsuarioGrupo.deleteById(idUsuarioGrupo); return
+     * "redirect:/gestion/grupo/{idGrupo}/gestionar"; }
+     */
+
+    // Con ajax
     @GetMapping("/grupo/{idGrupo}/borrarUsuario")
     public String borrarUsuario(Integer idUsuarioGrupo, Integer idGrupo) {
         repoUsuarioGrupo.deleteById(idUsuarioGrupo);
@@ -198,6 +197,6 @@ public class GestionDeGastosController {
         Presupuesto p = repoPresupuesto.findByIdGrupo(idGrupo);
         p.setCantidadFinal(p.getCantidadFinal() + mov.getCantidad());
         repoPresupuesto.save(p);
-        return "redirect:/gestion/grupo/"+idGrupo;
+        return "redirect:/gestion/grupo/" + idGrupo;
     }
 }

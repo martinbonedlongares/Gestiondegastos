@@ -102,8 +102,6 @@ public class GestionDeGastosController {
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 
-    // @Qualifier("amB")
-
     @Autowired
     private AuthenticationManager am;
 

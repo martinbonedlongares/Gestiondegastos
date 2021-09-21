@@ -22,8 +22,8 @@
     <div>
         <form method="post" action="guardarMovimiento" th:object="${movimiento}">
             <div>
-                <input type="" name="idUsuarioGrupo" th:value="${param.idUsuarioGrupo[0]}" />
-                <input type="" name="idGrupo" th:value="${param.idGrupo[0]}" />
+                <input type="hidden" name="idUsuarioGrupo" th:value="${param.idUsuarioGrupo[0]}" />
+                <input type="hidden" name="idGrupo" th:value="${param.idGrupo[0]}" />
                 <input type="hidden" th:field="*{id}" />
             </div>
             <div>

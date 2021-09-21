@@ -120,19 +120,15 @@ public class GestionDeGastosController {
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 
-
     @Autowired
     private AuthenticationManager am;
 
     @PostMapping("/ingresar") // hacer login
     public String ingresar(Model m, String correo, String contrasenya) {
-        try{
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(correo, contrasenya);
         Authentication auth = am.authenticate(token);
         SecurityContextHolder.getContext().setAuthentication(auth);
-        }catch(Exception e){
-            return "login";
-        }
+
         Usuario usuario = new Usuario();
         System.out.println(" USUARIO  1    " + correo);
         try {
@@ -153,9 +149,7 @@ public class GestionDeGastosController {
 
         m.addAttribute("grupo", repoGrupo.findById(idGrupo).get());
         m.addAttribute("movimientos", repoMovimientos.leerPorGrupo(idGrupo));
-
         m.addAttribute("presupuesto", repoPresupuesto.findByIdGrupo(idGrupo));
-
         return "grupos";
     }
 
@@ -168,14 +162,15 @@ public class GestionDeGastosController {
     }
 
     /*
-    //Sin ajax
-    @GetMapping("/grupo/{idGrupo}/borrarUsuario")
-    public String borrarUsuario(Integer idUsuarioGrupo, Integer idGrupo) {
-        repoUsuarioGrupo.deleteById(idUsuarioGrupo);
-        return "redirect:/gestion/grupo/{idGrupo}/gestionar";
-    }*/
-    
-    //Con ajax
+     * //Sin ajax
+     * 
+     * @GetMapping("/grupo/{idGrupo}/borrarUsuario") public String
+     * borrarUsuario(Integer idUsuarioGrupo, Integer idGrupo) {
+     * repoUsuarioGrupo.deleteById(idUsuarioGrupo); return
+     * "redirect:/gestion/grupo/{idGrupo}/gestionar"; }
+     */
+
+    // Con ajax
     @GetMapping("/grupo/{idGrupo}/borrarUsuario")
     public String borrarUsuario(Integer idUsuarioGrupo, Integer idGrupo) {
         repoUsuarioGrupo.deleteById(idUsuarioGrupo);
@@ -221,6 +216,6 @@ public class GestionDeGastosController {
         Presupuesto p = repoPresupuesto.findByIdGrupo(idGrupo);
         p.setCantidadFinal(p.getCantidadFinal() + mov.getCantidad());
         repoPresupuesto.save(p);
-        return "redirect:/gestion/grupo/"+idGrupo;
+        return "redirect:/gestion/grupo/" + idGrupo;
     }
 }

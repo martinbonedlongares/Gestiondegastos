@@ -28,11 +28,11 @@
                         <th>Importe</th>
                     </tr>
                     <tr th:each="mov:${movimientos}">
-                        <td  th:text="${mov.concepto}">Esto es un concepto con valor positivo</td>
-                <td th:text="${mov.fecha}">13/02/1999</td>
-                <td th:text="${mov.cantidad}"> +3.400€</td>
+                        <td th:text="${mov.concepto}">Esto es un concepto con valor positivo</td>
+                        <td th:text="${mov.fecha}">13/02/1999</td>
+                        <td th:text="${mov.cantidad}"> +3.400€</td>
                     </tr>
-                    
+
                 </table>
             </div>
         </div>
@@ -82,4 +82,3 @@
         });
     </script>
 </body>
-

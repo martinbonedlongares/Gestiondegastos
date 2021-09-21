@@ -52,7 +52,6 @@ public class GestionDeGastosController {
 
     // Este es un get para ver la principal y asÃ­ ver los cambios
     @GetMapping("/paginaPrincipal")
-
     public String principal() {
         return "principal";
     }
@@ -72,24 +71,24 @@ public class GestionDeGastosController {
         return "principal";
     }
 
-    @GetMapping("/agregar")
+    @GetMapping("/agregar") // Formulario de ingreso de usuario
     public String agregarUsuario(Model m, Usuario usuario) {
         m.addAttribute("usuario", new Usuario());
         // repoUsuario.save(usuario);
         return "crearUsuario";
     }
 
-    @GetMapping("/principal")
+    @GetMapping("/principal") // Pagina de inicio principal
     public String principal(Model m) {
         // m.addAttribute("usuario", new Usuario());
         return "login";
     }
 
-    @PostMapping("/crear")
+    @PostMapping("/crear") //Ingreso de usuario a la BD
     public String crear(Model m, Usuario usuario) {
 
         usuario.setContrasenya(clave.encode(usuario.getContrasenya()));
-        repoUsuario.save(usuario);
+       
         return "login";
     }
 

@@ -1,6 +1,7 @@
 package com.gdg.gestiondegastos.controllers;
 
 import com.gdg.gestiondegastos.dto.UsuarioDto;
+import com.gdg.gestiondegastos.entities.Grupo;
 import com.gdg.gestiondegastos.entities.Movimiento;
 import com.gdg.gestiondegastos.entities.Presupuesto;
 import com.gdg.gestiondegastos.entities.Usuario;
@@ -16,6 +17,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,7 +75,8 @@ public class GestionDeGastosController {
         // m.addAttribute("usuario", new Usuario());
         return "login";
     }
-/*
+
+    /*
     @GetMapping("/principal2")
     public String principal2(Model m) {
         // m.addAttribute("usuario", new Usuario());
@@ -86,7 +91,19 @@ public class GestionDeGastosController {
             return "crearUsuario";
         } else {
             usuario.setContrasenya(clave.encode(usuario.getContrasenya()));
-            repoUsuario.save(usuario);
+
+            
+            Grupo grupo = new Grupo();
+            grupo.setNombre("Mi presupuesto personal");
+            grupo.setFechaCreacion(java.sql.Date.valueOf(LocalDate.now()));
+            
+            Grupo grupoCreado = repoGrupo.save(grupo);
+
+            ArrayList<UsuarioGrupo> ug = new ArrayList<>();
+            ug.add(new UsuarioGrupo(0,Boolean.TRUE, usuario, grupoCreado, new ArrayList<>()));
+            repoUsuarioGrupo.save(ug.get(0));
+            usuario.setUsuarioGrupo(ug);
+            //repoUsuario.save(usuario);
             return "login";
         }
     }
@@ -109,7 +126,7 @@ public class GestionDeGastosController {
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(correo, contrasenya);
         Authentication auth = am.authenticate(token);
         SecurityContextHolder.getContext().setAuthentication(auth);
-        
+
         Usuario usuario = new Usuario();
         System.out.println(" USUARIO  1    " + correo);
         try {
@@ -149,13 +166,12 @@ public class GestionDeGastosController {
             return "login";
         }
     }
-*/
-    
+     */
     //Antes del Security
     @GetMapping("/inicio")
     public String inicio(Model m) {
         UsuarioDto usuValidado = (UsuarioDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        
+
         Usuario user = repoUsuario.findById(usuValidado.getId()).get();
         // user = repoUsuario.getById(idUsuario);
 
@@ -168,7 +184,7 @@ public class GestionDeGastosController {
 
         return "principal";
     }
-    
+
     /*
     //Despues del Security
     @GetMapping("/inicio")
@@ -185,7 +201,6 @@ public class GestionDeGastosController {
 
         return "principal";
     }*/
-
     @GetMapping("/grupo/{idGrupo}")
     public String verGrupos(Model m, @PathVariable Integer idGrupo) {
 
@@ -211,7 +226,6 @@ public class GestionDeGastosController {
      * repoUsuarioGrupo.deleteById(idUsuarioGrupo); return
      * "redirect:/gestion/grupo/{idGrupo}/gestionar"; }
      */
-
     // Con ajax
     @GetMapping("/grupo/{idGrupo}/borrarUsuario")
     public String borrarUsuario(Integer idUsuarioGrupo, Integer idGrupo) {

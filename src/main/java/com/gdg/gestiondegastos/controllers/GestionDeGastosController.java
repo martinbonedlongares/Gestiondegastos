@@ -55,7 +55,7 @@ public class GestionDeGastosController {
     @Autowired
     private PasswordEncoder clave;
 
-    // Este es un get para ver la principal y así ver los cambios
+    // Este es un get para ver la principal y asÃ­ ver los cambios
     @GetMapping("/paginaPrincipal")
 
     public String principal() {
@@ -101,12 +101,12 @@ public class GestionDeGastosController {
         ps.setString(1, correo);
         final ResultSet rs=ps.executeQuery();
         if(rs.next()){
+            m.addAttribute("msg", "Correo ya registrado. Utilice otro");
+            return "crearUsuario";
+        }else{
             usuario.setContrasenya(clave.encode(usuario.getContrasenya()));
             repoUsuario.save(usuario);
             return "login";
-        }else{
-            m.addAttribute("msg", "Correo ya registrado");
-            return "crearUsuario";
         }
     }
 
@@ -120,16 +120,19 @@ public class GestionDeGastosController {
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 
+
     @Autowired
     private AuthenticationManager am;
 
     @PostMapping("/ingresar") // hacer login
     public String ingresar(Model m, String correo, String contrasenya) {
-
+        try{
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(correo, contrasenya);
         Authentication auth = am.authenticate(token);
         SecurityContextHolder.getContext().setAuthentication(auth);
-
+        }catch(Exception e){
+            return "login";
+        }
         Usuario usuario = new Usuario();
         System.out.println(" USUARIO  1    " + correo);
         try {

@@ -1,4 +1,5 @@
-<html lang="es" xmlns:th="https://www.thymeleaf.org" th:replace="layout::layout( ~{::body})" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html lang="es" xmlns:th="https://www.thymeleaf.org" th:replace="layout::layout( ~{::body})"
+    xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
     <meta charset="UTF-8">
@@ -14,7 +15,8 @@
     <div id="fullpage">
         <div class="section">
             <div class="divPrincipal">
-                <p class="presupuestoPrincipal" th:text="|${presupuestoPersonal}€|">3.670€</p>
+                <p class="presupuestoPrincipal" th:text="|${presupuestoPersonal}€|" th:class="
+                ${presupuestoPersonal >= 0} ? 'presupuestoPrincipal Verde' : 'presupuestoPrincipal Rojo'"></p>
             </div>
             <div class="divHrPrincipal">
                 <button class="botonAzul">Nuevo importe</button>
@@ -28,9 +30,9 @@
                         <th>Importe</th>
                     </tr>
                     <tr th:each="mov:${movimientos}">
-                        <td th:text="${mov.concepto}">Esto es un concepto con valor positivo</td>
-                        <td th:text="${mov.fecha}">13/02/1999</td>
-                        <td th:text="|${mov.cantidad}€|"> +3.400€</td>
+                        <td th:text="${mov.concepto}" />
+                        <td th:text="${mov.fecha}" class="fechaTabla" />
+                        <td th:text="|${mov.cantidad}€|" />
                     </tr>
 
                 </table>

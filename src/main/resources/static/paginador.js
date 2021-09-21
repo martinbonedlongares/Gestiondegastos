@@ -136,9 +136,13 @@ function mostrarFormularioNuevoMovimiento(codigoparam, idGrupo) {
       codigo: codigoparam,
     },
     success: function (formularioEditar) {
-      bootbox.dialog({
-        message: formularioEditar,
-      });
+      bootbox
+        .dialog({
+          title: "Añade nuevo movimiento",
+          message: formularioEditar,
+        })
+        .find("div.modal-content")
+        .addClass("largeWidth");
     },
     error: function (err) {
       alert("Si la URL esta mal. Codigo 404");

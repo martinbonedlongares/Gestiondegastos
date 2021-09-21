@@ -155,7 +155,8 @@ public class GestionDeGastosController {
                 user.getUsuarioGrupo().stream().map(x -> x.getGrupo().getPresupuesto()).collect(Collectors
                         .summingDouble(p -> p.stream().collect(Collectors.summingDouble(z -> z.getCantidadInicio())))));
 
-        m.addAttribute("movimientos", repoMovimientos.leerPorUsuario(usuValidado.getId()).stream().limit(4).collect(Collectors.toList()));
+        m.addAttribute("movimientos",
+                repoMovimientos.leerPorUsuario(usuValidado.getId()).stream().limit(4).collect(Collectors.toList()));
 
         return "principal";
     }
@@ -251,12 +252,12 @@ public class GestionDeGastosController {
         repoPresupuesto.save(p);
         return "redirect:/gestion/grupo/" + idGrupo;
     }
-    
+
     @GetMapping("/perfil")
-    public String perfil(Model m){
-        UsuarioDto usu=(UsuarioDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        Usuario user=repoUsuario.findById(usu.getId()).get();
-        m.addAttribute("user",user);
+    public String perfil(Model m) {
+        UsuarioDto usu = (UsuarioDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        Usuario user = repoUsuario.findById(usu.getId()).get();
+        m.addAttribute("user", user);
         return "perfil";
     }
 }

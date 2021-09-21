@@ -19,15 +19,15 @@
             <form  name="ingreso" method="post" action="ingresar" >
                 <p>
                     <label for="correo" class="negritaPrincipal">Ingresa tu email </label>
-                    <input type="email" id="correo" name="correo"  placeholder="Ingresa tu email" >
+                    <input type="email" id="correo" name="correo"  placeholder="Ingresa tu email: " required>
                 </p>
                 <p>
-                    <label for="contrasenya" class="negritaPrincipal" placeholder="Ingresa tu password">Ingresa tu Password</label>
-                    <input type="password" id="contrasenya" name="contrasenya"  placeholder="Ingresa tu password">
+                    <label for="contrasenya" class="negritaPrincipal" placeholder="Ingresa tu password">Ingresa tu Password: </label>
+                    <input type="password" id="contrasenya" name="contrasenya"  placeholder="Ingresa tu password" required>
                 </p>
                 <div class="divHrPrincipal" >
                                 
-                    <button class="botonAzul" onclick="validar()">Ingresar</button>
+                    <button class="botonAzul" type="submit">Ingresar</button>
                 </div>
               </form>   
             
@@ -41,27 +41,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.js"></script>
         <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-        <script> 
-            function validar(){
-           
-                if (document.ingreso.username.value.length==0){
-                alert("Debe escribir su Email");
-               // document.ingreso.username.focus();
-                   
-                }
-               else {
-                     if (document.ingreso.password.value.length==0){
-                       alert("Debe escribir su Password");
-                     //    document.ingreso.password.focus();
-                         
-                          
-                     // }else{
-                        document.ingreso.action = "ingresar";
-                      }         
-               
-                }
-            }
-        </script>
+       
     </body>
 
 

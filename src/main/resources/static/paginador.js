@@ -120,12 +120,26 @@ function filtrar() {
 }
 
 /* Esto funciona pero con los ID predefinidos (Es una prueba) */
-function mostrarFormularioNuevoMovimiento(codigoparam) {
+function mostrarFormularioNuevoMovimiento(codigoparam, idGrupo) {
   $.ajax({
-    url: "/gestion/grupo/6/nuevoMovimiento?idUsuarioGrupo=7",
+    url: "/gestion/grupo/"+idGrupo+"/nuevoMovimiento?idUsuarioGrupo=7&idGrupo=6",
     data: {
       codigo: codigoparam,
     },
+    success: function (formularioEditar) {
+      bootbox.dialog({
+        message: formularioEditar,
+      });
+    },
+    error: function (err) {
+      alert("Si la URL esta mal. Codigo 404");
+    },
+  });
+}
+  
+function mostrarMiembrosGrupo(idGrupo) {
+    $.ajax({
+    url: idGrupo+"/gestionar",
     success: function (formularioEditar) {
       bootbox.dialog({
         message: formularioEditar,

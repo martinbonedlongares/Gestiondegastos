@@ -33,7 +33,7 @@ public class Movimiento {
     private String categoria;
 
     // @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date fecha;
 
     private String concepto;

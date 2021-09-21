@@ -139,15 +139,24 @@ public class GestionDeGastosController {
     @GetMapping("/grupo/{idGrupo}/gestionar")
     public String gestionarGrupos(Model m, @PathVariable Integer idGrupo) {
 
-        m.addAttribute("grupos", repoGrupo.findById(idGrupo).get().getUsuarioGrupo());
+        m.addAttribute("usuarioGrupo", repoUsuarioGrupo.leerPorGrupo(idGrupo));
 
         return "gestionGrupos";
     }
 
+    /*
+    //Sin ajax
     @GetMapping("/grupo/{idGrupo}/borrarUsuario")
     public String borrarUsuario(Integer idUsuarioGrupo, Integer idGrupo) {
         repoUsuarioGrupo.deleteById(idUsuarioGrupo);
         return "redirect:/gestion/grupo/{idGrupo}/gestionar";
+    }*/
+    
+    //Con ajax
+    @GetMapping("/grupo/{idGrupo}/borrarUsuario")
+    public String borrarUsuario(Integer idUsuarioGrupo, Integer idGrupo) {
+        repoUsuarioGrupo.deleteById(idUsuarioGrupo);
+        return "redirect:/gestion/grupo/{idGrupo}";
     }
 
     /*
@@ -180,8 +189,8 @@ public class GestionDeGastosController {
     }
 
     //
-    @PostMapping("/grupo/{idGrupo}/guardarMovimiento")
-    public String guardarMovimiento(Model m, Movimiento mov, Integer idUsuarioGrupo, @PathVariable Integer idGrupo) {
+    @PostMapping("/grupo/guardarMovimiento")
+    public String guardarMovimiento(Model m, Movimiento mov, Integer idUsuarioGrupo, Integer idGrupo) {
         UsuarioGrupo ug = repoUsuarioGrupo.findById(idUsuarioGrupo).get();
         mov.setUsuarioGrupo(ug);
         repoMovimientos.save(mov);
@@ -189,6 +198,6 @@ public class GestionDeGastosController {
         Presupuesto p = repoPresupuesto.findByIdGrupo(idGrupo);
         p.setCantidadFinal(p.getCantidadFinal() + mov.getCantidad());
         repoPresupuesto.save(p);
-        return "redirect:/gestion/paginaPrincipal";
+        return "redirect:/gestion/grupo/"+idGrupo;
     }
 }

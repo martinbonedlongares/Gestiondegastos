@@ -10,7 +10,7 @@
         $(document).ready(function () {
             var campo = document.querySelector('#fecha');
             var fecha = new Date();
-            fecha.setHours(fecha.getHours() + 2);
+            fecha.setHours(fecha.getHours());
             campo.value = fecha.getFullYear().toString() + '-' + (fecha.getMonth() + 1).toString().padStart(2,
                     0) + '-' + fecha.getDate().toString().padStart(2, 0) + " " + (fecha.getHours()) + ":" +
                 fecha.getMinutes() + ":" + fecha.getSeconds();
@@ -22,7 +22,8 @@
     <div>
         <form method="post" action="guardarMovimiento" th:object="${movimiento}">
             <div>
-                <input type="hidden" name="idUsuarioGrupo" th:value="${param.idUsuarioGrupo[0]}" />
+                <input type="" name="idUsuarioGrupo" th:value="${param.idUsuarioGrupo[0]}" />
+                <input type="" name="idGrupo" th:value="${param.idGrupo[0]}" />
                 <input type="hidden" th:field="*{id}" />
             </div>
             <div>

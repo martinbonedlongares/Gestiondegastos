@@ -2,6 +2,7 @@ package com.gdg.gestiondegastos.entities;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -32,10 +33,11 @@ public class Grupo {
     
     //-----------COMPROBAR 1---------- 
     //(Envia su id a Presupuesto)
-    /*@OneToMany(mappedBy = "grupo")
-    private List<Presupuesto> presupuesto;*/
+    @OneToMany(mappedBy = "grupo",fetch = FetchType.EAGER)
+    private List<Presupuesto> presupuesto;
     
     //(Envia su id a UsuarioGrupo)
+    //@OneToMany(mappedBy = "grupo",fetch = FetchType.EAGER)
     @OneToMany(mappedBy = "grupo")
     private List<UsuarioGrupo> usuarioGrupo;
 }

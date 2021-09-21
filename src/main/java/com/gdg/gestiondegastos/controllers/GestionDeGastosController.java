@@ -1,5 +1,6 @@
 package com.gdg.gestiondegastos.controllers;
 
+import com.gdg.gestiondegastos.dto.UsuarioDto;
 import com.gdg.gestiondegastos.entities.Grupo;
 import com.gdg.gestiondegastos.entities.Movimiento;
 import com.gdg.gestiondegastos.entities.Presupuesto;
@@ -46,10 +47,10 @@ public class GestionDeGastosController {
     private MovimientosRepository repoMovimientos;
     // @Autowired
     // private ModelMapper obj;
-    // @Autowired
-    // private PasswordEncoder clave;
+    @Autowired
+    private PasswordEncoder clave;
 
-    // Este es un get para ver la principal y así ver los cambios
+    // Este es un get para ver la principal y asÃ­ ver los cambios
     @GetMapping("/paginaPrincipal")
 
     public String principal() {
@@ -87,7 +88,7 @@ public class GestionDeGastosController {
     @PostMapping("/crear")
     public String crear(Model m, Usuario usuario) {
 
-        // usuario.setContrasenya(clave.encode(usuario.getContrasenya()));
+        usuario.setContrasenya(clave.encode(usuario.getContrasenya()));
         repoUsuario.save(usuario);
         return "login";
     }
@@ -95,17 +96,16 @@ public class GestionDeGastosController {
     @GetMapping("/info")
     @ResponseBody
     public String info() {
+
+        UsuarioDto usuValidado = (UsuarioDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
-
-    // @Qualifier("amB")
 
     @Autowired
     private AuthenticationManager am;
 
     @PostMapping("/ingresar") // hacer login
     public String ingresar(Model m, String correo, String contrasenya) {
-
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(correo, contrasenya);
         Authentication auth = am.authenticate(token);
         SecurityContextHolder.getContext().setAuthentication(auth);

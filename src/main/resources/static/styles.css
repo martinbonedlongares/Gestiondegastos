@@ -35,6 +35,11 @@ th {
   border: #3e3434 2px solid;
 }
 
+.inputLogin:focus {
+  outline: none;
+  border-color: #226acb;
+}
+
 .cantidad {
   margin-bottom: 20px;
   width: 98%;

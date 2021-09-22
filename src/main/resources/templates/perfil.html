@@ -42,6 +42,8 @@ and open the template in the editor.
     <body>
         <div class="container">
             <form method="post" action="guardarPerfil" th:object="${usuario}">
+                <input type="hidden" th:field="*{id}" />
+                <input type="hidden" th:field="*{contrasenya}" />
                 <div>
                     <label for="nombre">Nombre</label>
                     <input id="nombre" type="text" name="nombre" th:field="*{nombre}"/>
@@ -67,7 +69,10 @@ and open the template in the editor.
         </script>
     </body>
     <div class="form-content" style="display:none">
-        <form class="form" role="form">
+        <form class="form" role="form" th:object="${usuario}">
+            <input type="hidden" th:field="*{nombre}"/>
+            <input type="hidden" th:field="*{correo}"/>
+            <input type="hidden" th:field="*{telefono}"/>
             <label id="cont" for="contrasenyaV" style="display:none">Antigua contraseña</label>
             <input id="contrasenyaV" name="contrasenyaV" type="password" style="display:none" placeholder="Introduce tu antigua constraseña"/>
             <label id="nuevaCont" for="contrasenya">Nueva contraseña</label>

@@ -22,24 +22,26 @@
     <div>
         <form method="post" action="guardarMovimiento" th:object="${movimiento}">
             <div>
-                <input type="hidden" name="idUsuarioGrupo" th:value="${param.idUsuarioGrupo[0]}" />
-                <input type="hidden" name="idGrupo" th:value="${param.idGrupo[0]}" />
+                <input type="hidden" name="idUsuarioGrupo" th:value="${idUsuarioGrupo}" />
+                <input type="hidden" name="idGrupo" th:value="${idGrupo}" />
                 <input type="hidden" th:field="*{id}" />
             </div>
-            <div>
-                <label for="concepto">Concepto</label>
-                <select id="concepto" name="concepto" th:field="*{categoria}">
-                    <option value="Entretenimiento">Entretenimiento</option>
-                    <option value="Alimentacion">Alimentación</option>
-                    <option value="Ropa">Ropa</option>
-                    <option value="Hogar">Hogar</option>
-                    <option value="Higiene">Higiene</option>
-                    <option value="Transporte">Transporte</option>
-                    <option value="Comunicacion">Comunicación</option>
-                    <option value="Medicina">Medicina</option>
-                    <option value="Regalo">Regalo</option>
-                    <option value="Mascotas">Mascota</option>
-                </select>
+            <div class="dropdown">
+                <div class="select">
+                    <label for="concepto">Categoría</label>
+                    <select class="form-select" id="concepto" name="concepto" th:field="*{categoria}">
+                        <option value="Entretenimiento">Entretenimiento</option>
+                        <option value="Alimentacion">Alimentación</option>
+                        <option value="Ropa">Ropa</option>
+                        <option value="Hogar">Hogar</option>
+                        <option value="Higiene">Higiene</option>
+                        <option value="Transporte">Transporte</option>
+                        <option value="Comunicacion">Comunicación</option>
+                        <option value="Medicina">Medicina</option>
+                        <option value="Regalo">Regalo</option>
+                        <option value="Mascotas">Mascota</option>
+                    </select>
+                </div>
             </div>
             <div>
                 <input type="hidden" id="fecha" th:field="*{fecha}" />

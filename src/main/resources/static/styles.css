@@ -107,6 +107,18 @@ input::-webkit-inner-spin-button {
   text-decoration: none;
 }
 
+.btnInicarSesion {
+  color: #f7f7f7;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.btnInicarSesion:hover {
+  color: #3e3434;
+  font-weight: 600;
+  text-decoration: none;
+}
+
 .btnNewUser:hover {
   text-decoration: none;
 }

@@ -19,9 +19,10 @@
 
 <body>
     <div>
-        <form method="post" action="guardarMovimiento" th:object="${movimiento}">
+        <form method="post" action="/gestion/grupo/guardarMovimiento" th:object="${movimiento}">
 
             <div>
+                <input type="hidden" name="inicio" th:value="${inicio}" />
                 <input type="hidden" name="idUsuarioGrupo" th:value="${idUsuarioGrupo}" />
                 <input type="hidden" name="idGrupo" th:value="${idGrupo}" />
                 <input type="hidden" th:field="*{id}" />

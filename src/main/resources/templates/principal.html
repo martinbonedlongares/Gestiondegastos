@@ -19,7 +19,7 @@
                        ${presupuestoPersonal >= 0} ? 'presupuestoPrincipal Verde' : 'presupuestoPrincipal Rojo'"></p>
                 </div>
                 <div class="divHrPrincipal">
-                    <button class="botonAzul">Nuevo importe</button>
+                    <button class="botonAzul" th:onclick="|mostrarFormularioNuevoMovimiento(${usuarioGrupo[0].grupo.id})|">Nuevo importe</button>
                     <hr />
                 </div>
                 <div id="movimientos">
@@ -65,7 +65,29 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script>
-
+function mostrarFormularioNuevoMovimiento(idGrupo) {
+  $.ajax({
+    url:
+      "/gestion/grupo/" +
+      idGrupo +
+      "/nuevoMovimiento",
+    success: function (formularioEditar) {
+      bootbox
+        .dialog({
+          title: "Añade nuevo movimiento",
+          message: formularioEditar,          
+        })
+        .find("div.modal-content")
+        .addClass("largeWidth");
+    },
+    error: function (err) {
+      alert("Si la URL esta mal. Codigo 404");
+    }
+  }).done(function(ev){
+      ev.preventDefault();
+window.location.href = "/gestion/inicio";
+  });
+}
             function mostrarGrupo(idGrupo) {
                 window.location.href = "grupo/" + idGrupo;
                 };

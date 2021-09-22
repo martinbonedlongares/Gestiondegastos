@@ -3,6 +3,7 @@ package com.gdg.gestiondegastos.entities;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -33,11 +34,11 @@ public class Grupo {
     
     //-----------COMPROBAR 1---------- 
     //(Envia su id a Presupuesto)
-    @OneToMany(mappedBy = "grupo",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "grupo",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private List<Presupuesto> presupuesto;
     
     //(Envia su id a UsuarioGrupo)
     //@OneToMany(mappedBy = "grupo",fetch = FetchType.EAGER)
-    @OneToMany(mappedBy = "grupo")
+    @OneToMany(mappedBy = "grupo",cascade = CascadeType.ALL)
     private List<UsuarioGrupo> usuarioGrupo;
 }

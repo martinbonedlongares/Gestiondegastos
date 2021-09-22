@@ -63,7 +63,7 @@
             <i class="fas fa-bars fa-lg" style="font-size: 30px;"></i>
         </button>
 
-        <img src="/cartera_blanca.svg" alt="">
+        <img src="/cartera_blanca.svg" alt="" onclick="inicio()">
 
     </nav>
 
@@ -77,6 +77,10 @@
 
     <script>
         const lista = document.querySelectorAll('.lista');
+        
+        function inicio(){
+            window.location("/gestion/inicio")
+        }
 
         function activarSombra() {
             lista.forEach((item) =>

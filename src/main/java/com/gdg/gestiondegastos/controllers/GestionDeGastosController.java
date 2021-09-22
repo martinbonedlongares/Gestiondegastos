@@ -81,25 +81,23 @@ public class GestionDeGastosController {
     }
 
     /*
-    @GetMapping("/principal2")
-    public String principal2(Model m) {
-        // m.addAttribute("usuario", new Usuario());
-        return "login2";
-    }*/
+     * @GetMapping("/principal2") public String principal2(Model m) { //
+     * m.addAttribute("usuario", new Usuario()); return "login2"; }
+     */
     @PostMapping("/crear")
     public String crear(Model m, Usuario usuario) throws ClassNotFoundException, SQLException {
         Usuario usu = repoUsuario.findByCorreo(usuario.getCorreo());
         if (usu != null) {
-            m.addAttribute("msg", "Correo ya registrado. Utilice otro");
+            m.addAttribute("msg", "Correo ya registrado");
             return "crearUsuario";
         } else {
             usuario.setContrasenya(clave.encode(usuario.getContrasenya()));
 
             Grupo grupo = new Grupo();
             grupo.setNombre("Mi presupuesto personal");
-            grupo.setFechaCreacion(java.sql.Date.from(Instant.now(Clock.systemDefaultZone()))); 
+            grupo.setFechaCreacion(java.sql.Date.from(Instant.now(Clock.systemDefaultZone())));
             Grupo grupoCreado = repoGrupo.save(grupo);
-            //ArrayList<Presupuesto> p = new ArrayList<>();
+            // ArrayList<Presupuesto> p = new ArrayList<>();
             Presupuesto pre = new Presupuesto();
             pre.setCantidadInicio(0.0);
             pre.setCantidadFinal(0.0);
@@ -110,24 +108,24 @@ public class GestionDeGastosController {
             ug.add(new UsuarioGrupo(0, Boolean.TRUE, usuario, grupoCreado, new ArrayList<>()));
             repoUsuarioGrupo.save(ug.get(0));
             usuario.setUsuarioGrupo(ug);
-            //repoUsuario.save(usuario);
+            // repoUsuario.save(usuario);
             return "login";
         }
     }
-           
+
     @GetMapping("/inicio/nuevoGrupo")
-    public String nuevoGrupo(Model m){
-         UsuarioDto usuValidado = (UsuarioDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-         Grupo g = new Grupo();
-         
-         g.setUsuarioGrupo(repoUsuarioGrupo.leerPorGrupo(usuValidado.getId()));
-         
+    public String nuevoGrupo(Model m) {
+        UsuarioDto usuValidado = (UsuarioDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        Grupo g = new Grupo();
+
+        g.setUsuarioGrupo(repoUsuarioGrupo.leerPorGrupo(usuValidado.getId()));
+
         m.addAttribute("grupo", g);
-    return "nuevoGrupo";
+        return "nuevoGrupo";
     }
-    
+
     @PostMapping("/inicio/guardarGrupo")
-    public String guardarGrupo(Grupo grupo, Double presupuesto){
+    public String guardarGrupo(Grupo grupo, Double presupuesto) {
         UsuarioDto usuValidado = (UsuarioDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         grupo.setFechaCreacion(java.sql.Date.from(Instant.now(Clock.systemDefaultZone())));
         Grupo grupoCreado = repoGrupo.save(grupo);
@@ -138,9 +136,10 @@ public class GestionDeGastosController {
             pre.setGrupo(grupoCreado);
             repoPresupuesto.save(pre);
 
-            ArrayList<UsuarioGrupo> ug = new ArrayList<>();
-            ug.add(new UsuarioGrupo(0, Boolean.TRUE, repoUsuario.findById(usuValidado.getId()).get(), grupoCreado, new ArrayList<>()));
-            repoUsuarioGrupo.save(ug.get(0));
+        ArrayList<UsuarioGrupo> ug = new ArrayList<>();
+        ug.add(new UsuarioGrupo(0, Boolean.TRUE, repoUsuario.findById(usuValidado.getId()).get(), grupoCreado,
+                new ArrayList<>()));
+        repoUsuarioGrupo.save(ug.get(0));
         return "redirect:/gestion/inicio";
     }
 
@@ -179,7 +178,7 @@ public class GestionDeGastosController {
         }
     }
 
-    //Antes del Security
+    // Antes del Security
     @GetMapping("/inicio")
     public String inicio(Model m) {
         UsuarioDto usuValidado = (UsuarioDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
@@ -192,8 +191,9 @@ public class GestionDeGastosController {
                 user.getUsuarioGrupo().stream().map(x -> x.getGrupo().getPresupuesto()).findFirst().get().stream().collect(Collectors
                         .summingDouble(p -> p.getCantidadFinal())));
 
-        m.addAttribute("movimientos", repoMovimientos.leerPorUsuario(usuValidado.getId()).stream().limit(4).collect(Collectors.toList()));
-        
+        m.addAttribute("movimientos",
+                repoMovimientos.leerPorUsuario(usuValidado.getId()).stream().limit(4).collect(Collectors.toList()));
+
         m.addAttribute("usuarioGrupo", repoUsuarioGrupo.leerPorGrupo(usuValidado.getId()));
 
         return "principal";
@@ -211,28 +211,29 @@ public class GestionDeGastosController {
     @PostMapping("/guardarPerfil")
     public String guardarPerfil(Usuario usuario) {
 
-        //Usuario user = repoUsuario.findById(usuario.getId()).get();
+        // Usuario user = repoUsuario.findById(usuario.getId()).get();
         repoUsuario.save(usuario);
 
         return "redirect:/gestion/perfil";
     }
 
     /*
-    //Despues del Security
-    @GetMapping("/inicio")
-    public String inicio(Model m,@RequestParam Integer idUsuario) {
-        Usuario user = repoUsuario.findById(idUsuario).get();
-        // user = repoUsuario.getById(idUsuario);
-
-        // Suma todas las cantidades iniciales indicadas en el presupuesto del usuario
-        m.addAttribute("presupuestoPersonal",
-                user.getUsuarioGrupo().stream().map(x -> x.getGrupo().getPresupuesto()).collect(Collectors
-                        .summingDouble(p -> p.stream().collect(Collectors.summingDouble(z -> z.getCantidadInicio())))));
-
-        m.addAttribute("movimientos", repoMovimientos.leerPorUsuario(idUsuario));
-
-        return "principal";
-    }*/
+     * //Despues del Security
+     * 
+     * @GetMapping("/inicio") public String inicio(Model m,@RequestParam Integer
+     * idUsuario) { Usuario user = repoUsuario.findById(idUsuario).get(); // user =
+     * repoUsuario.getById(idUsuario);
+     * 
+     * // Suma todas las cantidades iniciales indicadas en el presupuesto del
+     * usuario m.addAttribute("presupuestoPersonal",
+     * user.getUsuarioGrupo().stream().map(x ->
+     * x.getGrupo().getPresupuesto()).collect(Collectors .summingDouble(p ->
+     * p.stream().collect(Collectors.summingDouble(z -> z.getCantidadInicio())))));
+     * 
+     * m.addAttribute("movimientos", repoMovimientos.leerPorUsuario(idUsuario));
+     * 
+     * return "principal"; }
+     */
     @GetMapping("/grupo/{idGrupo}")
     public String verGrupos(Model m, @PathVariable Integer idGrupo) {
 
@@ -267,17 +268,18 @@ public class GestionDeGastosController {
 
     // Ejemplo ded url: http://localhost:8080/gestion/grupo/6
     @GetMapping("/grupo/{idGrupo}/nuevoMovimiento")
-    public String nuevoMovimientos(Model m,@PathVariable Integer idGrupo) {
-        
-        UsuarioDto usuValidado = (UsuarioDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());        
+    public String nuevoMovimientos(Model m, @PathVariable Integer idGrupo) {
+
+        UsuarioDto usuValidado = (UsuarioDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         Movimiento mov = new Movimiento();
-        //UsuarioGrupo ug = repoGrupo.findById(idGrupo).get().getUsuarioGrupo().stream().filter(x->x.getUsuario().getId().equals(usuValidado.getId())).findFirst().get();
-        //mov.setUsuarioGrupo(repoUsuarioGrupo.findById(ug.getId()).get());
-        UsuarioGrupo ug = repoUsuarioGrupo.leerPorUsuarioYGrupo(usuValidado.getId(),idGrupo);
+        // UsuarioGrupo ug =
+        // repoGrupo.findById(idGrupo).get().getUsuarioGrupo().stream().filter(x->x.getUsuario().getId().equals(usuValidado.getId())).findFirst().get();
+        // mov.setUsuarioGrupo(repoUsuarioGrupo.findById(ug.getId()).get());
+        UsuarioGrupo ug = repoUsuarioGrupo.leerPorUsuarioYGrupo(usuValidado.getId(), idGrupo);
         mov.setUsuarioGrupo(ug);
         m.addAttribute("movimiento", mov);
         m.addAttribute("idUsuarioGrupo", ug.getId());
-        m.addAttribute("idGrupo",idGrupo);
+        m.addAttribute("idGrupo", idGrupo);
 
         return "nuevoMov";
     }
@@ -298,19 +300,18 @@ public class GestionDeGastosController {
         return "redirect:/gestion/grupo/" + idGrupo;
     }
     /*
-    @GetMapping("/perfil")
-    public String perfil(Model m) {
-        UsuarioDto usu = (UsuarioDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        Usuario user = repoUsuario.findById(usu.getId()).get();
-        m.addAttribute("user", user);
-        return "perfil";
-    }*/
-    
+     * @GetMapping("/perfil") public String perfil(Model m) { UsuarioDto usu =
+     * (UsuarioDto)
+     * (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+     * Usuario user = repoUsuario.findById(usu.getId()).get();
+     * m.addAttribute("user", user); return "perfil"; }
+     */
+
     @GetMapping("/logout")
-    public String logout(HttpServletRequest request, HttpServletResponse response){
-        Authentication auth=SecurityContextHolder.getContext().getAuthentication();
-        if(auth!=null){
-            new SecurityContextLogoutHandler().logout(request,response,auth);
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null) {
+            new SecurityContextLogoutHandler().logout(request, response, auth);
         }
         return "redirect:/gestion/principal";
     }

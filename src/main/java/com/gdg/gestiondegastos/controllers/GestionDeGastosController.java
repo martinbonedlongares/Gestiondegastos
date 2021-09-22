@@ -58,7 +58,7 @@ public class GestionDeGastosController {
     // Este es un get para ver la principal y asÃ­ ver los cambios
     @GetMapping("/paginaPrincipal")
     public String principal() {
-        return "principal";
+        return "verGrupos";
     }
 
     @GetMapping("/agregar")

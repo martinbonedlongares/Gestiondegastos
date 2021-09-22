@@ -315,4 +315,18 @@ public class GestionDeGastosController {
         }
         return "redirect:/gestion/principal";
     }
+    
+    @GetMapping("/misGrupos")
+    public String misGrupos(Model m){
+        UsuarioDto user=(UsuarioDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        m.addAttribute("grupos", repoUsuarioGrupo.leerPorGrupo(user.getId()));
+        return "verGrupos";
+    }
+    
+    @GetMapping("/misMovimientos")
+    public String misMov(Model m){
+        UsuarioDto user=(UsuarioDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        m.addAttribute("movimientos",repoMovimientos.leerPorUsuario(user.getId()).stream().collect(Collectors.toList()));
+        return "verMovimientos";
+    }
 }

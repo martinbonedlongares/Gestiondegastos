@@ -319,7 +319,7 @@ public class GestionDeGastosController {
     @GetMapping("/misGrupos")
     public String misGrupos(Model m){
         UsuarioDto user=(UsuarioDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        m.addAttribute("grupos", repoUsuarioGrupo.leerPorGrupo(user.getId()));
+        m.addAttribute("grupos", repoUsuarioGrupo.leerPorUsuario(user.getId()));
         return "verGrupos";
     }
     

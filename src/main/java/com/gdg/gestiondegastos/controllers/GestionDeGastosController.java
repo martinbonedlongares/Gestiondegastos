@@ -69,6 +69,12 @@ public class GestionDeGastosController {
     }
 
     @GetMapping("/principal") // Pagina de inicio principal
+    public String principal2(Model m) {
+        // m.addAttribute("usuario", new Usuario());
+        return "login";
+    }
+    
+    @GetMapping("") // Pagina de inicio principal
     public String principal(Model m) {
         // m.addAttribute("usuario", new Usuario());
         return "login";
@@ -96,6 +102,7 @@ public class GestionDeGastosController {
             //ArrayList<Presupuesto> p = new ArrayList<>();
             Presupuesto pre = new Presupuesto();
             pre.setCantidadInicio(0.0);
+            pre.setCantidadFinal(0.0);
             pre.setFechaInicio(java.sql.Date.from(Instant.now(Clock.systemDefaultZone())));
             pre.setGrupo(grupoCreado);
             repoPresupuesto.save(pre);
@@ -126,6 +133,7 @@ public class GestionDeGastosController {
         Grupo grupoCreado = repoGrupo.save(grupo);
         Presupuesto pre = new Presupuesto();
             pre.setCantidadInicio(presupuesto);
+            pre.setCantidadFinal(0.0);
             pre.setFechaInicio(java.sql.Date.from(Instant.now(Clock.systemDefaultZone())));
             pre.setGrupo(grupoCreado);
             repoPresupuesto.save(pre);
@@ -181,8 +189,8 @@ public class GestionDeGastosController {
 
         // Suma todas las cantidades iniciales indicadas en el presupuesto del usuario
         m.addAttribute("presupuestoPersonal",
-                user.getUsuarioGrupo().stream().map(x -> x.getGrupo().getPresupuesto()).collect(Collectors
-                        .summingDouble(p -> p.stream().collect(Collectors.summingDouble(z -> z.getCantidadInicio())))));
+                user.getUsuarioGrupo().stream().map(x -> x.getGrupo().getPresupuesto()).findFirst().get().stream().collect(Collectors
+                        .summingDouble(p -> p.getCantidadFinal())));
 
         m.addAttribute("movimientos", repoMovimientos.leerPorUsuario(usuValidado.getId()).stream().limit(4).collect(Collectors.toList()));
         
@@ -278,13 +286,14 @@ public class GestionDeGastosController {
     @PostMapping("/grupo/guardarMovimiento")
     public String guardarMovimiento(Model m, Movimiento mov, Integer idUsuarioGrupo, Integer idGrupo) {
         mov.setUsuarioGrupo(repoUsuarioGrupo.findById(idUsuarioGrupo).get());
-        repoMovimientos.save(mov);        
+        Movimiento movNuevo = repoMovimientos.save(mov);        
         Presupuesto p = repoPresupuesto.findByIdGrupo(idGrupo);
-        if(p.getCantidadFinal() == null){
+        /*if(p.getCantidadFinal() < 0){
             p.setCantidadFinal(0+mov.getCantidad());
         }else{
         p.setCantidadFinal(p.getCantidadFinal() + mov.getCantidad());
-        }
+        }*/
+        p.setCantidadFinal(p.getCantidadInicio()+ movNuevo.getCantidad());
         repoPresupuesto.save(p);
         return "redirect:/gestion/grupo/" + idGrupo;
     }

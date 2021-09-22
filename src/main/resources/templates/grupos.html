@@ -14,9 +14,14 @@
         <div class="divPrincipal">
             <p type="button" id="grupo" class="presupuestoPrincipal" th:text="${grupo.nombre}"
                 th:onclick="|mostrarMiembrosGrupo(${idGrupo})|"></p>
-            <div th:if="${presupuesto.cantidadFinal}">
+            <div th:if="${presupuesto.cantidadInicio == 0 }">
                 <p id="presupuesto" class="presupuestoPrincipal" th:class="
-                ${presupuesto.cantidadFinal >= 0} ? 'presupuestoPrincipal Verde' : 'presupuestoPrincipal Rojo'"
+                ${presupuesto.cantidadInicio >= 0} ? 'presupuestoPrincipal Verde' : 'presupuestoPrincipal Rojo'"
+                    th:text="${presupuesto.cantidadFinal} + '€'"></p>
+            </div>
+            <div th:unless="${presupuesto.cantidadInicio == 0}">
+                <p id="presupuesto" class="presupuestoPrincipal" th:class="
+                ${presupuesto.cantidadInicio >= 0} ? 'presupuestoPrincipal Verde' : 'presupuestoPrincipal Rojo'"
                     th:text="${presupuesto.cantidadFinal} + '€'"></p>
             </div>
 

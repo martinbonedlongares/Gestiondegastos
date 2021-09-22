@@ -14,7 +14,7 @@
     <div align="center">
 
         <div class="card">
-            <form name="ingreso" method="post" action="ingresar">
+            <form name="ingreso" method="post" action="/gestion/ingresar">
                 <img src="/cartera_negra.svg" alt="" class="imgLogin">
                 <div class="card-body">
                     <h5 class="card-title">Inicia sesión</h5>
@@ -25,7 +25,7 @@
                         placeholder="Ingresa tu password" required>
 
                     <button class="btnLogin btnLoginColor" type="submit">Ingresar</button>
-                    <a class="btnNewUser" th:href="@{agregar}" type="button">Nuevo usuario</a>
+                    <a class="btnNewUser" th:href="@{/gestion/agregar}" type="button">Nuevo usuario</a>
             </form>
         </div>
     </div>

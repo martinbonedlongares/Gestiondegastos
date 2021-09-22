@@ -1,6 +1,7 @@
 package com.gdg.gestiondegastos.controllers;
 
 import com.gdg.gestiondegastos.dto.UsuarioDto;
+import com.gdg.gestiondegastos.entities.Grupo;
 import com.gdg.gestiondegastos.entities.Movimiento;
 import com.gdg.gestiondegastos.entities.Presupuesto;
 import com.gdg.gestiondegastos.entities.Usuario;
@@ -10,13 +11,13 @@ import com.gdg.gestiondegastos.repositories.MovimientosRepository;
 import com.gdg.gestiondegastos.repositories.PresupuestoRepository;
 import com.gdg.gestiondegastos.repositories.UsuarioGrupoRepository;
 import com.gdg.gestiondegastos.repositories.UsuarioRepository;
-import com.mysql.cj.Constants;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
+import java.time.Clock;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.TemporalAmount;
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -30,9 +31,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/gestion")
@@ -71,11 +70,13 @@ public class GestionDeGastosController {
         // m.addAttribute("usuario", new Usuario());
         return "login";
     }
-    /*
-     * @GetMapping("/principal2") public String principal2(Model m) { //
-     * m.addAttribute("usuario", new Usuario()); return "login2"; }
-     */
 
+    /*
+    @GetMapping("/principal2")
+    public String principal2(Model m) {
+        // m.addAttribute("usuario", new Usuario());
+        return "login2";
+    }*/
     @PostMapping("/crear")
     public String crear(Model m, Usuario usuario) throws ClassNotFoundException, SQLException {
         Usuario usu = repoUsuario.findByCorreo(usuario.getCorreo());
@@ -84,9 +85,52 @@ public class GestionDeGastosController {
             return "crearUsuario";
         } else {
             usuario.setContrasenya(clave.encode(usuario.getContrasenya()));
-            repoUsuario.save(usuario);
+
+            Grupo grupo = new Grupo();
+            grupo.setNombre("Mi presupuesto personal");
+            grupo.setFechaCreacion(java.sql.Date.from(Instant.now(Clock.systemDefaultZone()))); 
+            Grupo grupoCreado = repoGrupo.save(grupo);
+            //ArrayList<Presupuesto> p = new ArrayList<>();
+            Presupuesto pre = new Presupuesto();
+            pre.setCantidadInicio(0.0);
+            pre.setFechaInicio(java.sql.Date.from(Instant.now(Clock.systemDefaultZone())));
+            pre.setGrupo(grupoCreado);
+            repoPresupuesto.save(pre);
+            ArrayList<UsuarioGrupo> ug = new ArrayList<>();
+            ug.add(new UsuarioGrupo(0, Boolean.TRUE, usuario, grupoCreado, new ArrayList<>()));
+            repoUsuarioGrupo.save(ug.get(0));
+            usuario.setUsuarioGrupo(ug);
+            //repoUsuario.save(usuario);
             return "login";
         }
+    }
+           
+    @GetMapping("/inicio/nuevoGrupo")
+    public String nuevoGrupo(Model m){
+         UsuarioDto usuValidado = (UsuarioDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+         Grupo g = new Grupo();
+         
+         g.setUsuarioGrupo(repoUsuarioGrupo.leerPorGrupo(usuValidado.getId()));
+         
+        m.addAttribute("grupo", g);
+    return "nuevoGrupo";
+    }
+    
+    @PostMapping("/inicio/guardarGrupo")
+    public String guardarGrupo(Grupo grupo, Double presupuesto){
+        UsuarioDto usuValidado = (UsuarioDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        grupo.setFechaCreacion(java.sql.Date.from(Instant.now(Clock.systemDefaultZone())));
+        Grupo grupoCreado = repoGrupo.save(grupo);
+        Presupuesto pre = new Presupuesto();
+            pre.setCantidadInicio(presupuesto);
+            pre.setFechaInicio(java.sql.Date.from(Instant.now(Clock.systemDefaultZone())));
+            pre.setGrupo(grupoCreado);
+            repoPresupuesto.save(pre);
+
+            ArrayList<UsuarioGrupo> ug = new ArrayList<>();
+            ug.add(new UsuarioGrupo(0, Boolean.TRUE, repoUsuario.findById(usuValidado.getId()).get(), grupoCreado, new ArrayList<>()));
+            repoUsuarioGrupo.save(ug.get(0));
+        return "redirect:/gestion/inicio";
     }
 
     @GetMapping("/info")
@@ -124,25 +168,7 @@ public class GestionDeGastosController {
         }
     }
 
-    /*
-     * @PostMapping("/ingresar2") // Pruebas public String ingresar2(Model m, String
-     * correo, String contrasenya, RedirectAttributes redirectAttrs) {
-     * 
-     * //UsernamePasswordAuthenticationToken token = new
-     * UsernamePasswordAuthenticationToken(correo, contrasenya); //Authentication
-     * auth = am.authenticate(token);
-     * //SecurityContextHolder.getContext().setAuthentication(auth); Usuario usuario
-     * = new Usuario(); //System.out.println(" USUARIO  1    " + correo); try {
-     * usuario = repoUsuario.findByCorreo(correo);
-     * //System.out.println(" USUARIO   2   " + usuario.getNombre()); } catch
-     * (Exception e) { e.printStackTrace(); }
-     * 
-     * if (usuario.getNombre() != null) {
-     * redirectAttrs.addFlashAttribute("idUsuario", usuario.getId()); return
-     * "redirect:/gestion/inicio"; } else { return "login"; } }
-     */
-
-    // Antes del Security
+    //Antes del Security
     @GetMapping("/inicio")
     public String inicio(Model m) {
         UsuarioDto usuValidado = (UsuarioDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
@@ -155,30 +181,47 @@ public class GestionDeGastosController {
                 user.getUsuarioGrupo().stream().map(x -> x.getGrupo().getPresupuesto()).collect(Collectors
                         .summingDouble(p -> p.stream().collect(Collectors.summingDouble(z -> z.getCantidadInicio())))));
 
-        m.addAttribute("movimientos",
-                repoMovimientos.leerPorUsuario(usuValidado.getId()).stream().limit(4).collect(Collectors.toList()));
+        m.addAttribute("movimientos", repoMovimientos.leerPorUsuario(usuValidado.getId()).stream().limit(4).collect(Collectors.toList()));
+        
+        m.addAttribute("usuarioGrupo", repoUsuarioGrupo.leerPorGrupo(usuValidado.getId()));
 
         return "principal";
     }
 
-    /*
-     * //Despues del Security
-     * 
-     * @GetMapping("/inicio") public String inicio(Model m,@RequestParam Integer
-     * idUsuario) { Usuario user = repoUsuario.findById(idUsuario).get(); // user =
-     * repoUsuario.getById(idUsuario);
-     * 
-     * // Suma todas las cantidades iniciales indicadas en el presupuesto del
-     * usuario m.addAttribute("presupuestoPersonal",
-     * user.getUsuarioGrupo().stream().map(x ->
-     * x.getGrupo().getPresupuesto()).collect(Collectors .summingDouble(p ->
-     * p.stream().collect(Collectors.summingDouble(z -> z.getCantidadInicio())))));
-     * 
-     * m.addAttribute("movimientos", repoMovimientos.leerPorUsuario(idUsuario));
-     * 
-     * return "principal"; }
-     */
+    @GetMapping("/perfil")
+    public String perfil(Model m) {
+        UsuarioDto usuValidado = (UsuarioDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 
+        m.addAttribute("usuario", repoUsuario.findById(usuValidado.getId()).get());
+
+        return "perfil";
+    }
+
+    @PostMapping("/guardarPerfil")
+    public String guardarPerfil(Usuario usuario) {
+
+        //Usuario user = repoUsuario.findById(usuario.getId()).get();
+        repoUsuario.save(usuario);
+
+        return "redirect:/gestion/perfil";
+    }
+
+    /*
+    //Despues del Security
+    @GetMapping("/inicio")
+    public String inicio(Model m,@RequestParam Integer idUsuario) {
+        Usuario user = repoUsuario.findById(idUsuario).get();
+        // user = repoUsuario.getById(idUsuario);
+
+        // Suma todas las cantidades iniciales indicadas en el presupuesto del usuario
+        m.addAttribute("presupuestoPersonal",
+                user.getUsuarioGrupo().stream().map(x -> x.getGrupo().getPresupuesto()).collect(Collectors
+                        .summingDouble(p -> p.stream().collect(Collectors.summingDouble(z -> z.getCantidadInicio())))));
+
+        m.addAttribute("movimientos", repoMovimientos.leerPorUsuario(idUsuario));
+
+        return "principal";
+    }*/
     @GetMapping("/grupo/{idGrupo}")
     public String verGrupos(Model m, @PathVariable Integer idGrupo) {
 
@@ -204,7 +247,6 @@ public class GestionDeGastosController {
      * repoUsuarioGrupo.deleteById(idUsuarioGrupo); return
      * "redirect:/gestion/grupo/{idGrupo}/gestionar"; }
      */
-
     // Con ajax
     @GetMapping("/grupo/{idGrupo}/borrarUsuario")
     public String borrarUsuario(Integer idUsuarioGrupo, Integer idGrupo) {
@@ -212,30 +254,19 @@ public class GestionDeGastosController {
         return "redirect:/gestion/grupo/{idGrupo}";
     }
 
-    /*
-     * @GetMapping("/movimientos") public String verMovimientos(Model m, Integer
-     * idMovimiento) { m.addAttribute("movimiento",
-     * repoMovimientos.findById(idMovimiento).get());
-     * 
-     * return "movimientos"; }
-     */
-
-    /*
-     * @PostMapping("/grupo/{idGrupo}/nuevoMovimiento") public String
-     * nuevoMovimientos(Model m, Integer idUsuarioGrupo){ Movimiento mov = new
-     * Movimiento();
-     * mov.setUsuarioGrupo(repoUsuarioGrupo.findById(idUsuarioGrupo).get());
-     * m.addAttribute("movimiento", mov);
-     * 
-     * return "nuevoMov"; }
-     */
     // Ejemplo ded url: http://localhost:8080/gestion/grupo/6
     @GetMapping("/grupo/{idGrupo}/nuevoMovimiento")
-
-    public String nuevoMovimientos(Model m, Integer idUsuarioGrupo) {
+    public String nuevoMovimientos(Model m,@PathVariable Integer idGrupo) {
+        
+        UsuarioDto usuValidado = (UsuarioDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());        
         Movimiento mov = new Movimiento();
-        mov.setUsuarioGrupo(repoUsuarioGrupo.findById(idUsuarioGrupo).get());
+        //UsuarioGrupo ug = repoGrupo.findById(idGrupo).get().getUsuarioGrupo().stream().filter(x->x.getUsuario().getId().equals(usuValidado.getId())).findFirst().get();
+        //mov.setUsuarioGrupo(repoUsuarioGrupo.findById(ug.getId()).get());
+        UsuarioGrupo ug = repoUsuarioGrupo.leerPorUsuarioYGrupo(usuValidado.getId(),idGrupo);
+        mov.setUsuarioGrupo(ug);
         m.addAttribute("movimiento", mov);
+        m.addAttribute("idUsuarioGrupo", ug.getId());
+        m.addAttribute("idGrupo",idGrupo);
 
         return "nuevoMov";
     }
@@ -243,21 +274,23 @@ public class GestionDeGastosController {
     //
     @PostMapping("/grupo/guardarMovimiento")
     public String guardarMovimiento(Model m, Movimiento mov, Integer idUsuarioGrupo, Integer idGrupo) {
-        UsuarioGrupo ug = repoUsuarioGrupo.findById(idUsuarioGrupo).get();
-        mov.setUsuarioGrupo(ug);
-        repoMovimientos.save(mov);
-
+        mov.setUsuarioGrupo(repoUsuarioGrupo.findById(idUsuarioGrupo).get());
+        repoMovimientos.save(mov);        
         Presupuesto p = repoPresupuesto.findByIdGrupo(idGrupo);
+        if(p.getCantidadFinal() == null){
+            p.setCantidadFinal(0+mov.getCantidad());
+        }else{
         p.setCantidadFinal(p.getCantidadFinal() + mov.getCantidad());
+        }
         repoPresupuesto.save(p);
         return "redirect:/gestion/grupo/" + idGrupo;
     }
-
+    /*
     @GetMapping("/perfil")
     public String perfil(Model m) {
         UsuarioDto usu = (UsuarioDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         Usuario user = repoUsuario.findById(usu.getId()).get();
         m.addAttribute("user", user);
         return "perfil";
-    }
+    }*/
 }

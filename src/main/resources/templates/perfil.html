@@ -42,18 +42,19 @@ and open the template in the editor.
     <body>
         <div class="container">
             <form method="post" action="guardarPerfil" th:object="${usuario}">
-                <input id="id" th:value="${user.id}"/>
+                <input type="hidden" th:field="*{id}" />
+                <input type="hidden" th:field="*{contrasenya}" />
                 <div>
                     <label for="nombre">Nombre</label>
-                    <input id="nombre" type="text" name="nombre" th:field="${user.nombre}"/>
+                    <input id="nombre" type="text" name="nombre" th:field="*{nombre}"/>
                 </div>
                 <div>
                     <label for="correo">Correo electrónico</label>
-                    <input id="correo" name="correo" type="email" th:field="${user.correo}"/>
+                    <input id="correo" name="correo" type="email" th:field="*{correo}"/>
                 </div>
                 <div>
                     <label for="tlf">Teléfono</label>
-                    <input id="tlf" name="tlf" type="number" th:field="${user.telefono}"/>
+                    <input id="tlf" name="tlf" type="number" th:field="*{telefono}"/>
                 </div>
                 <div>
                     <button id="cambio">Cambiar contraseña</button>
@@ -68,8 +69,10 @@ and open the template in the editor.
         </script>
     </body>
     <div class="form-content" style="display:none">
-        <form class="form" role="form">
-            <input type="hidden" th:value="${user.contrasenya}"/>
+        <form class="form" role="form" th:object="${usuario}">
+            <input type="hidden" th:field="*{nombre}"/>
+            <input type="hidden" th:field="*{correo}"/>
+            <input type="hidden" th:field="*{telefono}"/>
             <label id="cont" for="contrasenyaV" style="display:none">Antigua contraseña</label>
             <input id="contrasenyaV" name="contrasenyaV" type="password" style="display:none" placeholder="Introduce tu antigua constraseña"/>
             <label id="nuevaCont" for="contrasenya">Nueva contraseña</label>

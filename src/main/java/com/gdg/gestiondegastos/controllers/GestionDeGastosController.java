@@ -183,7 +183,7 @@ public class GestionDeGastosController {
         m.addAttribute("presupuestoPersonal",
                 user.getUsuarioGrupo().stream().map(x -> x.getGrupo().getPresupuesto()).collect(Collectors
                         .summingDouble(p -> p.stream().collect(Collectors.summingDouble(z -> z.getCantidadInicio())))));
-
+        
         m.addAttribute("movimientos", repoMovimientos.leerPorUsuario(usuValidado.getId()).stream().limit(4).collect(Collectors.toList()));
         
         m.addAttribute("usuarioGrupo", repoUsuarioGrupo.leerPorGrupo(usuValidado.getId()));

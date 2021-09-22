@@ -118,7 +118,7 @@ public class GestionDeGastosController {
         UsuarioDto usuValidado = (UsuarioDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         Grupo g = new Grupo();
 
-        g.setUsuarioGrupo(repoUsuarioGrupo.leerPorGrupo(usuValidado.getId()));
+        g.setUsuarioGrupo(repoUsuarioGrupo.leerPorUsuario(usuValidado.getId()));
 
         m.addAttribute("grupo", g);
         return "nuevoGrupo";
@@ -194,7 +194,7 @@ public class GestionDeGastosController {
         m.addAttribute("movimientos",
                 repoMovimientos.leerPorUsuario(usuValidado.getId()).stream().limit(4).collect(Collectors.toList()));
 
-        m.addAttribute("usuarioGrupo", repoUsuarioGrupo.leerPorGrupo(usuValidado.getId()));
+        m.addAttribute("usuarioGrupo", repoUsuarioGrupo.leerPorUsuario(usuValidado.getId()));
 
         return "principal";
     }

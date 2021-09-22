@@ -68,3 +68,4 @@ INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALU
 INSERT INTO presupuesto (cantidad_inicio,cantidad_final,fecha_inicio,fecha_final,id_grupo) VALUES (100,150,"2021-09-15","2021-09-22",1);
 INSERT INTO presupuesto (cantidad_inicio,cantidad_final,fecha_inicio,fecha_final,id_grupo) VALUES (1000,2000,"2021-09-15","2021-09-29",6);
 INSERT INTO presupuesto (cantidad_inicio,cantidad_final,fecha_inicio,fecha_final,id_grupo) VALUES (500,1500,"2021-09-15","2021-09-29",7); 
+INSERT INTO presupuesto (cantidad_inicio,cantidad_final,fecha_inicio,fecha_final,id_grupo) VALUES (100,200,"2021-09-22","2021-09-30",4);

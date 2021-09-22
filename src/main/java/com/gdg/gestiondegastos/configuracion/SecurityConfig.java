@@ -43,11 +43,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
              .antMatchers("/login").permitAll()
              .antMatchers("/agregar").permitAll()
              .antMatchers("/perfil").permitAll();
-        
-            // .antMatchers("/url3").hasRole("Administrador");
-        http.formLogin().loginPage("/gestion/principal").successForwardUrl("/gestion/paginaPrincipal").failureForwardUrl("/gestion/principal");   //  /login. Spring
+        http.formLogin().loginPage("/gestion/principal").successForwardUrl("/gestion/paginaPrincipal").failureForwardUrl("/gestion/principal");
+        http.logout().invalidateHttpSession(true).deleteCookies("JSESSIONID");
         http.csrf().disable();
-        //http.formLogin();   //  /login. Spring
         /*http.anonymous().disable().csrf().disable().authorizeRequests().antMatchers("/registro**")
                 .permitAll().anyRequest().authenticated()
                 .and()

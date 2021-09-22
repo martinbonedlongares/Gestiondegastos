@@ -1,5 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
 body {
   background-color: #f7f7f7;
   margin-top: 40px;
@@ -94,6 +104,26 @@ input::-webkit-inner-spin-button {
   align-items: center;
   justify-content: center;
   font-weight: 600;
+}
+
+.btnCambiarPass {
+  border: #3e3434 1px solid;
+  border-radius: 4px;
+  color: #f7f7f7;
+  background-color: #3e3434;
+  width: 100%;
+  height: 40px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.btnCambiarPass:hover {
+  background-color: #171616;
+  text-decoration: none;
+  color: #f7f7f7;
 }
 
 .btnNewUser {
@@ -671,7 +701,7 @@ input::-webkit-inner-spin-button {
 ======================================*/
 .largeWidth {
   position: relative;
-  right: 10%;
+  right: 15%;
   width: 140%;
 }
 

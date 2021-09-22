@@ -9,19 +9,42 @@
 </head>
 
 <body>
-    <form method="post" action="guardarPerfil" th:object="${usuario}">
-        <div class="divPrincipal" style="margin: 0 auto; margin-top: 25%;">
-            <input type="hidden" th:field="*{id}" />
-            <input type="hidden" th:field="*{contrasenya}" />
-            <input class="inputLogin" style="width: 100%;" id="nombre" type="text" name="nombre" th:field="*{nombre}" />
-            <input class="inputLogin" style="width: 100%;" id="correo" name="correo" type="email"
-                th:field="*{correo}" />
-            <input class="inputLogin" style="width: 100%;" id="tlf" name="tlf" type="number" th:field="*{telefono}" />
-            <button class="btnLogin btnLoginColor" style="width: 100%; background-color: #3E3434;" id="cambio">Cambiar
-                contraseña</button>
-            <button class="btnLogin btnLoginColor" style="width: 100%;" id="cambio">Guardar</button>
-        </div>
-    </form>
+    <div class="container" style="padding: 80px;">
+        <form method="post" action="guardarPerfil" th:object="${usuario}">
+            <div class="divPrincipal">
+                <input type="hidden" th:field="*{id}" />
+                <input type="hidden" th:field="*{contrasenya}" />
+                <input class="inputLogin" style="width: 100%;" id="nombre" type="text" name="nombre"
+                    th:field="*{nombre}" />
+                <input class="inputLogin" style="width: 100%;" id="correo" name="correo" type="email"
+                    th:field="*{correo}" />
+                <input class="inputLogin" style="width: 100%;" id="tlf" name="tlf" type="number"
+                    th:field="*{telefono}" />
+                <a type="button" class="btnCambiarPass" id="cambio" th:onclick="|cambiarContraseña(${id})|">Cambiar
+                    contraseña</a>
+                <button class="btnLogin btnLoginColor" style="width: 100%;" id="cambio" type="submit">Guardar</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function cambiarContraseña(id) {
+            $.ajax({
+                url: "/gestion/contrasenya",
+                success: function (formularioEditar) {
+                    bootbox
+                        .dialog({
+                            message: formularioEditar,
+                        })
+                        .find("div.modal-content")
+                        .addClass("largeWidth");
+                },
+                error: function (err) {
+                    alert("Si la URL esta mal. Codigo 404");
+                },
+            });
+        }
+    </script>
 </body>
 
 </html>

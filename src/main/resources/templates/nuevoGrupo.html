@@ -28,12 +28,13 @@
             </div>
 
             <div>
-                <input class="cantidad" id="nombre" placeholder="Nombre del grupo" type="text" th:field="*{nombre}" />
+                <input class="cantidad" id="nombre" placeholder="Nombre del grupo" type="text" required
+                    th:field="*{nombre}" />
             </div>
 
-            <div style="float:left; width: 89.7%;">
-                <input class="cantidad" id="presupuesto" placeholder="Presupuesto del grupo" step="any" type="number"
-                    th:field="*{presupuesto}" onkeyup="this.value=Numeros(this.value)" />
+            <div style="float:left; width: 87.8%;">
+                <input class="cantidad" id="cantidad" placeholder="Presupuesto del grupo" step="any" required
+                    type="number" th:field="*{presupuesto}" onkeyup="this.value=Numeros(this.value)" />
             </div>
             <div style="float:left;">
                 <label class="switch">

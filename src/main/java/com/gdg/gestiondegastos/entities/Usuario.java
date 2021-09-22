@@ -32,7 +32,7 @@ public class Usuario{
     private String contrasenya;
     private String telefono;
     private String correo;
-    private boolean modoOscuro;
+    private Boolean modoOscuro;
     
     //Uniones de Tablas
     //(Envia el id a UsuarioGrupo)

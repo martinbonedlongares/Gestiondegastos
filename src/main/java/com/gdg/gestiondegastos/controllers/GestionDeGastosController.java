@@ -287,10 +287,10 @@ public class GestionDeGastosController {
     }
     /*
     @GetMapping("/perfil")
-    public String perfil(Model m){
-        UsuarioDto usu=(UsuarioDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        Usuario user=repoUsuario.findById(usu.getId()).get();
-        m.addAttribute("user",user);
+    public String perfil(Model m) {
+        UsuarioDto usu = (UsuarioDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        Usuario user = repoUsuario.findById(usu.getId()).get();
+        m.addAttribute("user", user);
         return "perfil";
     }*/
 }

@@ -40,16 +40,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
              .antMatchers("/info").permitAll()
              .antMatchers("/gestion").permitAll()
              .antMatchers("/grupos").permitAll()
-             .antMatchers("/url1").permitAll()
              .antMatchers("/login").permitAll()
-             .antMatchers("/altaUsuario").permitAll()
-             .antMatchers("/url2").hasAnyRole("Administrador", "Usuario")
-             .antMatchers("/vuelos/**").hasAnyRole("Administrador")
-             .antMatchers("/traducir/**").hasAnyRole("Administrador", "Usuario")
-             .antMatchers("/url3").hasRole("Administrador");
-        http.formLogin().loginPage("/gestion/principal").successForwardUrl("/gestion/paginaPrincipal").failureForwardUrl("/gestion/principal");   //  /login. Spring
+             .antMatchers("/agregar").permitAll()
+             .antMatchers("/perfil").permitAll();
+        http.formLogin().loginPage("/gestion/principal").successForwardUrl("/gestion/paginaPrincipal").failureForwardUrl("/gestion/principal");
+        http.logout().invalidateHttpSession(true).deleteCookies("JSESSIONID");
         http.csrf().disable();
-        //http.formLogin();   //  /login. Spring
         /*http.anonymous().disable().csrf().disable().authorizeRequests().antMatchers("/registro**")
                 .permitAll().anyRequest().authenticated()
                 .and()

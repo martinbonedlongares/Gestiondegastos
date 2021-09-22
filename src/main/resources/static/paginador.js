@@ -126,19 +126,20 @@ $TableFilter = function (id, value) {
 };
 
 /* Esto funciona pero con los ID predefinidos (Es una prueba) */
-function mostrarFormularioNuevoMovimiento(codigoparam, idGrupo) {
+function mostrarFormularioNuevoMovimiento(idGrupo) {
   $.ajax({
     url:
       "/gestion/grupo/" +
       idGrupo +
-      "/nuevoMovimiento?idUsuarioGrupo=7&idGrupo=6",
-    data: {
-      codigo: codigoparam,
-    },
+      "/nuevoMovimiento",
     success: function (formularioEditar) {
-      bootbox.dialog({
-        message: formularioEditar,
-      });
+      bootbox
+        .dialog({
+          title: "Añade nuevo movimiento",
+          message: formularioEditar,
+        })
+        .find("div.modal-content")
+        .addClass("largeWidth");
     },
     error: function (err) {
       alert("Si la URL esta mal. Codigo 404");

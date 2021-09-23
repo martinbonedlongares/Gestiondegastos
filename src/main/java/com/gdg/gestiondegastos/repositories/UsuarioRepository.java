@@ -16,6 +16,11 @@ public interface UsuarioRepository extends JpaRepository<Usuario,Integer>{
     @Query("update Usuario u set u.contrasenya = :contrasenya where u.id = :id_usuario")
     public void updateContrasenya(Integer id_usuario, String contrasenya);
     
+    /*SI EL DE ARRIBA NO TE FUNCIONA PRUEBA ESTE
+    @Modifying
+    @Query("update Usuario u set u.contrasenya = :contrasenya where u.id = :id_usuario")
+    public void updateContrasenya(@Param("id_usuario") Integer id_usuario, @Param("contrasenya") String contrasenya);*/
+    
     
     //BORRA DE LA BBDD, NO DEL GRUPO
     @Modifying

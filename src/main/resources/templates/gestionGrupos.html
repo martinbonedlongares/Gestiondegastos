@@ -6,10 +6,13 @@
 
 <body>
     <div>
-        <div style="float:left; width: 70%;">
-            <input class="cantidad" name="nombre" th:value="${grupo.nombre}"></input>
-        </div>
-        <a style="float:left; width: 30%;" th:href="@{|${grupo.id}/cambiarNombre|}" class="botonAzul">Cambiar nombre</a>
+        <form action="${grupo.id}/cambiarNombre">
+            <div style="float:left; width: 70%;">
+                <input class="cantidad" name="nombre" th:value="${grupo.nombre}"></input>
+            </div>
+            <button style="float:left; width: 30%;" type="submit" class="botonAzul">Cambiar
+                nombre</button>
+        </form>
         <table class="tablaPrincipal">
             <thead>
                 <tr>

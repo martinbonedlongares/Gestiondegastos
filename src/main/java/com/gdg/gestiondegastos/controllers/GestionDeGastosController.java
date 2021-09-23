@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -270,10 +271,10 @@ public class GestionDeGastosController {
 
         return "redirect:/gestion/grupo/{idGrupo}";
     }
-    
-    @PostMapping("grupo/{idGrupo}/cambiarNombre")
-    public String cambiarNombreGrupo(String nuevo, Integer idGrupo){
-        repoGrupo.cambiarNombre(idGrupo, nuevo);
+
+    @GetMapping("grupo/{idGrupo}/cambiarNombre")
+    public String cambiarNombreGrupo(@RequestParam String nombre, Integer idGrupo) {
+        repoGrupo.cambiarNombre(idGrupo, nombre);
         return "redirect:/gestion/grupo/{idGrupo}";
     }
 
@@ -350,6 +351,5 @@ public class GestionDeGastosController {
         m.addAttribute("presupuestoPersonal", presupuestoPersonal);
         return "verMovimientos";
     }
-    
-    
+
 }

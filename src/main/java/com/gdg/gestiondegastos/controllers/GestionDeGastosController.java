@@ -137,30 +137,19 @@ public class GestionDeGastosController {
         return "redirect:/gestion/inicio";
     }
 
-    @GetMapping("/info")
-    @ResponseBody
-    public String info() {
-
-        // UsuarioDto
-        // usuValidado=(UsuarioDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        // System.out.print(SecurityContextHolder.getContext().getAuthentication());
-        return SecurityContextHolder.getContext().getAuthentication().getName();
-    }
-
     @Autowired
     private AuthenticationManager am;
 
     @PostMapping("/ingresar") // hacer login
-    public String ingresar(Model m, String correo, String contrasenya) {
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(correo, contrasenya);
+    public String ingresar(Model m, String correo[], String[] contrasenya) {
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(correo[0], contrasenya[0]);
         Authentication auth = am.authenticate(token);
         SecurityContextHolder.getContext().setAuthentication(auth);
 
         Usuario usuario = new Usuario();
         System.out.println(" USUARIO  1    " + correo);
         try {
-            usuario = repoUsuario.findByCorreo(correo);
-            
+            usuario = repoUsuario.findByCorreo(correo[0]);
             System.out.println(" USUARIO   2   " + usuario.getNombre());
         } catch (Exception e) {
             e.printStackTrace();

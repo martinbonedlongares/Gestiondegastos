@@ -37,14 +37,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
              .antMatchers("/").permitAll()
-             .antMatchers("/info").permitAll()
+             //.antMatchers("/info").permitAll()
              .antMatchers("/gestion").permitAll()
              .antMatchers("/grupos").permitAll()
              .antMatchers("/login").permitAll()
              .antMatchers("/agregar").permitAll()
              .antMatchers("/perfil").permitAll();
         http.formLogin().loginPage("/gestion/login").successForwardUrl("/gestion/paginaPrincipal").failureForwardUrl("/gestion/login");
-        http.logout().logoutSuccessUrl("/gestion/").invalidateHttpSession(true).deleteCookies("JSESSIONID");
+        http.logout().logoutSuccessUrl("/gestion").invalidateHttpSession(true).deleteCookies("JSESSIONID").clearAuthentication(true);
         http.csrf().disable();
         /*http.anonymous().disable().csrf().disable().authorizeRequests().antMatchers("/registro**")
                 .permitAll().anyRequest().authenticated()

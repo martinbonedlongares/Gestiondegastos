@@ -33,8 +33,8 @@
           <tr th:each="mov:${movimientos}">
             <td class="negritaPrincipal" th:text="${mov.concepto}" />
             <td th:text="${mov.fecha}" class="fechaTabla" />
-            <td th:text="|${mov.cantidad}€|" th:class="
-                                ${mov.cantidad >= 0} ? 'Verde' : 'Rojo'" />
+            <td style="text-align: center;" th:text="|${mov.cantidad}€|"
+              th:class="${mov.cantidad >= 0} ? 'Verde' : 'Rojo'" />
           </tr>
 
         </table>

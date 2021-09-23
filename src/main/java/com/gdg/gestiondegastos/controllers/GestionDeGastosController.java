@@ -160,6 +160,7 @@ public class GestionDeGastosController {
         System.out.println(" USUARIO  1    " + correo);
         try {
             usuario = repoUsuario.findByCorreo(correo);
+            
             System.out.println(" USUARIO   2   " + usuario.getNombre());
         } catch (Exception e) {
             e.printStackTrace();
@@ -200,6 +201,7 @@ public class GestionDeGastosController {
 
         return "perfil";
     }
+    
 
     @PostMapping("/guardarPerfil")
     public String guardarPerfil(Usuario usuario) {
@@ -305,7 +307,7 @@ public class GestionDeGastosController {
         if (auth != null) {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
-        return "redirect:/gestion/principal";
+        return "redirect:/gestion/paginaInicial";
     }
 
     @GetMapping("/misGrupos")

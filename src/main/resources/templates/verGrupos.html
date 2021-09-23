@@ -34,7 +34,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr id="grupo" th:each="ug:${usuarioGrupo}" th:onclick="|mostrarGrupo(${ug.grupo.id})|">
+                        <tr id="grupo" th:each="ug:${grupos}" th:onclick="|mostrarGrupo(${ug.grupo.id})|">
                             <td class="negritaPrincipal" th:text="${ug.grupo.nombre}"></td>
                             <td th:text="${ug.grupo.fechaCreacion}"></td>
                             <td th:text="${ug.grupo.presupuesto.cantidadFinal} + '€'" th:class="

@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface GrupoRepository extends JpaRepository<Grupo,Integer>{
     
-    
+    @Query("UPDATE Grupo g set g.nombre = :nombre where g.id = :id_grupo")
+    public String cambiarNombre(Integer id_grupo, String nombre);
     
 }

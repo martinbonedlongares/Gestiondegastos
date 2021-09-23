@@ -124,11 +124,11 @@ public class GestionDeGastosController {
         grupo.setFechaCreacion(java.sql.Date.from(Instant.now(Clock.systemDefaultZone())));
         Grupo grupoCreado = repoGrupo.save(grupo);
         Presupuesto pre = new Presupuesto();
-            pre.setCantidadInicio(presupuesto);
-            pre.setCantidadFinal(presupuesto);
-            pre.setFechaInicio(java.sql.Date.from(Instant.now(Clock.systemDefaultZone())));
-            pre.setGrupo(grupoCreado);
-            repoPresupuesto.save(pre);
+        pre.setCantidadInicio(presupuesto);
+        pre.setCantidadFinal(presupuesto);
+        pre.setFechaInicio(java.sql.Date.from(Instant.now(Clock.systemDefaultZone())));
+        pre.setGrupo(grupoCreado);
+        repoPresupuesto.save(pre);
 
         ArrayList<UsuarioGrupo> ug = new ArrayList<>();
         ug.add(new UsuarioGrupo(0, Boolean.TRUE, repoUsuario.findById(usuValidado.getId()).get(), grupoCreado,
@@ -171,15 +171,15 @@ public class GestionDeGastosController {
         // user = repoUsuario.getById(idUsuario);
 
         // Suma todas las cantidades iniciales indicadas en el presupuesto del usuario
-        
+
         Double presupuestoPersonal = 0d;
-        if(user.getUsuarioGrupo().stream().map(x -> x.getGrupo().getPresupuesto()).findFirst().isPresent()){
-            
-            presupuestoPersonal = user.getUsuarioGrupo().stream().map(x -> x.getGrupo().getPresupuesto()).findFirst().get().stream().collect(Collectors
-                        .summingDouble(p -> p.getCantidadFinal()));
+        if (user.getUsuarioGrupo().stream().map(x -> x.getGrupo().getPresupuesto()).findFirst().isPresent()) {
+
+            presupuestoPersonal = user.getUsuarioGrupo().stream().map(x -> x.getGrupo().getPresupuesto()).findFirst()
+                    .get().stream().collect(Collectors.summingDouble(p -> p.getCantidadFinal()));
         }
-        
-        m.addAttribute("presupuestoPersonal",presupuestoPersonal);
+
+        m.addAttribute("presupuestoPersonal", presupuestoPersonal);
 
         m.addAttribute("movimientos",
                 repoMovimientos.leerPorUsuario(usuValidado.getId()).stream().limit(4).collect(Collectors.toList()));
@@ -197,7 +197,6 @@ public class GestionDeGastosController {
 
         return "perfil";
     }
-    
 
     @PostMapping("/guardarPerfil")
     public String guardarPerfil(Usuario usuario) {
@@ -233,12 +232,12 @@ public class GestionDeGastosController {
         m.addAttribute("presupuesto", repoPresupuesto.findByIdGrupo(idGrupo));
         return "grupos";
     }
-    
+
     @GetMapping("{idGrupo}/borrar")
     public String verGrupos(@PathVariable Integer idGrupo) {
-        
+
         repoGrupo.deleteById(idGrupo);
-        
+
         return "redirect:/gestion/misGrupos";
     }
 
@@ -246,6 +245,7 @@ public class GestionDeGastosController {
     public String gestionarGrupos(Model m, @PathVariable Integer idGrupo) {
 
         m.addAttribute("usuarioGrupo", repoUsuarioGrupo.leerPorGrupo(idGrupo));
+        m.addAttribute("grupo", repoGrupo.findById(idGrupo).get());
 
         return "gestionGrupos";
     }
@@ -262,12 +262,12 @@ public class GestionDeGastosController {
     @GetMapping("/grupo/{idGrupo}/borrarUsuario")
     public String borrarUsuario(Integer idUsuarioGrupo, Integer idGrupo) {
         repoUsuarioGrupo.deleteById(idUsuarioGrupo);
-        
-        if(repoUsuarioGrupo.leerPorGrupo(idGrupo).isEmpty()){
+
+        if (repoUsuarioGrupo.leerPorGrupo(idGrupo).isEmpty()) {
             repoGrupo.deleteById(idGrupo);
             return "redirect:/gestion/inicio";
         }
-        
+
         return "redirect:/gestion/grupo/{idGrupo}";
     }
 
@@ -296,12 +296,11 @@ public class GestionDeGastosController {
         Movimiento movNuevo = repoMovimientos.save(mov);
         Presupuesto p = repoPresupuesto.findByIdGrupo(idGrupo);
         /*
-        if(p.getCantidadFinal().equals(p.getCantidadInicio())){
-            p.setCantidadFinal(p.getCantidadFinal() + movNuevo.getCantidad());
-        }else{
-        p.setCantidadFinal(p.getCantidadFinal() + mov.getCantidad());
-        }*/
-         p.setCantidadFinal(p.getCantidadFinal() + movNuevo.getCantidad());
+         * if(p.getCantidadFinal().equals(p.getCantidadInicio())){
+         * p.setCantidadFinal(p.getCantidadFinal() + movNuevo.getCantidad()); }else{
+         * p.setCantidadFinal(p.getCantidadFinal() + mov.getCantidad()); }
+         */
+        p.setCantidadFinal(p.getCantidadFinal() + movNuevo.getCantidad());
         repoPresupuesto.save(p);
         return "redirect:/gestion/grupo/" + idGrupo;
     }
@@ -332,17 +331,17 @@ public class GestionDeGastosController {
     @GetMapping("/misMovimientos")
     public String misMov(Model m) {
         UsuarioDto user = (UsuarioDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        Usuario use=repoUsuario.findById(user.getId()).get();
+        Usuario use = repoUsuario.findById(user.getId()).get();
         m.addAttribute("movimientos",
                 repoMovimientos.leerPorUsuario(user.getId()).stream().collect(Collectors.toList()));
         m.addAttribute("usuarioGrupo", repoUsuarioGrupo.leerPorUsuario(user.getId()));
         Double presupuestoPersonal = 0d;
-        if(use.getUsuarioGrupo().stream().map(x -> x.getGrupo().getPresupuesto()).findFirst().isPresent()){
-            
-            presupuestoPersonal = use.getUsuarioGrupo().stream().map(x -> x.getGrupo().getPresupuesto()).findFirst().get().stream().collect(Collectors
-                        .summingDouble(p -> p.getCantidadFinal()));
+        if (use.getUsuarioGrupo().stream().map(x -> x.getGrupo().getPresupuesto()).findFirst().isPresent()) {
+
+            presupuestoPersonal = use.getUsuarioGrupo().stream().map(x -> x.getGrupo().getPresupuesto()).findFirst()
+                    .get().stream().collect(Collectors.summingDouble(p -> p.getCantidadFinal()));
         }
-        m.addAttribute("presupuestoPersonal",presupuestoPersonal);
+        m.addAttribute("presupuestoPersonal", presupuestoPersonal);
         return "verMovimientos";
     }
 }

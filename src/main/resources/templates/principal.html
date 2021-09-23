@@ -18,8 +18,8 @@
                 <p class="presupuestoPrincipal" th:text="|${presupuestoPersonal}€|" th:class="
                        ${presupuestoPersonal >= 0} ? 'presupuestoPrincipal Verde' : 'presupuestoPrincipal Rojo'"></p>
             </div>
-            <div class="divHrPrincipal">
-                <button class="botonAzul">Nuevo importe</button>
+            <div class="divHrPrincipal" >
+                <button th:if="${usuarioGrupo.size} != 0" class="botonAzul" th:onclick="|mostrarFormularioNuevoMovimiento(${usuarioGrupo[0].grupo.id})|">Nuevo importe</button>
                 <hr />
             </div>
             <div id="movimientos">
@@ -32,7 +32,8 @@
                     <tr th:each="mov:${movimientos}">
                         <td th:text="${mov.concepto}" />
                         <td th:text="${mov.fecha}" class="fechaTabla" />
-                        <td th:text="|${mov.cantidad}€|" />
+                        <td th:text="|${mov.cantidad}€|" th:class="
+                                ${mov.cantidad >= 0} ? 'Verde' : 'Rojo'"/>
                     </tr>
 
                 </table>
@@ -63,6 +64,32 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
+        
+        
+function mostrarFormularioNuevoMovimiento(idGrupo) {
+  $.ajax({
+    url:
+      "/gestion/grupo/" +
+      idGrupo +
+      "/nuevoMovimiento",
+    success: function (formularioEditar) {
+      bootbox
+        .dialog({
+          title: "Añade nuevo movimiento",
+          message: formularioEditar,          
+        })
+        .find("div.modal-content")
+        .addClass("largeWidth");
+    },
+    error: function (err) {
+      alert("Si la URL esta mal. Codigo 404");
+    }
+  }).done(function(ev){
+      ev.preventDefault();
+window.location.href = "/gestion/inicio";
+  });
+}
+        
         function mostrarGrupo(idGrupo) {
             window.location.href = "grupo/" + idGrupo;
         };

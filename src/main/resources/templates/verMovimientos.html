@@ -20,9 +20,8 @@
                     th:text="${presupuesto.cantidadFinal} + '€'">3.890€</p>
             </div> -->
 
-            <div class="divHr2elementos">
-                <button class="botonAzul" th:onclick="|mostrarFormularioNuevoMovimiento(${idGrupo})|">Nuevo
-                    importe</button>
+            <div class="divHrPrincipal">
+                <button th:if="${usuarioGrupo.size} != 0" class="botonAzul" th:onclick="|mostrarFormularioNuevoMovimiento(${usuarioGrupo[0].grupo.id})|">Nuevo importe</button>
                 <hr />
                 <div class="search-box ">
                     <button class="btn-search"><i class="fas fa-search"></i></button>
@@ -51,7 +50,8 @@
                             <td th:text="${mov.concepto}" class="negritaPrincipal"></td>
                             <td th:text="${mov.categoria}"></td>
                             <td th:text="${mov.fecha}" class="fechaTabla"></td>
-                            <td th:text="|${mov.cantidad}€|"></td>
+                            <td th:text="|${mov.cantidad}€|" th:class="
+                                ${mov.cantidad >= 0} ? 'Verde' : 'Rojo'"></td>
                         </tr>
                     </tbody>
                 </table>

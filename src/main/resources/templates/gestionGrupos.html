@@ -21,7 +21,7 @@
                     <td class='align-middle' th:text="${ug.usuario.correo}"></td>
                     <td class='align-middle' th:text="${ug.usuario.telefono}"></td>
                     <td><a class="botonRojo"
-                            th:href="@{|{idGrupo}/borrarUsuario|(idUsuarioGrupo=${ug.id},idGrupo=${idGrupo})}">Eliminar</a>
+                            th:href="@{|${idGrupo}/borrarUsuario|(idUsuarioGrupo=${ug.id},idGrupo=${idGrupo})}">Eliminar</a>
                     </td>
                 </tr>
             </tbody>

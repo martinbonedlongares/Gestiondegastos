@@ -332,9 +332,17 @@ public class GestionDeGastosController {
     @GetMapping("/misMovimientos")
     public String misMov(Model m) {
         UsuarioDto user = (UsuarioDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        Usuario use=repoUsuario.findById(user.getId()).get();
         m.addAttribute("movimientos",
                 repoMovimientos.leerPorUsuario(user.getId()).stream().collect(Collectors.toList()));
         m.addAttribute("usuarioGrupo", repoUsuarioGrupo.leerPorUsuario(user.getId()));
+        Double presupuestoPersonal = 0d;
+        if(use.getUsuarioGrupo().stream().map(x -> x.getGrupo().getPresupuesto()).findFirst().isPresent()){
+            
+            presupuestoPersonal = use.getUsuarioGrupo().stream().map(x -> x.getGrupo().getPresupuesto()).findFirst().get().stream().collect(Collectors
+                        .summingDouble(p -> p.getCantidadFinal()));
+        }
+        m.addAttribute("presupuestoPersonal",presupuestoPersonal);
         return "verMovimientos";
     }
 }

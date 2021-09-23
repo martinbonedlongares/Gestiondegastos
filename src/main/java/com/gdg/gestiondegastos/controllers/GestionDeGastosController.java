@@ -244,6 +244,14 @@ public class GestionDeGastosController {
         m.addAttribute("presupuesto", repoPresupuesto.findByIdGrupo(idGrupo));
         return "grupos";
     }
+    
+    @GetMapping("{idGrupo}/borrar")
+    public String verGrupos(@PathVariable Integer idGrupo) {
+        
+        repoGrupo.deleteById(idGrupo);
+        
+        return "redirect:/gestion/misGrupos";
+    }
 
     @GetMapping("/grupo/{idGrupo}/gestionar")
     public String gestionarGrupos(Model m, @PathVariable Integer idGrupo) {

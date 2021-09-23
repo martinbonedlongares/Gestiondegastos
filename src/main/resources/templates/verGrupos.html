@@ -42,8 +42,8 @@
                                 ${p.cantidadFinal >= 0} ? 'Verde' : 'Rojo'"></td>
                         </th:block>
                         <td>
-                            <button class="botonAzul">Editar grupo</button>
-                            <button class="botonRojo">Eliminar grupo</button>
+                            <a class="botonAzul">Editar grupo</a>
+                            <a class="botonRojo" th:href="@{|${ug.grupo.id}/borrar|}">Eliminar grupo</a>
                         </td>
                         </tr>
                         </tbody>

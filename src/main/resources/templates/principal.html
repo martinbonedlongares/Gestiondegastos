@@ -42,7 +42,7 @@
 
         <div class="section">
             <div class="divHrPrincipal">
-                <a type="button" class="botonAzul" th:href="@{inicio/nuevoGrupo}">Nuevo grupo</a>
+                <a type="button" class="botonAzul" th:onclick="|mostrarFormularioNuevoGrupo()|">Nuevo grupo</a>
                 <hr />
             </div>
 
@@ -87,6 +87,23 @@ function mostrarFormularioNuevoMovimiento(idGrupo) {
   }).done(function(ev){
       ev.preventDefault();
 window.location.href = "/gestion/inicio";
+  });
+}
+
+function mostrarFormularioNuevoGrupo() {
+  $.ajax({
+    url:
+      "inicio/nuevoGrupo",
+    success: function (formularioEditar) {
+      bootbox
+        .dialog({
+          title: "Añade nuevo grupo",
+          message: formularioEditar,          
+        });
+    },
+    error: function (err) {
+      alert("Si la URL esta mal. Codigo 404");
+    }
   });
 }
         

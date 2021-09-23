@@ -22,7 +22,7 @@ public class ApplicationConfig extends WebSecurityConfigurerAdapter{
     
     @Override
     protected void configure(HttpSecurity http) throws Exception{
-        http.anonymous().disable().csrf().disable().authorizeRequests().antMatchers("/registro**")
+        http.anonymous().disable().csrf().disable().authorizeRequests().antMatchers("/gestion","/gestion/login", "/gestion/agregar")
                 .permitAll().anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login").usernameParameter("correo").passwordParameter("contrasenya")

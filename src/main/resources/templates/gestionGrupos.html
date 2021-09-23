@@ -6,9 +6,10 @@
 
 <body>
     <div>
-        <form action="${idGrupo}/cambiarNombre">
+        <form action="/gestion/grupo/cambiarNombre">
             <div style="float:left; width: 70%;">
-                <input class="cantidad" name="nombre" th:value="${grupo.nombre}"></input>
+                <input class="cantidad" name="nombre" type="text" th:value="${grupo.nombre}"/>
+                <input class="cantidad" name="idGrupo" type="hidden" th:value="${grupo.id}"/>
             </div>
             <button style="float:left; width: 30%;" type="submit" class="botonAzul">Cambiar
                 nombre</button>

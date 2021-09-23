@@ -212,7 +212,7 @@ public class GestionDeGastosController {
     public String gestionarGrupos(Model m, @PathVariable Integer idGrupo) {
 
         m.addAttribute("usuarioGrupo", repoUsuarioGrupo.leerPorGrupo(idGrupo));
-        m.addAttribute("idGrupo", idGrupo);
+        m.addAttribute("grupo", repoGrupo.findById(idGrupo).get());
 
         return "gestionGrupos";
     }
@@ -229,10 +229,11 @@ public class GestionDeGastosController {
         return "redirect:/gestion/grupo/{idGrupo}";
     }
 
-    @GetMapping("grupo/{idGrupo}/cambiarNombre")
-    public String cambiarNombreGrupo(@RequestParam String nombre, Integer idGrupo) {
+    @GetMapping("grupo/cambiarNombre")
+    public String cambiarNombreGrupo(String nombre,@RequestParam Integer idGrupo) {
+        
         repoGrupo.cambiarNombre(idGrupo, nombre);
-        return "redirect:/gestion/grupo/{idGrupo}";
+        return "redirect:/gestion/grupo/"+idGrupo;
     }
 
     @GetMapping("/grupo/{idGrupo}/nuevoMovimiento")

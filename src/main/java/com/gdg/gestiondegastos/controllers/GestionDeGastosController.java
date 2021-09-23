@@ -246,7 +246,7 @@ public class GestionDeGastosController {
     public String gestionarGrupos(Model m, @PathVariable Integer idGrupo) {
 
         m.addAttribute("usuarioGrupo", repoUsuarioGrupo.leerPorGrupo(idGrupo));
-        m.addAttribute("grupo", repoGrupo.findById(idGrupo).get());
+        m.addAttribute("idGrupo", idGrupo);
 
         return "gestionGrupos";
     }

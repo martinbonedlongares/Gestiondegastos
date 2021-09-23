@@ -200,6 +200,7 @@ public class GestionDeGastosController {
 
         return "perfil";
     }
+    
 
     @PostMapping("/guardarPerfil")
     public String guardarPerfil(Usuario usuario) {
@@ -305,7 +306,7 @@ public class GestionDeGastosController {
         if (auth != null) {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
-        return "redirect:/gestion/principal";
+        return "redirect:/gestion/paginaInicial";
     }
 
     @GetMapping("/misGrupos")

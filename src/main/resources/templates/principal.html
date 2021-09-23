@@ -18,8 +18,9 @@
                 <p class="presupuestoPrincipal" th:text="|${presupuestoPersonal}€|" th:class="
                        ${presupuestoPersonal >= 0} ? 'presupuestoPrincipal Verde' : 'presupuestoPrincipal Rojo'"></p>
             </div>
-            <div class="divHrPrincipal" >
-                <button th:if="${usuarioGrupo.size} != 0" class="botonAzul" th:onclick="|mostrarFormularioNuevoMovimiento(${usuarioGrupo[0].grupo.id})|">Nuevo importe</button>
+            <div class="divHrPrincipal">
+                <button th:if="${usuarioGrupo.size} != 0" class="botonAzul"
+                    th:onclick="|mostrarFormularioNuevoMovimiento(${usuarioGrupo[0].grupo.id})|">Nuevo importe</button>
                 <hr />
             </div>
             <div id="movimientos">
@@ -30,10 +31,10 @@
                         <th>Importe</th>
                     </tr>
                     <tr th:each="mov:${movimientos}">
-                        <td th:text="${mov.concepto}" />
+                        <td class="negritaPrincipal" th:text="${mov.concepto}" />
                         <td th:text="${mov.fecha}" class="fechaTabla" />
                         <td th:text="|${mov.cantidad}€|" th:class="
-                                ${mov.cantidad >= 0} ? 'Verde' : 'Rojo'"/>
+                                ${mov.cantidad >= 0} ? 'Verde' : 'Rojo'" />
                     </tr>
 
                 </table>
@@ -51,11 +52,16 @@
                     <tr>
                         <th>Nombre del grupo</th>
                         <th>Fecha de creación</th>
+                        <th>Presupuesto</th>
                     </tr>
                     <tr style="cursor: pointer;" type="url" id="grupo" th:each="ug:${usuarioGrupo}"
                         th:onclick="|mostrarGrupo(${ug.grupo.id})|">
                         <td class="negritaPrincipal" th:text="${ug.grupo.nombre}"></td>
                         <td th:text="${ug.grupo.fechaCreacion}"></td>
+                        <th:block th:each="p:${ug.grupo.presupuesto}">
+                            <td style="text-align: center;" th:text="${p.cantidadFinal} + '€'" th:class="
+                                ${p.cantidadFinal >= 0} ? 'Verde' : 'Rojo'"></td>
+                        </th:block>
                     </tr>
                 </table>
             </div>

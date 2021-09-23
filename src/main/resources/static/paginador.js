@@ -128,10 +128,7 @@ $TableFilter = function (id, value) {
 /* Esto funciona pero con los ID predefinidos (Es una prueba) */
 function mostrarFormularioNuevoMovimiento(idGrupo) {
   $.ajax({
-    url:
-      "/gestion/grupo/" +
-      idGrupo +
-      "/nuevoMovimiento",
+    url: "/gestion/grupo/" + idGrupo + "/nuevoMovimiento",
     success: function (formularioEditar) {
       bootbox
         .dialog({

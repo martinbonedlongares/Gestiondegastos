@@ -270,6 +270,12 @@ public class GestionDeGastosController {
         
         return "redirect:/gestion/grupo/{idGrupo}";
     }
+    
+    @PostMapping("grupo/{idGrupo}/cambiarNombre")
+    public String cambiarNombreGrupo(String nuevo, Integer idGrupo){
+        repoGrupo.cambiarNombre(idGrupo, nuevo);
+        return "redirect:/gestion/grupo/{idGrupo}";
+    }
 
     // Ejemplo ded url: http://localhost:8080/gestion/grupo/6
     @GetMapping("/grupo/{idGrupo}/nuevoMovimiento")
@@ -345,4 +351,6 @@ public class GestionDeGastosController {
         m.addAttribute("presupuestoPersonal",presupuestoPersonal);
         return "verMovimientos";
     }
+    
+    
 }

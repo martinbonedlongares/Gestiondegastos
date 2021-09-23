@@ -388,6 +388,19 @@ input::-webkit-inner-spin-button {
   margin: 0 auto;
   border: 0;
   height: 1px;
+  background-image: linear-gradient(
+    to left,
+    #3e3434,
+    rgba(129, 129, 129, 0.75),
+    #f7f7f7
+  );
+}
+
+.divHr2elementos hr {
+  flex: 1px;
+  margin: 0 auto;
+  border: 0;
+  height: 1px;
   background-color: #3e3434;
 }
 
@@ -550,7 +563,7 @@ input::-webkit-inner-spin-button {
 ============Scroll bar==============
 ====================================*/
 #fp-nav span {
-  background: #226acb !important;
+  background: #666666 !important;
 }
 
 .fp-tooltip,

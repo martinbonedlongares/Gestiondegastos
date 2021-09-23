@@ -16,12 +16,12 @@
                 th:onclick="|mostrarMiembrosGrupo(${idGrupo})|"></p>
             <div th:if="${presupuesto.cantidadInicio == 0 }">
                 <p id="presupuesto" class="presupuestoPrincipal" th:class="
-                ${presupuesto.cantidadInicio >= 0} ? 'presupuestoPrincipal Verde' : 'presupuestoPrincipal Rojo'"
+                ${presupuesto.cantidadFinal >= 0} ? 'presupuestoPrincipal Verde' : 'presupuestoPrincipal Rojo'"
                     th:text="${presupuesto.cantidadFinal} + '€'"></p>
             </div>
             <div th:unless="${presupuesto.cantidadInicio == 0}">
                 <p id="presupuesto" class="presupuestoPrincipal" th:class="
-                ${presupuesto.cantidadInicio >= 0} ? 'presupuestoPrincipal Verde' : 'presupuestoPrincipal Rojo'"
+                ${presupuesto.cantidadFinal >= 0} ? 'presupuestoPrincipal Rojo' : 'presupuestoPrincipal Verde'"
                     th:text="${presupuesto.cantidadFinal} + '€'"></p>
             </div>
 
@@ -41,16 +41,16 @@
                         <tr>
                             <th>Concepto</th>
                             <th>Categoría <i class="fas fa-sort"
-                                    onclick="w3.sortHTML('#tablaMov', '.item', 'td:nth-child(1)')"></i>
+                                    onclick="w3.sortHTML('#pager', '.item', 'td:nth-child(1)')"></i>
                             </th>
                             <th>Usuario <i class="fas fa-sort"
-                                    onclick="w3.sortHTML('#tablaMov', '.item', 'td:nth-child(2)')"></i>
+                                    onclick="w3.sortHTML('#pager', '.item', 'td:nth-child(2)')"></i>
                             </th>
                             <th>Fecha <i class="fas fa-sort"
-                                    onclick="w3.sortHTML('#tablaMov', '.item', 'td:nth-child(3)')"></i>
+                                    onclick="w3.sortHTML('#pager', '.item', 'td:nth-child(3)')"></i>
                             </th>
                             <th>Cantidad <i class="fas fa-sort"
-                                    onclick="w3.sortHTML('#tablaMov', '.item', 'td:nth-child(3)')"></i>
+                                    onclick="w3.sortHTML('#pager', '.item', 'td:nth-child(3)')"></i>
                             </th>
                         </tr>
                     </thead>
@@ -60,7 +60,8 @@
                             <td th:text="${mov.categoria}"></td>
                             <td th:text="${mov.usuarioGrupo.usuario.nombre}"></td>
                             <td th:text="${mov.fecha}" class="fechaTabla"></td>
-                            <td th:text="|${mov.cantidad}€|"></td>
+                            <td th:text="|${mov.cantidad}€|" th:class="
+                                ${mov.cantidad >= 0} ? 'Verde' : 'Rojo'"></td>
                         </tr>
                     </tbody>
                 </table>

@@ -56,9 +56,9 @@ public class GestionDeGastosController {
     private PasswordEncoder clave;
 
     // Este es un get para ver la principal y asÃ­ ver los cambios
-    @GetMapping("/paginaPrincipal")
+    @GetMapping("")
     public String principal() {
-        return "verGrupos";
+        return "paginaInicial";
     }
 
     @GetMapping("/agregar")
@@ -68,14 +68,8 @@ public class GestionDeGastosController {
         return "crearUsuario";
     }
 
-    @GetMapping("/principal") // Pagina de inicio principal
+    @GetMapping("/login") // Pagina de inicio principal
     public String principal2(Model m) {
-        // m.addAttribute("usuario", new Usuario());
-        return "login";
-    }
-    
-    @GetMapping("") // Pagina de inicio principal
-    public String principal(Model m) {
         // m.addAttribute("usuario", new Usuario());
         return "login";
     }
@@ -213,6 +207,7 @@ public class GestionDeGastosController {
 
         return "perfil";
     }
+    
 
     @PostMapping("/guardarPerfil")
     public String guardarPerfil(Usuario usuario) {
@@ -300,7 +295,7 @@ public class GestionDeGastosController {
     @PostMapping("/grupo/guardarMovimiento")
     public String guardarMovimiento(Model m, Movimiento mov, Integer idUsuarioGrupo, Integer idGrupo) {
         mov.setUsuarioGrupo(repoUsuarioGrupo.findById(idUsuarioGrupo).get());
-        Movimiento movNuevo = repoMovimientos.save(mov);        
+        Movimiento movNuevo = repoMovimientos.save(mov);
         Presupuesto p = repoPresupuesto.findByIdGrupo(idGrupo);
         /*
         if(p.getCantidadFinal().equals(p.getCantidadInicio())){
@@ -326,20 +321,22 @@ public class GestionDeGastosController {
         if (auth != null) {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
-        return "redirect:/gestion/principal";
+        return "redirect:/gestion/paginaInicial";
     }
-    
+
     @GetMapping("/misGrupos")
-    public String misGrupos(Model m){
-        UsuarioDto user=(UsuarioDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+    public String misGrupos(Model m) {
+        UsuarioDto user = (UsuarioDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         m.addAttribute("grupos", repoUsuarioGrupo.leerPorUsuario(user.getId()));
         return "verGrupos";
     }
-    
+
     @GetMapping("/misMovimientos")
-    public String misMov(Model m){
-        UsuarioDto user=(UsuarioDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        m.addAttribute("movimientos",repoMovimientos.leerPorUsuario(user.getId()).stream().collect(Collectors.toList()));
+    public String misMov(Model m) {
+        UsuarioDto user = (UsuarioDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        m.addAttribute("movimientos",
+                repoMovimientos.leerPorUsuario(user.getId()).stream().collect(Collectors.toList()));
+        m.addAttribute("usuarioGrupo", repoUsuarioGrupo.leerPorUsuario(user.getId()));
         return "verMovimientos";
     }
 }

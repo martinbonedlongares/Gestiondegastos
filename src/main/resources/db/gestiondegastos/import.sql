@@ -45,13 +45,13 @@ INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALU
 INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (1.50,'Transporte','Monedas en el suelo, que suerte',CURDATE(),7);
 INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-11.90,'Regalo','Libro de Stephen King para Paloma',CURDATE(),8);
 INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-1.80,'Alimentacion','Cafe con churros en Hiberus',CURDATE(),9);
-INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (+4.50,'Hogar','Deuda de mi hermano saldada',CURDATE(),10);
+INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (+4.50,'Hogar','Deuda de mi hermano',CURDATE(),10);
 INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-45.50,'Entretenimiento','Cascos New Skill Kimera V2',CURDATE(),6);
 INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (+600.65,'Comunicacion','Resolución juicio del bar',CURDATE(),6);
-INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-40.32,'Higiene','Productos rollo cremas, pasta de dientes etc',CURDATE(),8);
-INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-0.90,'Entretenimiento','Karlson, oh... No sabes lo que es Karlson? Karlson es un...',CURDATE(),7);
+INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-40.32,'Higiene','Cremas, pasta de dientes etc',CURDATE(),8);
+INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-0.90,'Entretenimiento','Humble Bundle',CURDATE(),7);
 INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-61.20,'Alimentación','Liquidos de vaper',CURDATE(),9);
-INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (+120,'Regalo','Cumple YaY <3',CURDATE(),10);
+INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (+120,'Regalo','Cumple YaY',CURDATE(),10);
 INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-0.10,'Alimentacion','Propina del café',CURDATE(),10);
 INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-102.80,'Comunicación','Factura Orange',CURDATE(),9);
 INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-20,'Transporte','Gasolina',CURDATE(),5);
@@ -59,11 +59,11 @@ INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALU
 INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-60,'Alimentacion','Carro de la compra',CURDATE(),7);
 INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-100,'Alimentacion','Café con "descuento" de Hiberus',CURDATE(),10);
 INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (+20,'Higiene','Arreglar tuberia',CURDATE(),9);
-INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-3.00,'Transporte','Mas viajes de tranvia T.T',CURDATE(),8);
+INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-3.00,'Transporte','Mas viajes de tranvia :(',CURDATE(),8);
 INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-30.50,'Alimentacion','Cena UDON',CURDATE(),6);
 
-INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-30.50,'Higiene','Crema hemorroidal',CURDATE(),1);
-INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (+30.50,'Higiene','Cancelación "Crema hemorroidal"',CURDATE(),1);
+INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-30.50,'Entretenimiento','Nintendo Switch',CURDATE(),1);
+INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (+30.50,'Entretenimiento','Cancelación "Nintendo Switch"',CURDATE(),1);
 INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (5,'Regalo','Reintegro cupon ONCE',CURDATE(),1);
 
 INSERT INTO movimiento (cantidad,categoria,concepto,fecha,id_usuario_grupo) VALUES (-20.50,'Entretenimiento','Dark Souls REMASTERED',CURDATE(),2);

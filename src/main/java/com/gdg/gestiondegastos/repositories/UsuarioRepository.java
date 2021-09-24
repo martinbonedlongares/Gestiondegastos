@@ -22,7 +22,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario,Integer>{
     public void updateContrasenya(@Param("id_usuario") Integer id_usuario, @Param("contrasenya") String contrasenya);*/
     
     
-    //BORRA DE LA BBDD, NO DEL GRUPO
+    //BORRA DE LA BBDD, NO DEL USUARIO_GRUPO, aunque como esta en cascade, deberia borrar tambien del usuario_grupo
     @Modifying
     @Query("delete from Usuario u where u.id = :id_usuario")
     public void borrarUsuario(Integer id_usuario);

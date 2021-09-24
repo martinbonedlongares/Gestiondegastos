@@ -18,6 +18,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.TemporalAmount;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -288,6 +289,22 @@ public class GestionDeGastosController {
         }
 
         return "redirect:/gestion/grupo/{idGrupo}";
+    }
+    
+    @GetMapping("/grupo/nuevoUsuarioGrupo")
+    public String anadirUsuario(Model m, String correo,@RequestParam Integer idGrupo){
+        Usuario nuevoUsuario=repoUsuario.findByCorreo(correo);
+        UsuarioGrupo usuariosGrupo = repoUsuarioGrupo.leerPorUsuarioYGrupo(nuevoUsuario.getId(), idGrupo);
+        if(usuariosGrupo == null){
+            if(nuevoUsuario!=null){
+                repoUsuarioGrupo.anadirUsuario(nuevoUsuario.getId(), idGrupo, 0);
+            }else{
+                m.addAttribute("msg","Usuario no encontrado");
+            }
+        }else{
+            m.addAttribute("msg", "El usuario que intenta agregar ya se encuentra en el grupo");
+        }
+        return "redirect:/gestion/grupo/"+idGrupo;
     }
 
     @GetMapping("grupo/cambiarNombre")

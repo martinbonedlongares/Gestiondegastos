@@ -15,6 +15,12 @@
             <div class="divHrPrincipal">
             </div>
 
+
+            <div class="divHrPrincipal">
+                <a type="button" class="botonAzul" th:onclick="|mostrarFormularioNuevoGrupo()|">Nuevo grupo</a>
+                <hr />
+            </div>
+
             <div id="movimientos">
                 <table class="tablaPrincipal" id="pager">
                     <thead>
@@ -37,10 +43,7 @@
                                 ${p.cantidadFinal >= 0} ? 'Verde' : 'Rojo'"></td>
                             </th:block>
                             <td>
-                                <button class="botonAzul">Editar grupo</button>
-                            </td>
-                            <td>
-                                 <a class="botonRojo" th:href="@{|${ug.grupo.id}/borrar|}">Eliminar grupo</a>
+                                <a class="botonRojo" th:href="@{|${ug.grupo.id}/borrar|}">Eliminar grupo</a>
                             </td>
 
                         </tr>
@@ -56,6 +59,24 @@
             function mostrarGrupo(idGrupo) {
                 window.location.href = "grupo/" + idGrupo;
             };
+
+            function mostrarFormularioNuevoGrupo() {
+                $.ajax({
+                    url: "inicio/nuevoGrupo",
+                    success: function (formularioEditar) {
+                        bootbox
+                            .dialog({
+                                title: "Añade nuevo grupo",
+                                message: formularioEditar,
+                            })
+                            .find("div.modal-content")
+                            .addClass("largeWidth");;
+                    },
+                    error: function (err) {
+                        alert("Si la URL esta mal. Codigo 404");
+                    }
+                });
+            }
         </script>
 </body>
 

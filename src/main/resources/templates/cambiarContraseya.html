@@ -21,23 +21,15 @@
 
             <input class="cantidad" style="width: 100%;" type="password" id="contrasenya" name="contrasenya"
                 placeholder="Introduce tu nueva contraseña" th:field="*{contrasenya}" />
-            <input class="cantidad" style="width: 100%;" type="password" id="contrasenya2" name="contrasenya"
-                placeholder="Introduce de nuevo la nueva contraseña" />
+            <input class="cantidad" style="width: 100%; display: none;" type="password" id="contrasenya2"
+                name="contrasenya" placeholder="Introduce de nuevo la nueva contraseña" />
 
-            <button class="btnLogin" style="width: 100%;" id="cambio" disabled>Guardar contraseña</button>
+            <button class="btnLogin" style="width: 100%;" id="cambio">Guardar contraseña</button>
         </form>
     </div>
 
     <script>
-        $(document).ready(function () {
-            $("#contrasenya2").on("keyup", function () {
-                var v = $("#contrasenya").val();
-                var v2 = $("#contrasenya2").val();
 
-                $("#cambio").removeAttr("disabled", v == v2);
-
-            });
-        });
     </script>
 </body>
 

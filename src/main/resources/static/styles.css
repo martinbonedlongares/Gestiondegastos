@@ -645,6 +645,11 @@ input::-webkit-inner-spin-button {
     display: none;
   }
 
+  #grupos #movimientos .tablaPrincipal tr > *:nth-child(1),
+  #grupos #movimientos .tablaPrincipal tr > *:nth-child(3) {
+    display: none;
+  }
+
   .divPrincipal #grupo {
     display: none;
   }

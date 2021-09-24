@@ -291,10 +291,10 @@ public class GestionDeGastosController {
     }
 
     @GetMapping("grupo/cambiarNombre")
-    public String cambiarNombreGrupo(String nombre,@RequestParam Integer idGrupo) {
-        
+    public String cambiarNombreGrupo(String nombre, @RequestParam Integer idGrupo) {
+
         repoGrupo.cambiarNombre(idGrupo, nombre);
-        return "redirect:/gestion/grupo/"+idGrupo;
+        return "redirect:/gestion/grupo/" + idGrupo;
     }
 
     // Ejemplo ded url: http://localhost:8080/gestion/grupo/6

@@ -6,6 +6,21 @@
 
 <body>
     <div>
+        <form action="/gestion/grupo/cambiarNombre">
+            <div style="float:left; width: 70%;">
+                <input class="cantidad" name="nombre" type="text" th:value="${grupo.nombre}" />
+                <input class="cantidad" name="idGrupo" type="hidden" th:value="${grupo.id}" />
+            </div>
+            <button style="float:left; width: 30%;" type="submit" class="botonAzul">Cambiar
+                nombre</button>
+        </form>
+
+        <form>
+            <div style="float:left; width: 70%;">
+                <input class="cantidad" name="nombre" placeholder="Pon el correo del usuario"></input>
+            </div>
+            <button style="float:left; width: 30%;" type="submit" class="botonAzul">Añadir usuario</button>
+        </form>
         <table class="tablaPrincipal">
             <thead>
                 <tr>
@@ -21,7 +36,7 @@
                     <td class='align-middle' th:text="${ug.usuario.correo}"></td>
                     <td class='align-middle' th:text="${ug.usuario.telefono}"></td>
                     <td><a class="botonRojo"
-                            th:href="@{|{idGrupo}/borrarUsuario|(idUsuarioGrupo=${ug.id},idGrupo=${idGrupo})}">Eliminar</a>
+                            th:href="@{|${idGrupo}/borrarUsuario|(idUsuarioGrupo=${ug.id},idGrupo=${idGrupo})}">Eliminar</a>
                     </td>
                 </tr>
             </tbody>

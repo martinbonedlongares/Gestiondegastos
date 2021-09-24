@@ -35,16 +35,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     //Aquí se configura el acceso
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-             .antMatchers("/").permitAll()
-             .antMatchers("/info").permitAll()
-             .antMatchers("/gestion").permitAll()
-             .antMatchers("/grupos").permitAll()
-             .antMatchers("/login").permitAll()
-             .antMatchers("/agregar").permitAll()
-             .antMatchers("/perfil").permitAll();
-        http.formLogin().loginPage("/gestion/login").successForwardUrl("/gestion/paginaPrincipal").failureForwardUrl("/gestion/login");
-        http.logout().logoutSuccessUrl("/gestion/").invalidateHttpSession(true).deleteCookies("JSESSIONID");
+        
+        
+        http.csrf().disable().authorizeRequests().antMatchers("/gestion/agregar").anonymous().antMatchers("/gestion").permitAll().antMatchers("/gestion/ingresar").anonymous()
+        .antMatchers("/gestion/**").authenticated().antMatchers("/ingresar").authenticated()
+            .and().formLogin().loginPage("/gestion/login").permitAll().successForwardUrl("/gestion/paginaPrincipal").failureForwardUrl("/gestion/login");
+        //http.formLogin().loginPage("/gestion/login").successForwardUrl("/gestion/paginaPrincipal").failureForwardUrl("/gestion/login");
+        http.logout().logoutSuccessUrl("/gestion").invalidateHttpSession(true).deleteCookies("JSESSIONID").clearAuthentication(true);
         http.csrf().disable();
         /*http.anonymous().disable().csrf().disable().authorizeRequests().antMatchers("/registro**")
                 .permitAll().anyRequest().authenticated()

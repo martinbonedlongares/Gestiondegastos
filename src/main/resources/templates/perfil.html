@@ -20,12 +20,32 @@
                     th:field="*{correo}" />
                 <input class="inputLogin" style="width: 100%;" id="tlf" name="tlf" type="number"
                     th:field="*{telefono}" />
-                <a type="button" class="btnCambiarPass" id="cambio" th:onclick="|cambiarContraseña(${id})|">Cambiar
+                <a type="button" class="btnCambiarPass" th:onclick="cambiarContraseña()">Cambiar
                     contraseña</a>
-                <button class="btnLogin btnLoginColor" style="width: 100%;" id="cambio" type="submit">Guardar</button>
+                <button class="btnLogin btnLoginColor" style="width: 100%;" type="submit">Guardar</button>
             </div>
         </form>
     </div>
+
+    <script>
+        function cambiarContraseña() {
+            $.ajax({
+                url: "/gestion/contrasenya",
+                success: function (formulario) {
+                    bootbox
+                        .dialog({
+                            title: "Gestión de usuarios",
+                            message: formulario,
+                        })
+                        .find("div.modal-content")
+                        .addClass("largeWidth");
+                },
+                error: function (err) {
+                    alert("Si la URL esta mal. Codigo 404");
+                },
+            });
+        }
+    </script>
 </body>
 
 </html>

@@ -10,9 +10,10 @@
 
 <body>
     <div>
-        <form method="post" class="form" role="form" th:object="${usuario}">
+        <form method="post" action="guardarcontrasenya" th:object="${usuario}">
 
             <div>
+                <input type="hidden" th:field="*{id}" />
                 <input type="hidden" th:field="*{nombre}" />
                 <input type="hidden" th:field="*{correo}" />
                 <input type="hidden" th:field="*{telefono}" />
@@ -22,7 +23,8 @@
                 placeholder="Introduce tu nueva contraseña" th:field="*{contrasenya}" />
             <input class="cantidad" style="width: 100%;" type="password" id="contrasenya2" name="contrasenya"
                 placeholder="Introduce de nuevo la nueva contraseña" />
-            <button class="btnLogin btnLoginColor" style="width: 100%;" id="cambio" disabled="disabled">Guardar</button>
+
+            <button class="btnLogin" style="width: 100%;" id="cambio" disabled>Guardar contraseña</button>
         </form>
     </div>
 
@@ -32,7 +34,7 @@
                 var v = $("#contrasenya").val();
                 var v2 = $("#contrasenya2").val();
 
-                $("#cambio").prop("disabled", v != v2);
+                $("#cambio").removeAttr("disabled", v == v2);
 
             });
         });

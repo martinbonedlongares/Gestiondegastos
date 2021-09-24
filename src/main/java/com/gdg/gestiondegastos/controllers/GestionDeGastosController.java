@@ -215,10 +215,13 @@ public class GestionDeGastosController {
     }
 
     @PostMapping("/guardarcontrasenya")
-    public String guardarContrasenya(Usuario usuario) {
+    public String guardarContrasenya(Usuario usuario, String contrasenya) {
+        UsuarioDto usuValidado = (UsuarioDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 
-        usuario.setContrasenya(clave.encode(usuario.getContrasenya()));
-        repoUsuario.save(usuario);
+        Usuario user = repoUsuario.findById(usuValidado.getId()).get();
+        
+        user.setContrasenya(clave.encode(contrasenya));
+        repoUsuario.save(user);
 
         return "redirect:/gestion/perfil";
     }

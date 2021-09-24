@@ -15,9 +15,10 @@
                 nombre</button>
         </form>
 
-        <form>
+        <form action="/gestion/grupo/nuevoUsuarioGrupo">
             <div style="float:left; width: 70%;">
-                <input class="cantidad" name="nombre" placeholder="Pon el correo del usuario"></input>
+                <input class="cantidad" name="correo" placeholder="Pon el correo del usuario">
+                <input type="hidden" name="idGrupo" th:value="${grupo.id}"/>
             </div>
             <button style="float:left; width: 30%;" type="submit" class="botonAzul">Añadir usuario</button>
         </form>

@@ -76,10 +76,6 @@ public class GestionDeGastosController {
         return "login";
     }
 
-    /*
-     * @GetMapping("/principal2") public String principal2(Model m) { //
-     * m.addAttribute("usuario", new Usuario()); return "login2"; }
-     */
     @PostMapping("/crear")
     public String crear(Model m, Usuario usuario) throws ClassNotFoundException, SQLException {
         Usuario usu = repoUsuario.findByCorreo(usuario.getCorreo());
@@ -104,7 +100,7 @@ public class GestionDeGastosController {
             ug.add(new UsuarioGrupo(0, Boolean.TRUE, usuario, grupoCreado, new ArrayList<>()));
             repoUsuarioGrupo.save(ug.get(0));
             usuario.setUsuarioGrupo(ug);
-            //repoUsuario.save(usuario);
+            // repoUsuario.save(usuario);
             return "login";
         }
     }
@@ -290,21 +286,21 @@ public class GestionDeGastosController {
 
         return "redirect:/gestion/grupo/{idGrupo}";
     }
-    
+
     @GetMapping("/grupo/nuevoUsuarioGrupo")
-    public String anadirUsuario(Model m, String correo,@RequestParam Integer idGrupo){
-        Usuario nuevoUsuario=repoUsuario.findByCorreo(correo);
+    public String anadirUsuario(Model m, String correo, @RequestParam Integer idGrupo) {
+        Usuario nuevoUsuario = repoUsuario.findByCorreo(correo);
         UsuarioGrupo usuariosGrupo = repoUsuarioGrupo.leerPorUsuarioYGrupo(nuevoUsuario.getId(), idGrupo);
-        if(usuariosGrupo == null){
-            if(nuevoUsuario!=null){
+        if (usuariosGrupo == null) {
+            if (nuevoUsuario != null) {
                 repoUsuarioGrupo.anadirUsuario(nuevoUsuario.getId(), idGrupo, 0);
-            }else{
-                m.addAttribute("msg","Usuario no encontrado");
+            } else {
+                m.addAttribute("msg", "Usuario no encontrado");
             }
-        }else{
+        } else {
             m.addAttribute("msg", "El usuario que intenta agregar ya se encuentra en el grupo");
         }
-        return "redirect:/gestion/grupo/"+idGrupo;
+        return "redirect:/gestion/grupo/" + idGrupo;
     }
 
     @GetMapping("grupo/cambiarNombre")

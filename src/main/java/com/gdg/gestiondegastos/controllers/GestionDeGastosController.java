@@ -289,6 +289,17 @@ public class GestionDeGastosController {
 
         return "redirect:/gestion/grupo/{idGrupo}";
     }
+    
+    @GetMapping("/grupo/nuevoUsuarioGrupo")
+    public String anadirUsuario(Model m, String correo,@RequestParam Integer idGrupo){
+        Usuario nuevoUsuario=repoUsuario.findByCorreo(correo);
+        if(nuevoUsuario!=null){
+            repoUsuarioGrupo.anadirUsuario(nuevoUsuario.getId(), idGrupo, 0);
+        }else{
+            m.addAttribute("msg","Usuario no encontrado");
+        }
+        return "redirect:/gestion/grupo/"+idGrupo;
+    }
 
     @GetMapping("grupo/cambiarNombre")
     public String cambiarNombreGrupo(String nombre,@RequestParam Integer idGrupo) {

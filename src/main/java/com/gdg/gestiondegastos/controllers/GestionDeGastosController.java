@@ -104,7 +104,7 @@ public class GestionDeGastosController {
             ug.add(new UsuarioGrupo(0, Boolean.TRUE, usuario, grupoCreado, new ArrayList<>()));
             repoUsuarioGrupo.save(ug.get(0));
             usuario.setUsuarioGrupo(ug);
-            // repoUsuario.save(usuario);
+            //repoUsuario.save(usuario);
             return "login";
         }
     }

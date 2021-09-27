@@ -219,7 +219,7 @@ public class GestionDeGastosController {
         UsuarioDto usuValidado = (UsuarioDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 
         Usuario user = repoUsuario.findById(usuValidado.getId()).get();
-        
+
         user.setContrasenya(clave.encode(contrasenya));
         repoUsuario.save(user);
 

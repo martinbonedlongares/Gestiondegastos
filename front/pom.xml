@@ -11,7 +11,7 @@
     <groupId>com.gdg</groupId>
     <artifactId>gestionDeGastos</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>gestionDeGastos</name>
+    <name>front</name>
     <description>Proyecto Hiberus de Gestion</description>
     <properties>
         <java.version>11</java.version>
